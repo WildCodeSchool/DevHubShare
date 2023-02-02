@@ -16,7 +16,7 @@ router.delete("/users/:id", userControllers.destroy);
 router.get("/languages", languageControllers.browse);
 router.get("/languages/:id", languageControllers.read);
 router.put("/languages/:id", languageControllers.edit);
-router.language("/languages", languageControllers.add);
+router.post("/languages", languageControllers.add);
 router.delete("/languages/:id", languageControllers.destroy);
 
 router.get("/posts", postControllers.browse);
