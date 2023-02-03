@@ -6,6 +6,7 @@ const userControllers = require("./controllers/userControllers");
 const languageControllers = require("./controllers/languageControllers");
 const postControllers = require("./controllers/postControllers");
 const answerControllers = require("./controllers/answerControllers");
+const userHasLanguageControllers = require("./controllers/userHasLanguageControllers");
 
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
@@ -30,5 +31,11 @@ router.get("/answers/:id", answerControllers.read);
 router.put("/answers/:id", answerControllers.edit);
 router.post("/answers", answerControllers.add);
 router.delete("/answers/:id", answerControllers.destroy);
+
+router.get("/user_has_language", userHasLanguageControllers.browse);
+router.get("/user_has_language/:id", userHasLanguageControllers.read);
+router.put("/user_has_language/:id", userHasLanguageControllers.edit);
+router.post("/user_has_language", userHasLanguageControllers.add);
+router.delete("/user_has_language/:id", userHasLanguageControllers.destroy);
 
 module.exports = router;

@@ -49,6 +49,10 @@ const LanguageManager = require("./LanguageManager");
 models.language = new LanguageManager();
 models.language.setDatabase(pool);
 
+const UserHasLanguageManager = require("./UserHasLanguageManager");
+
+models.user_has_language = new UserHasLanguageManager();
+models.user_has_language.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
