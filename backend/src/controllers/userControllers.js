@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -50,7 +51,12 @@ const add = (req, res) => {
   models.user
     .insert(user)
     .then(([result]) => {
-      res.location(`/user/${result.insertId}`).sendStatus(201);
+      res.location(`/users/${result.insertId}`).sendStatus(201);
+      const user_id = result.insertId;
+      models.user_has_language.insert({
+        user_id,
+        language_id: 1,
+      });
     })
     .catch((err) => {
       console.error(err);
