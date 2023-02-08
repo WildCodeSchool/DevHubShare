@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `github` VARCHAR(255) NULL,
   `linkedin` VARCHAR(255) NULL,
   `user_text` LONGTEXT NULL,
-  `hashedpassword` VARCHAR(255) NOT NULL,
+  `hashedPassword` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
