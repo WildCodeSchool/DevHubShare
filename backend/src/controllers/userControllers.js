@@ -51,6 +51,7 @@ const add = (req, res) => {
   models.user
     .insert(user)
     .then(([result]) => {
+
       const user_id = result.insertId;
 
       const language = user.language_id;
@@ -67,6 +68,8 @@ const add = (req, res) => {
           console.error(err);
           res.sendStatus(500);
         });
+    
+
     })
     .catch((err) => {
       console.error(err);
