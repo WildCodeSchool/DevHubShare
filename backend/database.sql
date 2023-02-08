@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `github` VARCHAR(150) NULL,
   `linkedin` VARCHAR(150) NULL,
   `user_text` LONGTEXT NULL,
-  `hashedpassword` VARCHAR(255) NOT NULL,
+  `hashedPassword` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -109,7 +109,6 @@ CREATE TABLE IF NOT EXISTS `user_has_language` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `language_id` INT NOT NULL,
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
   PRIMARY KEY (`id`, `user_id`, `language_id`),
   CONSTRAINT `fk_user_has_language_user`
     FOREIGN KEY (`user_id`)
