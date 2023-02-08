@@ -1,4 +1,5 @@
 const express = require("express");
+const { hashPassword } = require("../auth");
 
 const router = express.Router();
 
@@ -10,8 +11,8 @@ const userHasLanguageControllers = require("./controllers/userHasLanguageControl
 
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
-router.put("/users/:id", userControllers.edit);
-router.post("/users", userControllers.add);
+router.put("/users/:id", hashPassword, userControllers.edit);
+router.post("/users", hashPassword, userControllers.add);
 router.delete("/users/:id", userControllers.destroy);
 
 router.get("/languages", languageControllers.browse);
