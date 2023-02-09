@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -44,19 +45,35 @@ const edit = (req, res) => {
       res.sendStatus(500);
     });
 };
+
 const add = (req, res) => {
   const user = req.body;
-  // TODO validations (length, format...)
   models.user
     .insert(user)
     .then(([result]) => {
-      res.location(`/users/${result.insertId}`).sendStatus(201);
+      const user_id = result.insertId;
+
+      const language = user.language_id;
+
+      Promise.all(
+        language.map((language_id) => {
+          return models.user_has_language.insert({ user_id, language_id });
+        })
+      )
+        .then(() => {
+          res.location(`/users/${user_id}`).sendStatus(201);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
 };
+
 const destroy = (req, res) => {
   models.user
     .delete(req.params.id)

@@ -17,6 +17,14 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 CREATE DATABASE IF NOT EXISTS `devhubshare` DEFAULT CHARACTER SET utf8 ;
 USE `devhubshare` ;
+DROP TABLE  IF EXISTS  user_has_language;
+DROP TABLE  IF EXISTS  answer;
+DROP TABLE  IF EXISTS  post;
+DROP TABLE IF EXISTS  language;
+DROP TABLE  IF EXISTS  user;
+
+
+
 
 -- -----------------------------------------------------
 -- Table `user`
@@ -24,13 +32,13 @@ USE `devhubshare` ;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `picture` BLOB NULL,
-  `pseudo` VARCHAR(255) NOT NULL,
-  `firstname` VARCHAR(255) NULL,
-  `lastname` VARCHAR(255) NULL,
-  `email` VARCHAR(255) NOT NULL,
+  `pseudo` VARCHAR(30) NOT NULL,
+  `firstname` VARCHAR(150) NULL,
+  `lastname` VARCHAR(150) NULL,
+  `email` VARCHAR(150) NOT NULL,
   `workplace` VARCHAR(255) NULL,
-  `github` VARCHAR(255) NULL,
-  `linkedin` VARCHAR(255) NULL,
+  `github` VARCHAR(150) NULL,
+  `linkedin` VARCHAR(150) NULL,
   `user_text` LONGTEXT NULL,
   `hashedPassword` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
@@ -101,8 +109,6 @@ CREATE TABLE IF NOT EXISTS `user_has_language` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `language_id` INT NOT NULL,
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
-  UNIQUE INDEX `language_id_UNIQUE` (`language_id` ASC) VISIBLE,
   PRIMARY KEY (`id`, `user_id`, `language_id`),
   CONSTRAINT `fk_user_has_language_user`
     FOREIGN KEY (`user_id`)
