@@ -113,11 +113,13 @@ CREATE TABLE IF NOT EXISTS `user_has_language` (
   CONSTRAINT `fk_user_has_language_user`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
-    ON DELETE CASCADE,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_user_has_language_language1`
     FOREIGN KEY (`language_id`)
     REFERENCES `language` (`id`)
-    ON DELETE CASCADE)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 

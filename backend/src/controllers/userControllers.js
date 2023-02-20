@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable camelcase */
 const models = require("../models");
 
@@ -29,16 +30,25 @@ const read = (req, res) => {
 };
 const edit = (req, res) => {
   const user = req.body;
-  // TODO validations (length, format...)
-  user.id = parseInt(req.params.id, 10);
+  const userId = parseInt(req.params.id, 10);
+  const language = user.language_id;
+
   models.user
-    .update(user)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
+    .update(user, { where: { id: userId } })
+    .then(() => {
+      return models.user_has_language.deleteAllByUserId(userId);
+    })
+    .then(() => {
+      const promises = language.map((language_id) => {
+        return models.user_has_language.insert({
+          user_id: userId,
+          language_id,
+        });
+      });
+      return Promise.all(promises);
+    })
+    .then(() => {
+      res.sendStatus(204);
     })
     .catch((err) => {
       console.error(err);
