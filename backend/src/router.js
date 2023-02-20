@@ -9,16 +9,6 @@ const postControllers = require("./controllers/postControllers");
 const answerControllers = require("./controllers/answerControllers");
 const userHasLanguageControllers = require("./controllers/userHasLanguageControllers");
 
-// const isItDwight = (req, res) => {
-//   if (req.body.email === "geo@geo.fr" && req.body.password === "secret") {
-//     res.send("Credentials are valid");
-//   } else {
-//     res.sendStatus(401);
-//   }
-// };
-
-// router.post("/login", isItDwight);
-
 router.post(
   "/login",
   userControllers.getUserByEmailWithPasswordAndPassToNext,
