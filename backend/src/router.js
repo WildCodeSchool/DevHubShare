@@ -1,5 +1,5 @@
 const express = require("express");
-const { hashPassword } = require("../auth");
+const { hashPassword, verifyPassword, verifyToken } = require("../auth");
 
 const router = express.Router();
 
@@ -9,11 +9,28 @@ const postControllers = require("./controllers/postControllers");
 const answerControllers = require("./controllers/answerControllers");
 const userHasLanguageControllers = require("./controllers/userHasLanguageControllers");
 
+// const isItDwight = (req, res) => {
+//   if (req.body.email === "geo@geo.fr" && req.body.password === "secret") {
+//     res.send("Credentials are valid");
+//   } else {
+//     res.sendStatus(401);
+//   }
+// };
+
+// router.post("/login", isItDwight);
+
+router.post(
+  "/login",
+  userControllers.getUserByEmailWithPasswordAndPassToNext,
+  verifyPassword,
+  verifyToken
+);
+
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
-router.put("/users/:id", hashPassword, userControllers.edit);
-router.post("/users", hashPassword, userControllers.add);
-router.delete("/users/:id", userControllers.destroy);
+router.put("/users/:id", verifyToken, hashPassword, userControllers.edit);
+router.post("/users", verifyToken, hashPassword, userControllers.add);
+router.delete("/users/:id", verifyToken, hashPassword, userControllers.destroy);
 
 router.get("/languages", languageControllers.browse);
 router.get("/languages/:id", languageControllers.read);
