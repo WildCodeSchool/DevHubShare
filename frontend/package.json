@@ -10,9 +10,15 @@
     "fix": "prettier --write . && eslint --fix --ext .jsx ."
   },
   "dependencies": {
+    "@testing-library/react": "^14.0.0",
+    "date-fns": "^2.29.3",
+    "formik": "^2.2.9",
+    "jest": "^29.4.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "yup": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^3.0.1",
