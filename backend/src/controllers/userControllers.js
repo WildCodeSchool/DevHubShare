@@ -28,27 +28,32 @@ const read = (req, res) => {
       res.sendStatus(500);
     });
 };
+
 const edit = (req, res) => {
   const user = req.body;
-  const userId = parseInt(req.params.id, 10);
-  const language = user.language_id;
 
+  user.id = parseInt(req.params.id, 10);
+  const language = user.language_id;
   models.user
-    .update(user, { where: { id: userId } })
+    .update(user)
     .then(() => {
-      return models.user_has_language.deleteAllByUserId(userId);
+      return models.user_has_language.deleteAllByUserId(user.id);
     })
     .then(() => {
       const promises = language.map((language_id) => {
         return models.user_has_language.insert({
-          user_id: userId,
+          user_id: user.id,
           language_id,
         });
       });
       return Promise.all(promises);
     })
-    .then(() => {
-      res.sendStatus(204);
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
     })
     .catch((err) => {
       console.error(err);
