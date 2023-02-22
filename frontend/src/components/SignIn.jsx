@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-undef */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 import React from "react";
@@ -7,25 +9,12 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}
+import BasicModal from "./BasicModal";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,7 +47,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Connexion
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -67,7 +56,7 @@ export default function SignIn() {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label=" Adresse Email"
             name="email"
             autoComplete="email"
             autoFocus
@@ -78,14 +67,14 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Mot de passe"
             type="password"
             id="password"
             autoComplete="current-password"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Se souvenir de moi"
           />
           <Button
             type="submit"
@@ -94,25 +83,18 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Connexion
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#top" variant="body2">
-                Forgot password?
-              </Link>
+          <Grid container spacing={2} columns={16}>
+            <Grid item xs={6}>
+              <BasicModal />
             </Grid>
-            <Grid item>
-              <Link href="/inscription" variant="body2">
-                Don't have an account? Sign Up
-              </Link>
+            <Grid item xs={6}>
+              <Button href="/inscription">Pas de compte? S'inscrire</Button>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
