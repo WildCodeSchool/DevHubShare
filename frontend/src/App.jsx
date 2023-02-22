@@ -18,16 +18,16 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/create-post" element={<AfterSignIn />} />
-        <Route path="/account-creation" element={<ProfileUser />} />
-        <Route path="/my-account" element={<ProfileUserRegistered />} />
-        <Route path="/member-profile" element={<ProfileMember />} />
-        <Route path="/feed-" element={<LanguageSelectFeed />} />
-        <Route path="/members-list" element={<MembersList />} />
-        <Route path="/resources" element={<Resources />} />
-        <Route path="/my-posts" element={<MyPosts />} />
+        <Route path="/inscription" element={<SignUp />} />
+        <Route path="/connexion" element={<SignIn />} />
+        <Route path="/creer-post" element={<AfterSignIn />} />
+        <Route path="/creation-compte" element={<ProfileUser />} />
+        <Route path="/mon-compte" element={<ProfileUserRegistered />} />
+        <Route path="/profil-membre" element={<ProfileMember />} />
+        <Route path="/fil-de-discussion" element={<LanguageSelectFeed />} />
+        <Route path="/liste-membres" element={<MembersList />} />
+        <Route path="/ressources" element={<Resources />} />
+        <Route path="/mes-posts" element={<MyPosts />} />
       </Routes>
     </div>
   );
