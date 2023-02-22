@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
+import SignUpPage from "./pages/SignUpPage";
 import AfterSignIn from "./pages/AfterSignIn";
 import ProfileUser from "./pages/ProfileUser";
 import ProfileUserRegistered from "./pages/ProfileUserRegistered";
@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/inscription" element={<SignUp />} />
+        <Route path="/inscription" element={<SignUpPage />} />
         <Route path="/connexion" element={<SignInPage />} />
         <Route path="/creer-post" element={<AfterSignIn />} />
         <Route path="/creation-compte" element={<ProfileUser />} />
