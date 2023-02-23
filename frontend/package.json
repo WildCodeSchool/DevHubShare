@@ -10,6 +10,11 @@
     "fix": "prettier --write . && eslint --fix --ext .jsx ."
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.10",
+    "@mui/styled-engine-sc": "^5.11.9",
+    "@mui/system": "^5.11.9",
     "@testing-library/react": "^14.0.0",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
