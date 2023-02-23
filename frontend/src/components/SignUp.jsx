@@ -14,18 +14,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -57,7 +45,7 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Inscription
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -67,7 +55,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label=" Adresse mail"
                 name="email"
                 autoComplete="email"
               />
@@ -78,16 +66,10 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Mot de passe"
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
           </Grid>
@@ -98,20 +80,15 @@ export default function SignUp() {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            S'inscrire
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/connexion" variant="body2">
-                Already have an account? Sign in
-              </Link>
+              <Button href="/connexion">Déja inscrit? Se connecter</Button>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
