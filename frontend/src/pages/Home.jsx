@@ -1,9 +1,9 @@
-import Sidebar from "../components/Sidebar/Sidebar";
+import SwipeableSidebar from "../components/Sidebar/SwipeableSidebar";
 
 export default function Home() {
   return (
     <div>
-      <Sidebar />
+      <SwipeableSidebar />
     </div>
   );
 }
