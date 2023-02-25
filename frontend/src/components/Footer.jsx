@@ -9,13 +9,13 @@ import LogoSNCF from "../assets/LOGO_SNCF_GROUPE_RVB_small.png";
 const preventDefault = (event) => event.preventDefault();
 
 const Logo = styled("img")({
-  width: "18%",
-  maxWidth: "200px",
-  marginLeft: "6%",
+  width: "4rem",
+  marginLeft: "0.3rem",
 });
 
 const FooterLink = styled(Link)({
-  marginRight: "10%",
+  marginRight: "1rem",
+  marginLeft: "1rem",
 });
 
 export default function Footer() {
@@ -26,8 +26,8 @@ export default function Footer() {
         "& > :not(style) + :not(style)": {
           ml: 2,
         },
-        backgroundColor: "black",
-        color: "white",
+        backgroundColor: "#333333",
+        color: "#FFFFFF",
         py: 0.1,
       }}
       onClick={preventDefault}
@@ -52,10 +52,28 @@ export default function Footer() {
             justifyContent: "center",
           }}
         >
-          <FooterLink href="#" color="inherit">
+          <FooterLink
+            href="#"
+            sx={{
+              textDecoration: "none",
+              color: "#FFFFFF",
+              "&:hover": {
+                color: "#B9B9B9",
+              },
+            }}
+          >
             DevHub Connect {">"}
           </FooterLink>
-          <FooterLink href="#" color="inherit">
+          <FooterLink
+            href="#"
+            sx={{
+              textDecoration: "none",
+              color: "#FFFFFF",
+              "&:hover": {
+                color: "#B9B9B9",
+              },
+            }}
+          >
             DevHub Project {">"}
           </FooterLink>
         </Grid>
@@ -70,7 +88,13 @@ export default function Footer() {
             justifyContent: "flex-end",
           }}
         >
-          <Typography variant="caption">
+          <Typography
+            variant="caption"
+            sx={{
+              fontSize: "0.5rem",
+              marginRight: "0.3rem",
+            }}
+          >
             <em>
               WCS Marseille 2023_Créé par Nelly, Karine, Sandra et Geoffroy
             </em>
