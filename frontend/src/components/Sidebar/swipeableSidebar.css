@@ -1,0 +1,47 @@
+.MuiPaper-root.MuiDrawer-paper {
+  background-color: #009aa6;
+  width:15rem;
+}
+
+.sidebarListItem {
+  color: #ffff;
+  padding-top: 20%;
+}
+
+.MuiTypography-root {
+    font-size: 1.4rem !important;
+    text-align: center;
+}
+
+.MuiInputBase-input {
+    background-color: #ffff !important;
+
+}
+
+.MuiOutlinedInput-input {
+    color: #009aa6 !important;
+    padding-top: 0.4rem !important;
+    padding-bottom: 0.4rem !important;
+}
+
+.MuiMenuItem-root {
+    border: none !important;
+    color: #009aa6 !important;
+}
+
+.MuiOutlinedInput-notchedOutline{
+border: none !important;
+}
+
+.MuiButton-root {
+    color: #009aa6 !important;
+}
+
+.MuiFormControl-root {
+    display: flex;
+    justify-content: center;
+  }
+  
+.MuiModal-backdrop {
+    width:1rem;
+}
