@@ -2,14 +2,14 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-export default function ComboBox() {
+export default function SelectLanguage() {
   return (
     <Autocomplete
       disablePortal
       id="combo-box-demo"
       // eslint-disable-next-line no-use-before-define
       options={languages}
-      sx={{ width: 300 }}
+      sx={{ width: 300, backgroundColor: "#FFF", borderRadius: 1 }}
       // eslint-disable-next-line react/jsx-props-no-spreading
       renderInput={(params) => <TextField {...params} label="Language" />}
     />

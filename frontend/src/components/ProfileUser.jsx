@@ -1,94 +1,90 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
-import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
-import { Button, Box, Grid } from "@mui/material";
-import Avatar from "./profilComponents/Avatar";
-import TextArea from "./profilComponents/TextArea";
-import SelectLanguages from "./SelectLanguages";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Card, CardContent, Button } from "@material-ui/core";
+import Informations from "./profilComponents/Informations";
+import UserImage from "./profilComponents/UserImage";
+import TexteLibre from "./profilComponents/TexteLibre";
+import SendMessage from "./profilComponents/SendMessage";
 
-export default function ProfileUser() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  card: {
+    background: "#009aa3",
+    marginBottom: theme.spacing(2),
+  },
+  userImageContainer: {
+    marginBottom: theme.spacing(5),
+  },
+  texteLibreContainer: {
+    background: "#FFF",
+    marginBottom: theme.spacing(2),
+  },
+  sendMessage: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: theme.spacing(1),
+  },
+  retour: {
+    display: "flex",
+    alignItems: "flex-start",
+  },
+}));
+
+const userProfile = {
+  pseudo: "joe",
+  nom: "Jean",
+  prenom: "Dupont",
+  email: "jean.dupont@mail.com",
+  poste: "agent de maintenance",
+  githubPage: "https://github.com/jeandupont",
+  linkedin: "https://linkedin/jeandupont",
+};
+
+function UserProfile() {
+  const classes = useStyles();
+
   return (
-    <Container>
-      <Box component="span" m={1}>
-        <Grid container spacing={35}>
-          <Grid item xs={1}>
-            <Button>Retour</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Avatar />
-          </Grid>
+    <div className={classes.root}>
+      <Button variant="contained" className={classes.retour}>
+        Retour
+      </Button>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <div className={classes.userImageContainer}>
+            <UserImage />
+          </div>
+          <Informations
+            pseudo={userProfile.pseudo}
+            nom={userProfile.nom}
+            prenom={userProfile.prenom}
+            email={userProfile.email}
+            poste={userProfile.poste}
+            githubPage={userProfile.githubPage}
+            linkedin={userProfile.linkedin}
+          />
         </Grid>
-      </Box>
-      <Box component="span" m={1}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-        >
-          <form>
-            <TextField id="outlined-basic" label="Pseudo" variant="outlined" />
-          </form>
-          <Grid marginTop={2}>
-            <form>
-              <TextField id="outlined-basic" label="Nom" variant="outlined" />
-            </form>
-          </Grid>
-          <Grid marginTop={2}>
-            <form>
-              <TextField
-                id="outlined-basic"
-                label="Prénom"
-                variant="outlined"
-              />
-            </form>
-          </Grid>
-          <Grid marginTop={2}>
-            <form>
-              <TextField
-                id="outlined-basic"
-                label="Email*"
-                variant="outlined"
-              />
-            </form>
-          </Grid>
-          <Grid marginTop={2}>
-            <form>
-              <TextField
-                id="outlined-basic"
-                label="Poste actuel"
-                variant="outlined"
-              />
-            </form>
-          </Grid>
-          <Grid marginTop={2}>
-            <form>
-              <TextField
-                id="outlined-basic"
-                label="Github"
-                variant="outlined"
-              />
-            </form>
-          </Grid>
-          <Grid marginTop={2}>
-            <form>
-              <TextField
-                id="outlined-basic"
-                label="Linkedin"
-                variant="outlined"
-              />
-            </form>
-          </Grid>
-          <Grid marginTop={2}>
-            <SelectLanguages />
-          </Grid>
-          <Grid marginLeft={40}>
-            <Button variant="contained">Valider</Button>
-          </Grid>
-          <TextArea />
-          <Box marginTop={5}>* Champs obligatoire</Box>
+        <Grid item xs={12} md={6}>
+          <Card className={classes.card}>
+            <CardContent>
+              <div className={classes.texteLibreContainer}>
+                <TexteLibre />
+              </div>
+            </CardContent>
+          </Card>
         </Grid>
-      </Box>
-    </Container>
+        <Grid item xs={12} className={classes.sendMessage}>
+          <SendMessage
+            firstName={userProfile.firstName}
+            lastName={userProfile.lastName}
+          />
+        </Grid>
+      </Grid>
+    </div>
   );
 }
+
+export default UserProfile;
