@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
+import image from "./images/FondImg.jpg";
 
 const Links = styled(Link)({
   color: "#0088CE",
@@ -13,7 +14,15 @@ export default function HomePage() {
   return (
     <Container
       fixed
-      sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        backgroundImage: `url(${image})`,
+        backgroundSize: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
     >
       <Box
         sx={{
@@ -37,6 +46,7 @@ export default function HomePage() {
             maxWidth: "100%",
             textAlign: "center",
             wordWrap: "break-word",
+            color: "white",
           }}
         >
           <p>
@@ -60,7 +70,7 @@ export default function HomePage() {
           </p>
         </Typography>
       </Box>
-      <Typography>
+      <Typography sx={{ color: "white" }}>
         Rejoignez-nous dès maintenant pour profiter des avantages d'une
         communauté collaborative et pour développer vos compétences en
         programmation.

@@ -25,10 +25,10 @@ const Logo = styled("img")({
 
 const Notification = styled("img")({
   width: "2%",
-  marginRight: "2%",
+  // marginRight: "2%",
 });
 
-export default function ButtonAppBar() {
+export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -43,7 +43,7 @@ export default function ButtonAppBar() {
           <Logo src={LogoSNCF} alt="logo" />
           <Typography
             variant="h4"
-            component="div"
+            // component="div"
             sx={{ flexGrow: 1 }}
             color="#009AA6"
           >
