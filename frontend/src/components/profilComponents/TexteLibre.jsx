@@ -5,6 +5,7 @@ import { List, Grid, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    paddingLeft: 5,
     marginBottom: theme.spacing(2),
   },
 }));

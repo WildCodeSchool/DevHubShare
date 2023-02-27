@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   field: {
     background: "#FFF",
     borderRadius: 5,
+    paddingLeft: 5,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },

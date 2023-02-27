@@ -5,15 +5,18 @@ import { Grid, Card, CardContent, Button } from "@material-ui/core";
 import Informations from "./profilComponents/Informations";
 import UserImage from "./profilComponents/UserImage";
 import TexteLibre from "./profilComponents/TexteLibre";
-import SendMessage from "./profilComponents/SendMessage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  retour: {
+    display: "flex",
+    alignItems: "flex-start",
+  },
   card: {
-    background: "#009aa3",
+    background: "#82BE00",
     marginBottom: theme.spacing(2),
   },
   userImageContainer: {
@@ -21,16 +24,13 @@ const useStyles = makeStyles((theme) => ({
   },
   texteLibreContainer: {
     background: "#FFF",
+    borderRadius: 5,
     marginBottom: theme.spacing(2),
   },
-  sendMessage: {
+  valider: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     marginTop: theme.spacing(1),
-  },
-  retour: {
-    display: "flex",
-    alignItems: "flex-start",
   },
 }));
 
@@ -76,11 +76,8 @@ function UserProfile() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} className={classes.sendMessage}>
-          <SendMessage
-            firstName={userProfile.firstName}
-            lastName={userProfile.lastName}
-          />
+        <Grid item xs={12} className={classes.valider}>
+          <Button variant="contained">Valider</Button>
         </Grid>
       </Grid>
     </div>
