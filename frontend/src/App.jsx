@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import SignUpPage from "./pages/SignUpPage";
-import AfterSignIn from "./pages/AfterSignIn";
+import HomeAfterSignIn from "./pages/HomeAfterSignIn";
 import ProfileUserPage from "./pages/ProfileUserPage";
 import ProfileUserRegistered from "./pages/ProfileUserRegistered";
 import ProfileMember from "./pages/ProfileMember";
@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/inscription" element={<SignUpPage />} />
         <Route path="/connexion" element={<SignInPage />} />
-        <Route path="/creer-post" element={<AfterSignIn />} />
+        <Route path="/creer-post" element={<HomeAfterSignIn />} />
         <Route path="/creation-compte" element={<ProfileUserPage />} />
         <Route path="/mon-compte" element={<ProfileUserRegistered />} />
         <Route path="/profil-membre" element={<ProfileMember />} />
