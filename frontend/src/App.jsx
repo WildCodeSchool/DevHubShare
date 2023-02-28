@@ -9,9 +9,8 @@ import LanguageSelectFeed from "./pages/LanguageSelectFeed";
 import MembersList from "./pages/MembersList";
 import Resources from "./pages/Resources";
 import MyPosts from "./pages/MyPosts";
-
-import "./App.css";
 import SignInPage from "./pages/SignInPage";
+import "./App.css";
 
 function App() {
   return (
