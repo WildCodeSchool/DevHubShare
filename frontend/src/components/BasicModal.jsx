@@ -28,7 +28,7 @@ export default function FormDialog() {
         <DialogContent>
           <DialogContentText>
             Entrez votre email de contact, un lien avec la procédure à suivre va
-            vous être envové.
+            vous être envoyé.
           </DialogContentText>
           <TextField
             autoFocus
@@ -41,7 +41,7 @@ export default function FormDialog() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Annulé</Button>
+          <Button onClick={handleClose}>Annuler</Button>
           <Button onClick={handleClose}>Envoyer</Button>
         </DialogActions>
       </Dialog>

@@ -1,9 +1,8 @@
 import React from "react";
-import Box from "@mui/material/Box";
+import { Box, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
-import { Typography } from "@mui/material";
 
 export default function Post() {
   //   const [post, setPost] = useState(post);
