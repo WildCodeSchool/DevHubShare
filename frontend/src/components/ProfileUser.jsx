@@ -32,16 +32,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
     marginTop: theme.spacing(1),
   },
+  gridCard: {
+    display: "grid",
+    alignItems: "center",
+  },
 }));
 
 const userProfile = {
-  pseudo: "joe",
-  nom: "Jean",
-  prenom: "Dupont",
-  email: "jean.dupont@mail.com",
+  pseudo: "jijy",
+  nom: "Jimmy",
+  prenom: "Logan",
+  email: "jimmy.logan@mail.com",
   poste: "agent de maintenance",
-  githubPage: "https://github.com/jeandupont",
-  linkedin: "https://linkedin/jeandupont",
+  githubPage: "https://github.com/jimmylogan",
+  linkedin: "https://linkedin/jimmylogan",
 };
 
 function UserProfile() {
@@ -52,7 +56,7 @@ function UserProfile() {
       <Button variant="contained" className={classes.retour}>
         Retour
       </Button>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
           <div className={classes.userImageContainer}>
             <UserImage />
@@ -67,7 +71,7 @@ function UserProfile() {
             linkedin={userProfile.linkedin}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid className={classes.gridCard} item xs={12} md={6}>
           <Card className={classes.card}>
             <CardContent>
               <div className={classes.texteLibreContainer}>

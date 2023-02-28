@@ -14,7 +14,7 @@ function TexteLibre() {
   const classes = useStyles();
 
   const texte = {
-    biography:
+    texte:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ex quis ante ullamcorper, vitae malesuada elit lobortis. Sed faucibus ex quis ante ullamcorper, vitae malesuada elit lobortis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
   };
 
@@ -25,8 +25,8 @@ function TexteLibre() {
         <Grid item xs={12}>
           <TextField
             className={classes.field}
-            label="Biography"
-            value={texte.biography}
+            label="Texte"
+            value={texte.texte}
             multiline
             rows={8}
             fullWidth

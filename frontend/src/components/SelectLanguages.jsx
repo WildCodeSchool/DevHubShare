@@ -9,7 +9,8 @@ export default function SelectLanguage() {
       id="combo-box-demo"
       // eslint-disable-next-line no-use-before-define
       options={languages}
-      sx={{ width: 300, backgroundColor: "#FFF", borderRadius: 1 }}
+      sx={{ backgroundColor: "#FFF", borderRadius: 1 }}
+      fullWidth
       // eslint-disable-next-line react/jsx-props-no-spreading
       renderInput={(params) => <TextField {...params} label="Language" />}
     />
