@@ -5,6 +5,7 @@ import { Grid, Card, CardContent, Button } from "@material-ui/core";
 import Informations from "./profilComponents/Informations";
 import UserImage from "./profilComponents/UserImage";
 import UserTextArea from "./registeredProfile/UserTextArea";
+import ModalSuppression from "./ModalSuppression";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,7 +92,7 @@ function UserProfile() {
             </Button>
           </Grid>
           <Grid item xs={12} className={classes.valider}>
-            <Button variant="text">Supprimer votre compte</Button>
+            <ModalSuppression />
           </Grid>
         </Grid>
       </Grid>
