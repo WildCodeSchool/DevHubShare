@@ -3,7 +3,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardContent, Button } from "@material-ui/core";
 import Informations from "./profilComponents/Informations";
-import UserImage from "./profilComponents/UserImage";
+import UserImage from "./UserImage";
 import UserTextArea from "./registeredProfile/UserTextArea";
 import ModalSuppression from "./ModalSuppression";
 

@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import SignUpPage from "./pages/SignUpPage";
 import HomeAfterSignIn from "./pages/HomeAfterSignIn";
 import ProfileUserPage from "./pages/ProfileUserPage";
-import ProfileUserRegistered from "./pages/ProfileUserRegisteredPage";
+import ProfileUserRegisteredPage from "./pages/ProfileUserRegisteredPage";
 import ProfileMember from "./pages/ProfileMember";
 import LanguageSelectFeed from "./pages/LanguageSelectFeed";
 import MembersList from "./pages/MembersList";
@@ -21,7 +21,7 @@ function App() {
         <Route path="/connexion" element={<SignInPage />} />
         <Route path="/creer-post" element={<HomeAfterSignIn />} />
         <Route path="/creation-compte" element={<ProfileUserPage />} />
-        <Route path="/mon-compte" element={<ProfileUserRegistered />} />
+        <Route path="/mon-compte" element={<ProfileUserRegisteredPage />} />
         <Route path="/profil-membre" element={<ProfileMember />} />
         <Route path="/fil-de-discussion" element={<LanguageSelectFeed />} />
         <Route path="/liste-membres" element={<MembersList />} />

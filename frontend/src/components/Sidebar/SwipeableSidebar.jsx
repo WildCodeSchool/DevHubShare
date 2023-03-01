@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box } from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
@@ -11,30 +11,17 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Stack from "@mui/material/Stack";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 
-// const drawerWidth = "15rem";
-
-// const theme = createTheme({
-//   typography: {
-//     fontSize: 19,
-//   },
-//   spacing: 1,
-// });
-
-// const themeSelect = createTheme({
-//   typography: {
-//     fontSize: 14,
-//   },
-// });
-
 export default function SwipeableSidebar() {
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [state, setState] = React.useState({
     // eslint-disable-next-line no-unneeded-ternary
-    left: window.innerWidth < 800 ? false : true,
+    left: isSmallScreen ? false : true,
   });
 
   const handleClose = () => {
@@ -70,20 +57,18 @@ export default function SwipeableSidebar() {
 
   const list = (anchor) => (
     <Box
-      //   sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{
+        width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+      }}
       role="presentation"
       // onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
-      sx={{ mt: "35%" }}
     >
       <Stack
         direction="column"
         justifyContent="space-around"
         alignItems="center"
-        // spacing={12}
       >
-        {/* <ThemeProvider theme={theme}> */}
-        {/* <Toolbar /> */}
         <Box>
           <List>
             <ListItem disablePadding>
@@ -134,7 +119,6 @@ export default function SwipeableSidebar() {
                 // eslint-disable-next-line prettier/prettier
                 renderValue={(value) => value || "Sélection du langage"}
               >
-                {/* <ThemeProvider theme={themeSelect}> */}
                 {langages.map((langage) => (
                   <MenuItem
                     sx={{
@@ -147,7 +131,6 @@ export default function SwipeableSidebar() {
                     {langage}
                   </MenuItem>
                 ))}
-                {/* </ThemeProvider> */}
               </Select>
             </FormControl>
 
@@ -167,7 +150,6 @@ export default function SwipeableSidebar() {
             ))}
           </List>
         </Box>
-        {/* </ThemeProvider> */}
       </Stack>
     </Box>
   );
@@ -179,7 +161,8 @@ export default function SwipeableSidebar() {
           onClick={toggleDrawer("left", true)}
           sx={{
             color: "#009AA6",
-            mt: "45%",
+            position: "relative",
+            bottom: "45rem",
           }}
         >
           <ArrowForwardIosIcon />
@@ -190,14 +173,14 @@ export default function SwipeableSidebar() {
         open={state.left}
         onClose={toggleDrawer("left", false)}
         onOpen={toggleDrawer("left", true)}
-        // variant="permanent"
+        // variant={isSmallScreen ? "temporary" : "permanent"}
         sx={{
-          //   width: drawerWidth,
+          position: "static",
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
-            // width: drawerWidth,
             boxSizing: "border-box",
             backgroundColor: "#009AA6",
+            position: "static",
           },
           [`& .MuiModal-backdrop`]: {
             width: 0,
