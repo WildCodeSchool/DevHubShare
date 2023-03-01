@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,12 +16,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserImage(props) {
+function UserImage({ src, size, backgroundColor }) {
   const classes = useStyles();
 
   return (
-    // eslint-disable-next-line
-    <Avatar className={classes.avatar} src={props.src}>
+    <Avatar
+      className={classes.avatar}
+      src={src}
+      style={{
+        width: size || "inherit",
+        height: size || "inherit",
+        backgroundColor: backgroundColor || "inherit",
+      }}
+    >
       {UserImage.src ? null : <PersonIcon />}
     </Avatar>
   );
