@@ -4,7 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardContent, Button } from "@material-ui/core";
 import Informations from "./profilComponents/Informations";
 import UserImage from "./profilComponents/UserImage";
-import TexteLibre from "./profilComponents/TexteLibre";
+import UserTextArea from "./registeredProfile/UserTextArea";
+import ModalSuppression from "./ModalSuppression";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,13 +76,24 @@ function UserProfile() {
           </Grid>
         </Grid>
         <Grid className={classes.gridCard} item xs={12} md={6}>
+          <Grid item xs={12} className={classes.valider}>
+            <Button variant="contained">Déconnecter</Button>
+          </Grid>
           <Card className={classes.card}>
             <CardContent>
               <div className={classes.texteLibreContainer}>
-                <TexteLibre />
+                <UserTextArea />
               </div>
             </CardContent>
           </Card>
+          <Grid item xs={12} className={classes.valider}>
+            <Button variant="text" href="/creation-compte">
+              Modifier le profile
+            </Button>
+          </Grid>
+          <Grid item xs={12} className={classes.valider}>
+            <ModalSuppression />
+          </Grid>
         </Grid>
       </Grid>
     </div>
