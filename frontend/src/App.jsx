@@ -4,7 +4,7 @@ import SignUpPage from "./pages/SignUpPage";
 import HomeAfterSignIn from "./pages/HomeAfterSignIn";
 import ProfileUserPage from "./pages/ProfileUserPage";
 import ProfileUserRegistered from "./pages/ProfileUserRegistered";
-import ProfileMember from "./pages/ProfileMember";
+import ProfileMember from "./pages/ProfileMemberPage";
 import LanguageSelectFeed from "./pages/LanguageSelectFeed";
 import MembersList from "./pages/MembersList";
 import Resources from "./pages/Resources";
