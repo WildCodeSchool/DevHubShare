@@ -1,35 +1,26 @@
-import React, { useState } from "react";
-import { styled } from "@mui/system";
+// import React, { useState } from "react";
 import {
   Stack,
   Container,
   FormControl,
   TextField,
-  Button,
+  InputAdornment,
 } from "@mui/material";
+import flecheSend from "./images/flecheSend.png";
 
-const StyledButton = styled(Button)({
-  backgroundColor: "#FFFFFF",
-  color: "#009AA6",
-  "&:hover": { backgroundColor: "#FFFFFF" },
-  fontSize: 8,
-  fontWeight: "bold",
-  maxWidth: "15%",
-  alignSelf: "flex-end",
-  marginRight: "6%",
-});
+export default function MyAnswer() {
+  const flecheStyle = { height: "2rem", width: "2rem" };
 
-export default function CreatePost() {
-  const [post, setPost] = useState("");
+  // const [post, setPost] = useState("");
 
-  const handleSendButton = (event) => {
-    setPost(event.target.value);
-  };
+  // const handleSendButton = () => {
+  //   // envoyer la réponse à "conversation"
+  //   console.log(post); // ou utiliser une fonction pour envoyer la réponse à "conversation"
+  // };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.info(`Votre Post: ${post}`);
-  };
+  // const handlePostChange = (event) => {
+  //   setPost(event.target.value);
+  // };
 
   return (
     <Container
@@ -51,20 +42,32 @@ export default function CreatePost() {
           borderRadius: 2,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#009AA6",
-          width: "90%",
+          width: "75%",
         }}
       >
         <FormControl
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
           sx={{ width: "100%", m: 2, gap: 1 }}
         >
           <TextField
             id="post-content"
             label="Votre texte ici..."
-            value={post}
-            onChange={handleSendButton}
+            // value={post}
+            // onChange={handleSendButton}
             multiline
             rows={4}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end" sx={{ position: "relative" }}>
+                  <img
+                    className="flecheSend"
+                    src={flecheSend}
+                    alt="fleche envoyer"
+                    style={flecheStyle}
+                  />
+                </InputAdornment>
+              ),
+            }}
             sx={{
               backgroundColor: "#FFFFFF",
               borderRadius: 1,
@@ -72,10 +75,6 @@ export default function CreatePost() {
               width: "100%",
             }}
           />
-
-          <StyledButton type="submit" variant="outlined" size="small">
-            Envoyer
-          </StyledButton>
         </FormControl>
       </Stack>
     </Container>

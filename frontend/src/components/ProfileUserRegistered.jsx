@@ -3,7 +3,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardContent, Button } from "@material-ui/core";
 import Informations from "./profilComponents/Informations";
-import UserImage from "./profilComponents/UserImage";
+import UserImage from "./UserImage";
 import UserTextArea from "./registeredProfile/UserTextArea";
 import ModalSuppression from "./ModalSuppression";
 
@@ -60,7 +60,7 @@ function UserProfile() {
       <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
           <div className={classes.userImageContainer}>
-            <UserImage />
+            <UserImage size="5rem" backgroundColor="grey" />
           </div>
           <Informations
             pseudo={userProfile.pseudo}
