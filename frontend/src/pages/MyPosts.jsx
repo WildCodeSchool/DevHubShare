@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import PostSend from "../components/MyPosts/PostSent";
 import Conversation from "../components/MyPosts/Conversation";
 import MyAnswer from "../components/MyPosts/MyAnswer";
-import UserImage from "../components/profilComponents/UserImage";
+import UserImage from "../components/UserImage";
 
 export default function MyPosts() {
   return (
