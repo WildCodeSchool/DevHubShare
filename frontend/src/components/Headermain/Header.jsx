@@ -52,7 +52,7 @@ export default function NavBar() {
 
           <Button color="inherit">
             <Typography variant="h6">
-              <Links to="/SignIn">Mon compte</Links>
+              <Links to="/connexion">Mon compte</Links>
             </Typography>
           </Button>
           <Notification src={NotificationImg} alt="notificationBell" />
