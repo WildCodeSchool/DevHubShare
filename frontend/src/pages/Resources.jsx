@@ -1,7 +1,9 @@
+import ResourcesComponent from "@components/ResourcesComponent/ResourcesComponent";
+
 export default function Resources() {
   return (
     <div>
-      <h1>Page Resources</h1>
+      <ResourcesComponent />
     </div>
   );
 }
