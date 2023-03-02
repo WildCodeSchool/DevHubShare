@@ -6,7 +6,7 @@ import SignUpPage from "./pages/SignUpPage";
 import HomeAfterSignIn from "./pages/HomeAfterSignIn";
 import ProfileUserPage from "./pages/ProfileUserPage";
 import ProfileUserRegistered from "./pages/ProfileUserRegisteredPage";
-import ProfileMember from "./pages/ProfileMember";
+import ProfileMemberPage from "./pages/ProfileMemberPage";
 import LanguageSelectFeed from "./pages/LanguageSelectFeed";
 import MembersList from "./pages/MembersList";
 import Resources from "./pages/Resources";
@@ -24,7 +24,7 @@ function App() {
         <Route path="/creer-post" element={<HomeAfterSignIn />} />
         <Route path="/creation-compte" element={<ProfileUserPage />} />
         <Route path="/mon-compte" element={<ProfileUserRegistered />} />
-        <Route path="/profil-membre" element={<ProfileMember />} />
+        <Route path="/profil-membre" element={<ProfileMemberPage />} />
         <Route path="/fil-de-discussion" element={<LanguageSelectFeed />} />
         <Route path="/liste-membres" element={<MembersList />} />
         <Route path="/ressources" element={<Resources />} />
