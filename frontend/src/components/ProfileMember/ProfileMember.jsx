@@ -31,31 +31,17 @@ const userProfile = {
 function ProfileMember() {
   const classes = useStyles();
   return (
-    <>
+    <div className={classes.card}>
+      <Grid>
+        <h2 className={classes.titre}>Membres</h2>
+      </Grid>
+      <Grid className={classes.select}>
+        <Grid item xs={6}>
+          <SelectLangProfil />
+        </Grid>
+      </Grid>
       <div className={classes.card}>
         <Grid>
-          <h2 className={classes.titre}>Membres</h2>
-        </Grid>
-        <Grid className={classes.select}>
-          <Grid item xs={6}>
-            <SelectLangProfil />
-          </Grid>
-        </Grid>
-      </div>
-      <div className={classes.card}>
-        <Grid>
-          <InformationsMembers
-            pseudo={userProfile.pseudo}
-            email={userProfile.email}
-          />
-          <InformationsMembers
-            pseudo={userProfile.pseudo}
-            email={userProfile.email}
-          />
-          <InformationsMembers
-            pseudo={userProfile.pseudo}
-            email={userProfile.email}
-          />
           <InformationsMembers
             pseudo={userProfile.pseudo}
             email={userProfile.email}
@@ -78,7 +64,7 @@ function ProfileMember() {
           />
         </Grid>
       </div>
-    </>
+    </div>
   );
 }
 
