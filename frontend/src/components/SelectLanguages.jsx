@@ -17,7 +17,6 @@ export default function SelectLanguage() {
   );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const languages = [
   { label: "HTML" },
   { label: "CSS" },

@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -60,7 +62,7 @@ function UserProfile() {
       <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
           <div className={classes.userImageContainer}>
-            <UserImage />
+            <UserImage size="5rem" backgroundColor="grey" />
           </div>
           <Informations
             pseudo={userProfile.pseudo}
