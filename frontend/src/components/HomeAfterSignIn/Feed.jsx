@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Typography, Stack } from "@mui/material";
+import Post from "../FeedPost/Post";
 
 export default function Feed() {
   return (
@@ -29,7 +30,9 @@ export default function Feed() {
           width: "90%",
           height: "50rem",
         }}
-      />
+      >
+        <Post />
+      </Stack>
     </Container>
   );
 }
