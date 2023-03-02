@@ -23,7 +23,7 @@ const palette = {
 };
 
 const typography = {
-  footerH5: { color: "#009AA6", fontWeight: "bold", fontStyle: "italic" },
+  h5: { color: "#009AA6", fontWeight: "bold", fontStyle: "italic" },
 };
 
 const button = {
