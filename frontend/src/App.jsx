@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import SignUpPage from "./pages/SignUpPage";
 import HomeAfterSignIn from "./pages/HomeAfterSignIn";
 import ProfileUserPage from "./pages/ProfileUserPage";
-import ProfileUserRegistered from "./pages/ProfileUserRegistered";
+import ProfileUserRegistered from "./pages/ProfileUserRegisteredPage";
 import ProfileMember from "./pages/ProfileMember";
 import LanguageSelectFeed from "./pages/LanguageSelectFeed";
 import MembersList from "./pages/MembersList";

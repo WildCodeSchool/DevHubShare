@@ -3,8 +3,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardContent, Button } from "@material-ui/core";
 import Informations from "./profilComponents/Informations";
-import UserImage from "./UserImage";
-import TexteLibre from "./profilComponents/TexteLibre";
+import UserImage from "./profilComponents/UserImage";
+import UserTextArea from "./registeredProfile/UserTextArea";
+import ModalSuppression from "./ModalSuppression";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +60,7 @@ function UserProfile() {
       <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
           <div className={classes.userImageContainer}>
-            <UserImage size="5rem" backgroundColor="grey" />
+            <UserImage />
           </div>
           <Informations
             pseudo={userProfile.pseudo}
@@ -75,13 +76,24 @@ function UserProfile() {
           </Grid>
         </Grid>
         <Grid className={classes.gridCard} item xs={12} md={6}>
+          <Grid item xs={12} className={classes.valider}>
+            <Button variant="contained">Déconnecter</Button>
+          </Grid>
           <Card className={classes.card}>
             <CardContent>
               <div className={classes.texteLibreContainer}>
-                <TexteLibre />
+                <UserTextArea />
               </div>
             </CardContent>
           </Card>
+          <Grid item xs={12} className={classes.valider}>
+            <Button variant="text" href="/creation-compte">
+              Modifier le profile
+            </Button>
+          </Grid>
+          <Grid item xs={12} className={classes.valider}>
+            <ModalSuppression />
+          </Grid>
         </Grid>
       </Grid>
     </div>
