@@ -25,6 +25,10 @@ const FooterContainer = styled(TableFooter)({
   alignItems: "center",
   backgroundColor: "#333333",
   color: "#FFFFFF",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
 });
 
 export default function Footer() {
