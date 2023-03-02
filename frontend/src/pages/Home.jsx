@@ -7,18 +7,15 @@ import HomePage from "../components/HomePage/HomePage";
 export default function Home() {
   return (
     <div>
-      <div>
-        <Header />
-      </div>
-      <div>
-        <HomePage />
-      </div>
-      <div>
-        <Footer />
-      </div>
-      {/* <div>
+      <Header />
+
+      <HomePage />
+
+      <Footer />
+
+      {/* 
         <SwipeableSidebar />
-      </div> */}
+       */}
     </div>
   );
 }

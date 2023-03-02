@@ -44,12 +44,11 @@ export default function NavBar() {
           <Typography
             variant="h4"
             // component="div"
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, textAlign: "center" }}
             color="#009AA6"
           >
             DevHubSHARE
           </Typography>
-
           <Button color="inherit">
             <Typography variant="h6">
               <Links to="/connexion">Mon compte</Links>
