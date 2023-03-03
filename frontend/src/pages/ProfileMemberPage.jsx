@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Headermain/Header";
-import SwipeableSidebar from "../components/Sidebar/SwipeableSidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
 import ProfileMember from "../components/ProfileMember/ProfileMember";
 import Footer from "../components/Footer";
 
@@ -11,7 +11,7 @@ export default function ProfileMemberPage() {
         <Header />
       </div>
       <div className="div2">
-        <SwipeableSidebar />
+        <Sidebar />
       </div>
       <div className="div3">
         <ProfileMember />
