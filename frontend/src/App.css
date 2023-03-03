@@ -54,3 +54,26 @@ code {
 button {
   font-size: calc(10px + 2vmin);
 } */
+* {
+  margin: 0;
+  padding: 0;
+}
+.parent {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  }
+  .div1 { grid-area: 1 / 1 / 2 / 6;
+    z-index: 2000; }
+  .div2 { grid-area: 2 / 1 / 7 / 2; }
+  .div3 { grid-area: 2 / 2 / 7 / 6;
+    display: flex;
+    justify-content: center;
+  align-items: center; 
+text-align: center;}
+  .div4 { grid-area: 7 / 1 / 8 / 6;
+  z-index: 2000;
+  margin-top: 7vh;
+position: sticky;}
