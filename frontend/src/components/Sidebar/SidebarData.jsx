@@ -3,16 +3,16 @@ export const SidebarData = [
   {
     title: "Membres",
     path: "/liste-membres",
-    cName: "nav-text",
+    kName: "nav-text1",
   },
   {
     title: "Ressources",
     path: "/ressources",
-    cName: "nav-text",
+    kName: "nav-text2",
   },
   {
     title: "Mes Posts",
     path: "/mes-posts",
-    cName: "nav-text",
+    kName: "nav-text3",
   },
 ];
