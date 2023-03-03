@@ -1,0 +1,37 @@
+.containerSide {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+.sidebar {
+  background-color: #009aa6;
+  color: #ffff;
+  height: 100vh;
+  display: flex;
+}
+.topSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2vw 2vw;
+  font-size: 1.4rem;
+}
+.link {
+  display: flex;
+  color: #ffff;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+.link:hover {
+  background-color: #0babb7;
+}
+.button-wrapper {
+  display: block;
+  position: fixed;
+  top: 20%;
+}
+

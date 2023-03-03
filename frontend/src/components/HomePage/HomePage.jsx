@@ -1,7 +1,5 @@
 import * as React from "react";
-import { Box } from "@mui/material";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
+import { Stack, Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
 import image from "./images/FondImg.jpg";
@@ -15,16 +13,20 @@ export default function HomePage() {
     <Container
       fixed
       sx={{
+        with: "100%",
+        height: "100%",
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
         backgroundImage: `url(${image})`,
-        backgroundSize: "100%",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
+        padding: 5,
+        mt: 2,
+        mb: 2,
       }}
     >
-      <Box
+      <Stack
         sx={{
           height: "90%",
           minHeight: "fit-content",
@@ -35,8 +37,8 @@ export default function HomePage() {
           justifyContent: "center",
           border: "solid 5px #009AA6",
           borderRadius: "10px",
-          marginTop: "5vh",
-          marginBottom: "5vh",
+          padding: 5,
+          mb: 5,
         }}
       >
         <Typography
@@ -69,13 +71,15 @@ export default function HomePage() {
             développement informatique.
           </p>
         </Typography>
-      </Box>
-      <Typography sx={{ color: "white" }}>
+      </Stack>
+
+      <Typography sx={{ color: "white", marginBottom: 2 }}>
         Rejoignez-nous dès maintenant pour profiter des avantages d'une
         communauté collaborative et pour développer vos compétences en
         programmation.
       </Typography>
-      <Typography sx={{ color: "#0088CE" }}>
+
+      <Typography sx={{ color: "#0088CE", marginBottom: 2 }}>
         <Links to="/connexion" sx={{ color: "#0088CE" }}>
           Je m'inscris
         </Links>
