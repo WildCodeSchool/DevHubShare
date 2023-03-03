@@ -1,7 +1,10 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
+import { useTheme, useMediaQuery } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { Icon } from "@iconify/react";
 import { NavLink, Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "./sidebarStyle.css";
@@ -18,7 +21,25 @@ const langages = [
 ];
 
 export default function Sidebar() {
-  const [selectOpen, setSelectOpen] = React.useState(false);
+  const [selectOpen, setSelectOpen] = useState(false);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    if (isSmallScreen) {
+      setShowButton(true);
+      setShowSidebar(false);
+    } else {
+      setShowButton(false);
+      setShowSidebar(true);
+    }
+  }, [isSmallScreen]);
+
+  const clickButton = () => {
+    setShowSidebar(!showSidebar);
+  };
 
   const handleClose = () => {
     setSelectOpen(false);
@@ -30,7 +51,10 @@ export default function Sidebar() {
 
   return (
     <div className="containerSide">
-      <div className="sidebar">
+      <div
+        className="sidebar"
+        style={{ display: showSidebar ? "flex" : "none" }}
+      >
         <div className="topSection">
           <NavLink to="/" className="link">
             <div className="link_text">Accueil</div>
@@ -80,6 +104,17 @@ export default function Sidebar() {
             );
           })}
         </div>
+      </div>
+      <div
+        className="button-wrapper"
+        style={{ display: showButton ? "flex" : "none" }}
+      >
+        <Icon
+          icon="eva:arrow-ios-forward-outline"
+          color="#333"
+          width="35"
+          onClick={clickButton}
+        />
       </div>
     </div>
   );
