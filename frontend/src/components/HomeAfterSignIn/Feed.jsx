@@ -1,16 +1,16 @@
 import React from "react";
 import { Container, Typography, Stack } from "@mui/material";
-import Post from "../FeedPost/Post";
+// import Post from "../FeedPost/Post";
 
 export default function Feed() {
   return (
     <Container
       sx={{
-        mt: 2,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         gap: 1,
+        mt: 2,
         maxWidth: "sm",
         maxHeight: "sm",
       }}
@@ -19,19 +19,20 @@ export default function Feed() {
         <em>Fil de discussion</em>
       </Typography>
       <Stack
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        spacing={4}
         sx={{
-          borderRadius: 2,
+          p: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 1,
+          borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#82BE00",
           width: "90%",
-          height: "50rem",
         }}
       >
-        <Post />
+        {/* <Post /> */}
       </Stack>
     </Container>
   );
