@@ -1,8 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Container, Typography, Stack } from "@mui/material";
-// import Post from "../FeedPost/Post";
+import Post from "../FeedPost/Post";
 
 export default function Feed() {
+  const [posts, setPosts] = useState([]);
+  const [answers, setAnswers] = useState([]);
+
+  useEffect(() => {
+    const getAnswers = async () => {
+      const response = await axios.get("http://localhost:5000/answers");
+      setAnswers(response.data);
+      console.info("liste des réponses : ", response.data);
+    };
+    getAnswers();
+  }, []);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/posts");
+        const postsWithAnswers = response.data.map((post) => {
+          const postAnswers = answers.filter(
+            (answer) => answer.post_id === post.id
+          );
+          console.info(
+            "liste des réponses pour le post ",
+            post.id,
+            ":",
+            postAnswers
+          );
+          return { ...post, answers: postAnswers };
+        });
+        setPosts(postsWithAnswers);
+        console.info("liste des posts : ", response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getPosts();
+  }, [answers]);
+
   return (
     <Container
       sx={{
@@ -32,7 +71,14 @@ export default function Feed() {
           width: "90%",
         }}
       >
-        {/* <Post /> */}
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            tag={post.tag}
+            postContent={post.post_text}
+            answers={post.answers}
+          />
+        ))}
       </Stack>
     </Container>
   );

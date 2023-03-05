@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { styled } from "@mui/system";
@@ -35,8 +35,9 @@ export default function CreatePost() {
       console.info("liste des langages : ", response.data);
     });
   };
+
   useEffect(() => {
-    getLanguages(languages);
+    getLanguages();
   }, []);
   console.info("langage sélectionné :", languageSelected);
 
@@ -63,6 +64,7 @@ export default function CreatePost() {
     const selectedLanguage = languages.find(
       (language) => language.language_name === languageSelected
     );
+
     axios
       .post("http://localhost:5000/posts", {
         user_id: userId,
@@ -77,6 +79,7 @@ export default function CreatePost() {
         console.error(error);
       });
   };
+
   return (
     <Container
       sx={{
@@ -85,7 +88,6 @@ export default function CreatePost() {
         alignItems: "center",
         gap: 1,
         maxWidth: "sm",
-        maxHeight: "sm",
       }}
     >
       <Typography variant="h5" sx={{ color: "#009AA6", fontWeight: "bold" }}>
@@ -101,7 +103,7 @@ export default function CreatePost() {
           alignItems: "center",
           justifyContent: "center",
           gap: 1,
-          borderRadius: 2,
+          borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#009AA6",
           width: "90%",
@@ -135,7 +137,7 @@ export default function CreatePost() {
         <TextField
           id="tag"
           value={tag}
-          label="TAG"
+          label="TAG *"
           onChange={handleTagChange}
           size="small"
           sx={{
@@ -151,7 +153,7 @@ export default function CreatePost() {
           value={post}
           onChange={handlePostChange}
           multiline
-          rows={4}
+          rows={5}
           sx={{
             backgroundColor: "#FFFFFF",
             borderRadius: 1,
@@ -160,6 +162,9 @@ export default function CreatePost() {
           }}
         />
         <StyledButton type="submit">Poster</StyledButton>
+        <Typography variant="caption" alignSelf="flex-start" color="#">
+          Obligatoire *
+        </Typography>
       </Stack>
     </Container>
   );
