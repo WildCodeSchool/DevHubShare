@@ -23,18 +23,9 @@ export default function PostCard({ tag, postContent, answers }) {
         backgroundColor: "#FFFFFF",
         borderRadius: 1,
         mb: 1,
-        display: "flex",
-        justifyContent: "space-between",
       }}
     >
-      <Grid
-        container
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        mb="1%"
-        width="100%"
-      >
+      <Grid container mb={1}>
         <Grid
           item
           xs={2}
@@ -45,8 +36,8 @@ export default function PostCard({ tag, postContent, answers }) {
           <Avatar
             src="/broken-image.jpg"
             sx={{
-              width: "64%",
-              height: "46%",
+              width: 60,
+              height: 60,
             }}
           />
         </Grid>
@@ -57,7 +48,7 @@ export default function PostCard({ tag, postContent, answers }) {
             spacing={0.8}
             sx={{ width: "100%" }}
           >
-            <Grid item>
+            <Grid item sx={2}>
               <Typography color="#82BE00" fontWeight="bold">
                 TAG
               </Typography>
@@ -72,76 +63,76 @@ export default function PostCard({ tag, postContent, answers }) {
                   backgroundColor: "#FFFFFF",
                   borderRadius: 1,
                   border: "solid 1px #82BE00",
-                  width: "60%",
+                  width: "100%",
                 }}
               />
             </Grid>
-            <Grid item>
-              <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>{firstLine}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <TextField
-                    value={postContent}
-                    multiline
-                    rows={3}
-                    size="small"
-                    InputLabelProps={{ shrink: true }}
-                    label="Post"
-                    readOnly
-                    sx={{
-                      width: "100%",
-                      borderRadius: 1,
-                      border: "solid 1px #82BE00",
-                      backgroundColor: "#FFFFFF",
-                    }}
-                  />
-                </AccordionDetails>
-              </Accordion>
-            </Grid>
-            <Grid item mb={1}>
-              {answers.length === 0 ? (
-                <TextField
-                  disabled
-                  value="Il n'y a pas encore de réponse !"
-                  size="small"
-                  sx={{
-                    width: "100%",
-                    borderRadius: 1,
-                    border: "dotted 1px #82BE00",
-                    backgroundColor: "#FFFFFF",
-                  }}
-                />
-              ) : (
-                <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Réponses au "Post"</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Grid container direction="column" spacing={1}>
-                      {answers.map((answer) => (
-                        <Grid item key={answer.id}>
-                          <TextField
-                            value={answer.answer_text}
-                            rows={1}
-                            label="Réponse d'un Dev"
-                            sx={{
-                              width: "100%",
-                              borderRadius: 1,
-                              border: "dotted 1px #82BE00",
-                              backgroundColor: "#FFFFFF",
-                            }}
-                          />
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </AccordionDetails>
-                </Accordion>
-              )}
-            </Grid>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item mb={1}>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>{firstLine}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <TextField
+              value={postContent}
+              multiline
+              rows={3}
+              size="small"
+              InputLabelProps={{ shrink: true }}
+              label="Post"
+              readOnly
+              sx={{
+                width: "100%",
+                borderRadius: 1,
+                border: "solid 1px #82BE00",
+                backgroundColor: "#FFFFFF",
+              }}
+            />
+          </AccordionDetails>
+        </Accordion>
+      </Grid>
+      <Grid item mb={1}>
+        {answers.length === 0 ? (
+          <TextField
+            disabled
+            value="Il n'y a pas encore de réponse !"
+            size="small"
+            sx={{
+              width: "100%",
+              borderRadius: 1,
+              border: "dotted 1px #82BE00",
+              backgroundColor: "#FFFFFF",
+            }}
+          />
+        ) : (
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>Réponses au "Post"</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container direction="column" spacing={1}>
+                {answers.map((answer) => (
+                  <Grid item key={answer.id}>
+                    <TextField
+                      value={answer.answer_text}
+                      rows={1}
+                      label="Réponse d'un Dev"
+                      sx={{
+                        width: "100%",
+                        borderRadius: 1,
+                        border: "dotted 1px #82BE00",
+                        backgroundColor: "#FFFFFF",
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+        )}
       </Grid>
     </Container>
   );
