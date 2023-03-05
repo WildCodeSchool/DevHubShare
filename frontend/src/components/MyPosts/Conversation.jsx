@@ -1,4 +1,6 @@
+/* eslint-disable react/require-default-props */
 import React from "react";
+import PropTypes from "prop-types";
 import { Container, Stack } from "@mui/material";
 
 export default function Conversation({ post }) {
@@ -46,3 +48,10 @@ export default function Conversation({ post }) {
     </Container>
   );
 }
+
+Conversation.propTypes = {
+  post: PropTypes.shape({
+    tag: PropTypes.string.isRequired,
+    postText: PropTypes.string.isRequired,
+  }),
+};
