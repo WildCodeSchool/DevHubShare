@@ -1,6 +1,6 @@
 import Divider from "@mui/material/Divider";
 import { Stack, useTheme, useMediaQuery } from "@mui/material";
-import PostSend from "./MyPosts/PostSent";
+import PostSent from "./MyPosts/PostSent";
 import Conversation from "./MyPosts/Conversation";
 import MyAnswer from "./MyPosts/MyAnswer";
 import UserImage from "./UserImage";
@@ -26,7 +26,7 @@ export default function MyPosts() {
       >
         <UserImage size="5rem" backgroundColor="grey" />
 
-        <PostSend />
+        <PostSent />
       </Stack>
       {isSmallScreen ? (
         <Divider orientation="horizontal" flexItem />

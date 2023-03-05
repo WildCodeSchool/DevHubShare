@@ -5,6 +5,7 @@ import {
   FormControl,
   TextField,
   InputAdornment,
+  Button,
 } from "@mui/material";
 import flecheSend from "./images/flecheSend.png";
 
@@ -21,6 +22,10 @@ export default function MyAnswer() {
   // const handlePostChange = (event) => {
   //   setPost(event.target.value);
   // };
+
+  const handleClick = () => {
+    // Logique de traitement pour le clic sur l'image
+  };
 
   return (
     <Container
@@ -58,13 +63,15 @@ export default function MyAnswer() {
             rows={4}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end" sx={{ position: "relative" }}>
-                  <img
-                    className="flecheSend"
-                    src={flecheSend}
-                    alt="fleche envoyer"
-                    style={flecheStyle}
-                  />
+                <InputAdornment position="end">
+                  <Button onClick={handleClick}>
+                    <img
+                      className="flecheSend"
+                      src={flecheSend}
+                      alt="fleche envoyer"
+                      style={flecheStyle}
+                    />
+                  </Button>
                 </InputAdornment>
               ),
             }}
