@@ -38,7 +38,7 @@ export default function PostCard({ tag, postContent, answers }) {
             sx={{
               width: 50,
               height: 50,
-              mr:2,
+              mr: 2,
             }}
           />
         </Grid>
