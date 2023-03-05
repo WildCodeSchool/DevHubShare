@@ -46,17 +46,16 @@ export default function PostSent({ onPostSelected }) {
       <Stack
         direction="row"
         justifyContent="center"
-        alignItems="center"
+        // alignItems="center"
         spacing={4}
         sx={{
           borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#009AA6",
           width: "90%",
-          height: "25rem",
         }}
       >
-        <div style={{ padding: "1rem" }}>
+        <div style={{ padding: "1rem", width: "80%" }}>
           {myPosts.map((post) => (
             <div
               key={post.id}
