@@ -36,8 +36,9 @@ export default function PostCard({ tag, postContent, answers }) {
           <Avatar
             src="/broken-image.jpg"
             sx={{
-              width: 60,
-              height: 60,
+              width: 50,
+              height: 50,
+              mr:2,
             }}
           />
         </Grid>
@@ -110,7 +111,7 @@ export default function PostCard({ tag, postContent, answers }) {
         ) : (
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Réponses au "Post"</Typography>
+              <Typography>Réponse(s) au post</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Grid container direction="column" spacing={1}>
