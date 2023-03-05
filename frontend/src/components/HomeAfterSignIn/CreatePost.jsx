@@ -18,7 +18,7 @@ const StyledButton = styled(Button)({
   "&:hover": { backgroundColor: "#FFFFFF" },
   fontSize: 8,
   fontWeight: "bold",
-  maxWidth: "15%",
+  width: "10%",
   alignSelf: "flex-end",
   marginRight: "6%",
 });
@@ -153,7 +153,7 @@ export default function CreatePost() {
           value={post}
           onChange={handlePostChange}
           multiline
-          rows={5}
+          rows={6}
           sx={{
             backgroundColor: "#FFFFFF",
             borderRadius: 1,
@@ -162,7 +162,7 @@ export default function CreatePost() {
           }}
         />
         <StyledButton type="submit">Poster</StyledButton>
-        <Typography variant="caption" alignSelf="flex-start" color="#">
+        <Typography variant="caption" alignSelf="flex-start" color="#FFFFFF">
           Obligatoire *
         </Typography>
       </Stack>

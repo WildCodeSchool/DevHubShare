@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Typography, Stack } from "@mui/material";
-import Post from "../FeedPost/Post";
+import PostCard from "./PostCard";
 
-export default function Feed() {
+export default function PostFeed() {
   const [posts, setPosts] = useState([]);
   const [answers, setAnswers] = useState([]);
 
@@ -72,7 +72,7 @@ export default function Feed() {
         }}
       >
         {posts.map((post) => (
-          <Post
+          <PostCard
             key={post.id}
             tag={post.tag}
             postContent={post.post_text}
