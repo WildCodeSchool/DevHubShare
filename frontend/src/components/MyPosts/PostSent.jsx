@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Stack } from "@mui/material";
 
-export default function PostSend() {
+export default function PostSent({ onPostSelected }) {
   const [myPosts, setMyPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
 
@@ -21,9 +22,10 @@ export default function PostSend() {
   const handlePostClick = (e, post) => {
     e.preventDefault();
     setSelectedPost({ tag: post.tag, postText: post.post_text });
+    onPostSelected({ tag: post.tag, postText: post.post_text });
   };
 
-  // console.log(selectedPost, "poste selectionné");
+  console.info(selectedPost, "poste selectionné");
 
   useEffect(() => {
     getMyPosts();
@@ -76,12 +78,12 @@ export default function PostSend() {
           ))}
         </div>
       </Stack>
-      {selectedPost && (
+      {/* {selectedPost && (
         <div>
           <h4>{selectedPost.tag}</h4>
           <p>{selectedPost.postText}</p>
         </div>
-      )}
+      )} */}
     </Container>
   );
 }
