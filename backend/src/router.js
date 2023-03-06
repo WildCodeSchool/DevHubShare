@@ -34,6 +34,13 @@ router.put("/posts/:id", postControllers.edit);
 router.post("/posts", postControllers.add);
 router.delete("/posts/:id", postControllers.destroy);
 
+// Filtre des posts par utilisateur
+router.get("/posts/user/:userId", postControllers.getPostsByUserId);
+// Filtre des posts par langage
+router.get("/posts/language/:languageId", postControllers.getPostsByLanguageId);
+// Filtre les réponses par post
+router.get("/answers/post/:postId", answerControllers.getAnswersByPostId);
+
 router.get("/answers", answerControllers.browse);
 router.get("/answers/:id", answerControllers.read);
 router.put("/answers/:id", answerControllers.edit);

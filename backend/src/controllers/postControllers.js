@@ -82,10 +82,38 @@ const destroy = (req, res) => {
     });
 };
 
+const getPostsByUserId = (req, res) => {
+  const { userId } = req.params;
+  models.post
+    .findPostsByUserId({ user_id: userId })
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const getPostsByLanguageId = (req, res) => {
+  const { languageId } = req.params;
+  models.post
+    .findPostsByLanguageId({ language_id: languageId })
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  getPostsByUserId,
+  getPostsByLanguageId,
 };

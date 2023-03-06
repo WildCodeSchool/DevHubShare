@@ -82,10 +82,24 @@ const destroy = (req, res) => {
     });
 };
 
+const getAnswersByPostId = (req, res) => {
+  const { postId } = req.params;
+  models.answer
+    .findAnswersByPostId({ post_id: postId })
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  getAnswersByPostId,
 };
