@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import { styled } from "@mui/system";
 import {
   Stack,
@@ -87,6 +86,7 @@ export default function CreatePost() {
         flexDirection: "column",
         alignItems: "center",
         gap: 1,
+        mt: 1,
         maxWidth: "sm",
       }}
     >
@@ -121,7 +121,7 @@ export default function CreatePost() {
             color: "#009AA6",
             borderRadius: 1,
             alignSelf: "center",
-            width: "70%",
+            width: "80%",
           }}
         >
           {languages.map((language) => (
@@ -144,7 +144,7 @@ export default function CreatePost() {
             backgroundColor: "#FFFFFF",
             borderRadius: 1,
             alignSelf: "center",
-            width: "70%",
+            width: "80%",
           }}
         />
         <TextField

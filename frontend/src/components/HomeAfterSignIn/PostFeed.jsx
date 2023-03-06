@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import { Container, Typography, Stack } from "@mui/material";
 import PostCard from "./PostCard";
 
 export default function PostFeed() {
-  const [posts, setPosts] = useState([]);
   const [answers, setAnswers] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [postsWithAnswers, setPostsWithAnswers] = useState([]);
 
   useEffect(() => {
     const getAnswers = async () => {
@@ -17,28 +19,37 @@ export default function PostFeed() {
   }, []);
 
   useEffect(() => {
+    const getUsers = async () => {
+      const response = await axios.get("http://localhost:5000/users");
+      setUsers(response.data);
+      console.info("users :", response.data);
+    };
+    getUsers();
+  }, []);
+
+  useEffect(() => {
     const getPosts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/posts");
-        const postsWithAnswers = response.data.map((post) => {
+        const postsAnswers = response.data.map((post) => {
           const postAnswers = answers.filter(
             (answer) => answer.post_id === post.id
           );
+          const postUsers = users.filter((user) => user.id === post.user_id);
           console.info(
             "liste des réponses pour le post ",
             post.id,
             ":",
             postAnswers
           );
-          return { ...post, answers: postAnswers };
+          return { ...post, answers: postAnswers, users: postUsers };
         });
-        setPosts(postsWithAnswers);
+        setPostsWithAnswers(postsAnswers);
         console.info("liste des posts : ", response.data);
       } catch (error) {
         console.error(error);
       }
     };
-
     getPosts();
   }, [answers]);
 
@@ -71,10 +82,12 @@ export default function PostFeed() {
           width: "90%",
         }}
       >
-        {posts.map((post) => (
+        {postsWithAnswers.map((post) => (
           <PostCard
             key={post.id}
+            picture={post.picture}
             tag={post.tag}
+            date={post.creation_date}
             postContent={post.post_text}
             answers={post.answers}
           />

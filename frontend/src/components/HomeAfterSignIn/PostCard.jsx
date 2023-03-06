@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
 import {
   Grid,
   Typography,
@@ -12,7 +13,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function PostCard({ tag, postContent, answers }) {
+export default function PostCard({ tag, date, postContent, answers, picture }) {
   const firstLine = postContent.split("\n")[0];
 
   return (
@@ -34,7 +35,7 @@ export default function PostCard({ tag, postContent, answers }) {
           justifyContent="center"
         >
           <Avatar
-            src="/broken-image.jpg"
+            src={picture}
             sx={{
               width: 50,
               height: 50,
@@ -83,7 +84,7 @@ export default function PostCard({ tag, postContent, answers }) {
               rows={3}
               size="small"
               InputLabelProps={{ shrink: true }}
-              label="Post"
+              label={format(new Date(date), "dd-MM-yyyy")}
               readOnly
               sx={{
                 width: "100%",
@@ -96,7 +97,7 @@ export default function PostCard({ tag, postContent, answers }) {
         </Accordion>
       </Grid>
       <Grid item mb={1}>
-        {answers.length === 0 ? (
+        {answers?.length === 0 ? (
           <TextField
             disabled
             value="Il n'y a pas encore de réponse !"
@@ -115,7 +116,7 @@ export default function PostCard({ tag, postContent, answers }) {
             </AccordionSummary>
             <AccordionDetails>
               <Grid container direction="column" spacing={1}>
-                {answers.map((answer) => (
+                {answers?.map((answer) => (
                   <Grid item key={answer.id}>
                     <TextField
                       value={answer.answer_text}
@@ -142,6 +143,8 @@ export default function PostCard({ tag, postContent, answers }) {
 PostCard.propTypes = {
   tag: PropTypes.string.isRequired,
   postContent: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
