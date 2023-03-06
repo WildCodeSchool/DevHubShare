@@ -8,7 +8,6 @@ import Select from "@mui/material/Select";
 import { Icon } from "@iconify/react";
 import { NavLink, Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
-import "./sidebarStyle.css";
 
 export default function Sidebar() {
   const [selectOpen, setSelectOpen] = useState(false);
@@ -56,13 +55,44 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="containerSide">
+    <div
+      className="containerSide"
+      style={{ display: "flex", height: "100vh", margin: 0, padding: 0 }}
+    >
       <div
         className="sidebar"
-        style={{ display: showSidebar ? "flex" : "none" }}
+        style={{
+          display: showSidebar ? "flex" : "none",
+          backgroundColor: "#009aa6",
+          color: "#ffff",
+          height: "100vh",
+        }}
       >
-        <div className="topSection">
-          <NavLink to="/" className="link">
+        <div
+          className="topSection"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-around",
+            padding: "2vw 2vw",
+            fontSize: "1.4rem",
+          }}
+        >
+          <NavLink
+            to="/"
+            className="link"
+            style={{
+              display: "flex",
+              color: "#ffff",
+              padding: "1rem 2rem",
+              transition: "all 0.5s",
+              textDecoration: "none",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
             <div className="link_text">Accueil</div>
           </NavLink>
           <FormControl
@@ -105,7 +135,18 @@ export default function Sidebar() {
           </FormControl>
           {SidebarData.map((item) => {
             return (
-              <NavLink to={item.path} key={item.kName} className="link">
+              <NavLink
+                to={item.path}
+                key={item.kName}
+                className="link"
+                style={{
+                  display: "flex",
+                  color: "#ffff",
+                  padding: "1rem 2rem",
+                  transition: "all 0.5s",
+                  textDecoration: "none",
+                }}
+              >
                 <div className="link_text">{item.title}</div>
               </NavLink>
             );
@@ -114,7 +155,11 @@ export default function Sidebar() {
       </div>
       <div
         className="button-wrapper"
-        style={{ display: showButton ? "flex" : "none" }}
+        style={{
+          display: showButton ? "block" : "none",
+          position: "fixed",
+          top: "45%",
+        }}
       >
         <Icon
           icon="eva:arrow-ios-forward-outline"
