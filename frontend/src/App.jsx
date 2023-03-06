@@ -9,7 +9,7 @@ import ProfileUserRegistered from "./pages/ProfileUserRegisteredPage";
 import ProfileMemberPage from "./pages/ProfileMemberPage";
 import LanguageSelectFeed from "./pages/LanguageSelectFeed";
 import Resources from "./pages/Resources";
-import MyPosts from "./pages/MyPosts";
+import MyPostsPage from "./pages/MyPostsPage";
 import SignInPage from "./pages/SignInPage";
 import ErreurPage from "./pages/ErreurPage";
 import "./App.css";
@@ -27,7 +27,7 @@ function App() {
         <Route path="/profil-membre" element={<ProfileMemberPage />} />
         <Route path="/fil-de-discussion" element={<LanguageSelectFeed />} />
         <Route path="/ressources" element={<Resources />} />
-        <Route path="/mes-posts" element={<MyPosts />} />
+        <Route path="/mes-posts" element={<MyPostsPage />} />
         <Route path="/erreur" element={<ErreurPage />} />
       </Routes>
     </div>
