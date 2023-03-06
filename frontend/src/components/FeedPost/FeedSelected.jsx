@@ -9,24 +9,33 @@ export default function FeedSelected() {
   //   // // const selectedLanguage = props.selectedLanguage; // récupère la langue sélectionnée à partir des props
   //   // // const isLanguageSelected = selectedLanguage !== "";
 
-  const getPostList = () => {
-    axios.get("http://localhost:5000/posts").then((response) => {
-      setPostList(response.data);
-    });
-    console.info("post :", postList);
+  // const getPostList = () => {
+  //   axios.get("http://localhost:5000/posts").then((response) => {
+  //     setPostList(response.data);
+  //   });
+  //   console.info("post :", postList);
+  // };
+
+  // const getAnswerList = () => {
+  //   axios.get("http://localhost:5000/answers").then((response) => {
+  //     setAnswerList(response.data);
+  //   });
+  //   console.info("answer :", answerList);
+  // };
+
+  const getPostList = async () => {
+    const response = await axios.get("http://localhost:5000/posts");
+    setPostList(response.data);
+    console.info("post :", response.data);
   };
 
-  const getAnswerList = () => {
-    axios.get("http://localhost:5000/answers").then((response) => {
-      setAnswerList(response.data);
-    });
-    console.info("answer :", answerList);
+  const getAnswerList = async () => {
+    const response = await axios.get("http://localhost:5000/answers");
+    setAnswerList(response.data);
+    console.info("answer :", response.data);
   };
-
   useEffect(() => {
     getPostList(postList);
-  }, []);
-  useEffect(() => {
     getAnswerList(answerList);
   }, []);
 
