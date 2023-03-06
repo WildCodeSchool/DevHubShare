@@ -69,7 +69,7 @@ export default function Sidebar() {
               sx={{
                 color: "#009AA6",
                 height: 30,
-                borderRadius: 2,
+                borderRadius: 1,
                 fontSize: 14,
                 backgroundColor: "white",
               }}
