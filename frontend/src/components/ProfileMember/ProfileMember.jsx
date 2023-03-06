@@ -36,7 +36,7 @@ function ProfileMember() {
         <h2 className={classes.titre}>Membres</h2>
       </Grid>
       <Grid className={classes.select}>
-        <Grid item xs={6}>
+        <Grid item md={3}>
           <SelectLangProfil />
         </Grid>
       </Grid>

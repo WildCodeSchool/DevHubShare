@@ -2,7 +2,7 @@
 export const SidebarData = [
   {
     title: "Membres",
-    path: "/liste-membres",
+    path: "/profil-membre",
     kName: "nav-text1",
   },
   {
