@@ -18,6 +18,20 @@ class PostManager extends AbstractManager {
       [post.tag, post.post_text, post.id]
     );
   }
+
+  findPostsByUserId(post) {
+    return this.database.query(
+      `select * from ${this.table} where user_id = ?`,
+      [post.user_id]
+    );
+  }
+
+  findPostsByLanguageId(post) {
+    return this.database.query(
+      `select * from ${this.table} where language_id = ?`,
+      [post.language_id]
+    );
+  }
 }
 
 module.exports = PostManager;
