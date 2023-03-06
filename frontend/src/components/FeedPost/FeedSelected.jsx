@@ -39,17 +39,6 @@ export default function FeedSelected() {
     getAnswerList(answerList);
   }, []);
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:5000/posts").then((response) => {
-  //     setPostList(response.data);
-  //   });
-  //   axios.get("http://localhost:5000/answers").then((response) => {
-  //     setAnswerList(response.data);
-  //   });
-  //   console.info("post:", postList);
-  //   console.info("réponse:", answerList);
-  // }, []);
-
   return (
     <Container
       sx={{
