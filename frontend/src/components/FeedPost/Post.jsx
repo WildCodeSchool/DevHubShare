@@ -1,12 +1,14 @@
 import React from "react";
-import { Grid, Typography, Container, TextField, Avatar } from "@mui/material";
-// import UserImage from "../profilComponents/UserImage";
+import { format } from "date-fns";
+import { PropTypes } from "prop-types";
+import { Grid, Typography, Container, TextField } from "@mui/material";
+import UserImage from "../UserImage";
 
-export default function Post() {
+export default function Post({ tag, post, answers, date }) {
   return (
     <Container
       maxWidth="100%"
-      maxHeight="100%"
+      maxheight="100%"
       sx={{
         backgroundColor: "white",
         borderRadius: 2,
@@ -31,66 +33,96 @@ export default function Post() {
           alignItems="center"
           justifyContent="center"
         >
-          <Avatar
+          {/* <Avatar
             src="/broken-image.jpg"
             sx={{
               width: "64%",
               height: "46%",
               borderRadius: "50%",
             }}
-          />
-          {/* <UserImage
-            sx={{ width: "20%", height: "20%", borderRadius: "50%" }}
           /> */}
+          <UserImage size="5rem" backgroundColor="grey" />
         </Grid>
         <Grid item xs={10}>
           <Grid container direction="column" spacing={2} sx={{ width: "100%" }}>
             <Grid item>
               <Typography color="#0088CE" fontWeight="bold">
-                TAG
+                <span>TAG</span>
               </Typography>
             </Grid>
             <Grid item>
               <TextField
-                defaultValue=""
+                value={tag}
                 variant="standard"
                 size="small"
                 sx={{
-                  borderRadius: 2,
                   width: "100%",
-                  borderColorHover: "black",
                 }}
               />
             </Grid>
             <Grid item>
               <TextField
+                label={format(new Date(date), "dd-MM-yyyy")}
+                value={post}
                 multiline
                 rows={1}
                 sx={{
                   width: "100%",
-                  borderRadius: 2,
+                  borderRadius: 1,
                   border: "solid 2px #82BE00",
                   backgroundColor: "white",
                   boxSizing: "border-box",
                 }}
               />
             </Grid>
-            <Grid item>
-              <TextField
-                multiline
-                rows={1}
-                sx={{
-                  width: "100%",
-                  borderRadius: 2,
-                  border: "solid 2px #82BE00",
-                  backgroundColor: "white",
-                  boxSizing: "border-box",
-                }}
-              />
-            </Grid>
+            {answers.length > 1 ? (
+              answers.map((answer) => (
+                <Grid item key={answer.id}>
+                  <TextField
+                    label={format(new Date(date), "dd-MM-yyyy")}
+                    value={answer}
+                    multiline
+                    rows={1}
+                    sx={{
+                      width: "100%",
+                      borderRadius: 1,
+                      border: "solid 2px #82BE00",
+                      backgroundColor: "white",
+                      boxSizing: "border-box",
+                    }}
+                  />
+                </Grid>
+              ))
+            ) : (
+              <Grid item>
+                <TextField
+                  label={format(new Date(date), "dd-MM-yyyy")}
+                  value={answers[0]}
+                  multiline
+                  rows={1}
+                  sx={{
+                    width: "100%",
+                    borderRadius: 1,
+                    border: "solid 2px #82BE00",
+                    backgroundColor: "white",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>
     </Container>
   );
 }
+Post.propTypes = {
+  tag: PropTypes.string.isRequired,
+  post: PropTypes.string.isRequired,
+  answers: PropTypes.arrayOf(PropTypes.string),
+  date: PropTypes.string.isRequired,
+};
+
+Post.defaultProps = {
+  answers: [],
+};
