@@ -18,6 +18,13 @@ class AnswerManager extends AbstractManager {
       [answer.answer_text, answer.id]
     );
   }
+
+  findAnswersByPostId(answer) {
+    return this.database.query(
+      `select * from ${this.table} where post_id = ?`,
+      [answer.post_id]
+    );
+  }
 }
 
 module.exports = AnswerManager;
