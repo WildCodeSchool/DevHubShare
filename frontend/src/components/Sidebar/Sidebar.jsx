@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useTheme, useMediaQuery } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
@@ -9,23 +10,28 @@ import { NavLink, Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "./sidebarStyle.css";
 
-const langages = [
-  "Tous langages",
-  "Javascript",
-  "PHP",
-  "Python",
-  "Java",
-  "HTML",
-  "CSS",
-  "Autre",
-];
-
 export default function Sidebar() {
   const [selectOpen, setSelectOpen] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [showSidebar, setShowSidebar] = useState(true);
   const [showButton, setShowButton] = useState(false);
+
+  const [sideLanguages, setSideLanguages] = useState([]);
+
+  const getLanguages = () => {
+    axios
+      .get("http://localhost:5020/languages")
+      .then((response) => response.data)
+      .then((data) => {
+        setSideLanguages(data);
+        console.info("langages api", data);
+      });
+  };
+
+  useEffect(() => {
+    getLanguages();
+  }, []);
 
   useEffect(() => {
     if (isSmallScreen) {
@@ -82,16 +88,17 @@ export default function Sidebar() {
               // eslint-disable-next-line prettier/prettier
               renderValue={(value) => value || "Sélection du langage"}
             >
-              {langages.map((langage) => (
+              {sideLanguages.map((langage) => (
                 <MenuItem
                   sx={{
                     color: "#009AA6",
                   }}
-                  key={langage}
+                  key={langage.id}
+                  value={langage.language_name}
                   component={Link}
                   to="/fil-de-discussion"
                 >
-                  {langage}
+                  {langage.language_name}
                 </MenuItem>
               ))}
             </Select>
