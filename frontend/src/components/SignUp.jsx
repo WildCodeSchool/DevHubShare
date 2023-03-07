@@ -153,7 +153,8 @@ export default function SignUp() {
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [language, setLanguage] = useState("");
+  const [language_id, setLanguage_id] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
   const classes = useStyles();
 
   useEffect(() => {
@@ -164,13 +165,19 @@ export default function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newUser = { pseudo, email, password, language };
+    const newUser = {
+      pseudo,
+      email,
+      password,
+      language_id: [parseInt(selectedLanguage, 10)],
+    };
     axios.post("http://localhost:5000/users", newUser).then((response) => {
       setUserData([...userData, response.data]);
       setPseudo("");
       setEmail("");
       setPassword("");
-      setLanguage("");
+      setLanguage_id("");
+      setSelectedLanguage("");
     });
   };
 
@@ -231,11 +238,11 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="language"
-                label="language select"
+                label="Language select"
                 name="language"
                 autoComplete="language"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
+                value={language_id}
+                onChange={(e) => setLanguage_id(parseInt(e.target.value, 10))}
               />
             </Grid>
           </Grid>
