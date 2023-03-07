@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -39,7 +40,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [languageId, setLanguageId] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [sideLanguages, setSideLanguages] = useState([]);
   const classes = useStyles();
 
@@ -63,16 +64,6 @@ export default function SignUp() {
     });
   }, []);
 
-  // const handleChange = (e) => {
-  //   console.info(e.target.value, "targetvalue");
-  //   setSelectedLanguage(e.target.value);
-  // };
-
-  const selectedLanguageObj = sideLanguages.find(
-    (language) => language.language_name === selectedLanguage
-  );
-  const languagesId = selectedLanguageObj ? selectedLanguageObj.id : null;
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const newUser = {
@@ -81,10 +72,6 @@ export default function SignUp() {
       password,
       language_id: languageId,
     };
-
-    console.info(selectedLanguage, "languageselected");
-    console.info(languagesId, "match ou pas");
-    console.info(newUser, "newuser");
 
     axios.post("http://localhost:5000/users", newUser).then((response) => {
       setUserData([...userData, response.data]);
@@ -159,9 +146,12 @@ export default function SignUp() {
                       checked={languageId.includes(language.id)}
                       onChange={() =>
                         setLanguageId((prev) =>
-                          prev.includes(language.id)
+                          prev.includes(language.id) &&
+                          typeof language.id === "number"
                             ? prev.filter((id) => id !== language.id)
-                            : [...prev, language.id]
+                            : typeof language.id === "number"
+                            ? [...prev, language.id]
+                            : prev
                         )
                       }
                       name={language.language_name}
