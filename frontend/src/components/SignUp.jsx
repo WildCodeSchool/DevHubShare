@@ -50,7 +50,6 @@ export default function SignUp() {
       .then((response) => response.data)
       .then((data) => {
         setSideLanguages(data);
-        console.info("langages api", data);
       });
   };
 
@@ -82,7 +81,6 @@ export default function SignUp() {
       setSelectedLanguage("");
     });
   };
-  console.info(languageId, "usestate languageId");
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -136,7 +134,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="subtitle1" gutterBottom>
-                Langues parlées
+                Language préferer
               </Typography>
               {sideLanguages.map((language) => (
                 <FormControlLabel
