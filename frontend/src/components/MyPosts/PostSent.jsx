@@ -5,13 +5,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Stack } from "@mui/material";
 
-export default function PostSent({ onPostSelected }) {
+export default function PostSent({ onPostSelected, onSendAnswer }) {
   const [myPosts, setMyPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
 
+  const id = 3;
+
   const getMyPosts = () => {
     axios
-      .get("http://localhost:5020/posts")
+      .get(`http://localhost:5020/posts/user/${id}`)
       .then((response) => response.data)
       .then((data) => {
         setMyPosts(data);
@@ -22,10 +24,11 @@ export default function PostSent({ onPostSelected }) {
   const handlePostClick = (e, post) => {
     e.preventDefault();
     setSelectedPost({ tag: post.tag, postText: post.post_text });
-    onPostSelected({ tag: post.tag, postText: post.post_text });
+    onPostSelected({ id: post.id, tag: post.tag, postText: post.post_text });
+    onSendAnswer({ id: post.id, tag: post.tag, postText: post.post_text });
   };
 
-  console.info(selectedPost, "poste selectionné");
+  // console.info(selectedPost, "poste selectionné");
 
   useEffect(() => {
     getMyPosts();
@@ -69,6 +72,7 @@ export default function PostSent({ onPostSelected }) {
               <h3
                 style={{ cursor: "pointer" }}
                 onClick={(e) => handlePostClick(e, post)}
+                value={selectedPost}
               >
                 {post.tag}
               </h3>

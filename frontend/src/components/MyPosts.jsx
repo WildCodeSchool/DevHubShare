@@ -10,10 +10,15 @@ import UserImage from "./UserImage";
 export default function MyPosts() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPost, setSelectedPost] = useState("");
+  const [sendAnswer, setSendAnswer] = useState("");
 
   function handleSelectedPost(post) {
     setSelectedPost(post);
+  }
+
+  function handleAnswer(post) {
+    setSendAnswer(post);
   }
 
   return (
@@ -33,7 +38,10 @@ export default function MyPosts() {
       >
         <UserImage size="5rem" backgroundColor="grey" />
 
-        <PostSent onPostSelected={handleSelectedPost} />
+        <PostSent
+          onPostSelected={handleSelectedPost}
+          onSendAnswer={handleAnswer}
+        />
       </Stack>
       {isSmallScreen ? (
         <Divider orientation="horizontal" flexItem />
@@ -49,7 +57,7 @@ export default function MyPosts() {
         }}
       >
         <Conversation post={selectedPost} />
-        <MyAnswer />
+        <MyAnswer post={sendAnswer} />
       </Stack>
     </Stack>
   );
