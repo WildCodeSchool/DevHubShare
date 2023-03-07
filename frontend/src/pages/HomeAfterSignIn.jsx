@@ -2,7 +2,7 @@ import * as React from "react";
 import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 import CreatePost from "../components/HomeAfterSignIn/CreatePost";
-import Feed from "../components/HomeAfterSignIn/Feed";
+import Feed from "../components/HomeAfterSignIn/PostFeed";
 import Footer from "../components/Footer";
 
 export default function HomeAfterSignIn() {
