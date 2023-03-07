@@ -11,7 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import LangSelectSignUp from "./LangSelectSignUp";
+import { FormControlLabel, Checkbox } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -63,10 +63,10 @@ export default function SignUp() {
     });
   }, []);
 
-  const handleChange = (e) => {
-    console.info(e.target.value, "targetvalue");
-    setSelectedLanguage(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   console.info(e.target.value, "targetvalue");
+  //   setSelectedLanguage(e.target.value);
+  // };
 
   const selectedLanguageObj = sideLanguages.find(
     (language) => language.language_name === selectedLanguage
@@ -79,7 +79,7 @@ export default function SignUp() {
       pseudo,
       email,
       password,
-      language_id: [languagesId],
+      language_id: languageId,
     };
 
     console.info(selectedLanguage, "languageselected");
@@ -147,8 +147,29 @@ export default function SignUp() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
-            <Grid item xs={3}>
-              <LangSelectSignUp onChange={(e) => handleChange(e)} />
+            <Grid item xs={12}>
+              <Typography variant="subtitle1" gutterBottom>
+                Langues parlées
+              </Typography>
+              {sideLanguages.map((language) => (
+                <FormControlLabel
+                  key={language.id}
+                  control={
+                    <Checkbox
+                      checked={languageId.includes(language.id)}
+                      onChange={() =>
+                        setLanguageId((prev) =>
+                          prev.includes(language.id)
+                            ? prev.filter((id) => id !== language.id)
+                            : [...prev, language.id]
+                        )
+                      }
+                      name={language.language_name}
+                    />
+                  }
+                  label={language.language_name}
+                />
+              ))}
             </Grid>
           </Grid>
           <Button
