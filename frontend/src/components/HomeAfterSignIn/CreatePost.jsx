@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import { styled } from "@mui/system";
 import {
@@ -22,26 +23,25 @@ const StyledButton = styled(Button)({
   marginRight: "6%",
 });
 
-export default function CreatePost() {
+export default function CreatePost({
+  languageNameSelected,
+  setLanguageNameSelected,
+}) {
   const [languages, setLanguages] = useState([]);
-  const [languageSelected, setLanguageSelected] = useState("");
   const [tag, setTag] = useState("");
   const [post, setPost] = useState("");
 
-  const getLanguages = () => {
-    axios.get("http://localhost:5000/languages").then((response) => {
-      setLanguages(response.data);
-      console.info("liste des langages : ", response.data);
-    });
-  };
-
   useEffect(() => {
+    const getLanguages = () => {
+      axios.get("http://localhost:5000/languages").then((response) => {
+        setLanguages(response.data);
+      });
+    };
     getLanguages();
   }, []);
-  console.info("langage sélectionné :", languageSelected);
 
   const handleLanguageChange = (event) => {
-    setLanguageSelected(event.target.value);
+    setLanguageNameSelected(event.target.value);
   };
 
   const handleTagChange = (event) => {
@@ -56,14 +56,9 @@ export default function CreatePost() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.info(
-      `Langage: ${languageSelected}, Tag: ${tag}, Votre Post: ${post}, user_id: ${userId}`
-    );
-
     const selectedLanguage = languages.find(
-      (language) => language.language_name === languageSelected
+      (language) => language.language_name === languageNameSelected
     );
-
     axios
       .post("http://localhost:5000/posts", {
         user_id: userId,
@@ -86,7 +81,7 @@ export default function CreatePost() {
         flexDirection: "column",
         alignItems: "center",
         gap: 1,
-        mt: 1,
+        mt: 3,
         maxWidth: "sm",
       }}
     >
@@ -111,7 +106,7 @@ export default function CreatePost() {
       >
         <Select
           id="language"
-          value={languageSelected}
+          value={languageNameSelected}
           onChange={handleLanguageChange}
           displayEmpty
           renderValue={(value) => value || "Sélectionner un langage"}
@@ -169,3 +164,8 @@ export default function CreatePost() {
     </Container>
   );
 }
+
+CreatePost.propTypes = {
+  languageNameSelected: PropTypes.string.isRequired,
+  setLanguageNameSelected: PropTypes.func.isRequired,
+};
