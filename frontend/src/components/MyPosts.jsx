@@ -12,6 +12,7 @@ export default function MyPosts() {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [selectedPost, setSelectedPost] = useState("");
   const [sendAnswer, setSendAnswer] = useState("");
+  const [isNewAnswerSubmitted, setIsNewAnswerSubmitted] = useState(false);
 
   function handleSelectedPost(post) {
     setSelectedPost(post);
@@ -19,6 +20,10 @@ export default function MyPosts() {
 
   function handleAnswer(post) {
     setSendAnswer(post);
+  }
+
+  function handleNewAnswerSubmitted(newAnswer) {
+    setIsNewAnswerSubmitted(newAnswer);
   }
 
   return (
@@ -56,8 +61,11 @@ export default function MyPosts() {
           width: isSmallScreen ? "100%" : "50%",
         }}
       >
-        <Conversation post={selectedPost} />
-        <MyAnswer post={sendAnswer} />
+        <Conversation post={selectedPost} newAnswer={isNewAnswerSubmitted} />
+        <MyAnswer
+          post={sendAnswer}
+          onNewAnswerSubmitted={handleNewAnswerSubmitted}
+        />
       </Stack>
     </Stack>
   );

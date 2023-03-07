@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import flecheSend from "./images/flecheSend.png";
 
-export default function MyAnswer({ post }) {
+export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
-  console.info(post, "c'est quoi post?");
+  // console.info(post, "c'est quoi post?");
   const [answerText, setAnswerText] = useState("");
 
   const answerSent = (e) => setAnswerText(e.target.value);
@@ -28,6 +28,7 @@ export default function MyAnswer({ post }) {
       console.info("Réponse envoyée à l'API:", response.data);
       // Réinitialise le champ de texte après envoie de la réponse
       setAnswerText("");
+      onNewAnswerSubmitted(true);
     } catch (error) {
       console.error("Erreur lors de l'envoi de la réponse:", error);
     }
@@ -35,6 +36,8 @@ export default function MyAnswer({ post }) {
   // useEffect(() => {
   //   handleAnswerSubmit();
   // }, [post]);
+
+  // onNewAnswerSubmitted()
 
   return (
     <Container
@@ -100,5 +103,6 @@ MyAnswer.propTypes = {
     tag: PropTypes.string.isRequired,
     postText: PropTypes.string.isRequired,
   }),
+  onNewAnswerSubmitted: PropTypes.func.isRequired,
 };
 MyAnswer.defaultProps = { post: {} };

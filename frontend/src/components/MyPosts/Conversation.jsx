@@ -1,28 +1,26 @@
-/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { Container, Stack } from "@mui/material";
 
-export default function Conversation({ post }) {
+export default function Conversation({ post, newAnswer }) {
   const [myAnswers, setMyAnswers] = useState([]);
 
-  async function getMyAnswers() {
-    if (!post) return;
-    try {
-      const response = await axios.get(
-        `http://localhost:5020/answers/post/${post.id}`
-      );
-      setMyAnswers(response.data);
-      console.info("les réponses à mon poste", response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
+    if (!post && !newAnswer) return;
+    async function getMyAnswers() {
+      try {
+        const response = await axios.get(
+          `http://localhost:5020/answers/post/${post.id}`
+        );
+        setMyAnswers(response.data);
+        console.info("les réponses à mon poste", response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
     getMyAnswers();
-  }, [post]);
+  }, [post, newAnswer]);
 
   return (
     <Container
@@ -103,5 +101,6 @@ Conversation.propTypes = {
     tag: PropTypes.string.isRequired,
     postText: PropTypes.string.isRequired,
   }),
+  newAnswer: PropTypes.bool.isRequired,
 };
 Conversation.defaultProps = { post: {} };
