@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { styled } from "@mui/system";
@@ -30,6 +31,8 @@ export default function CreatePost({
   const [languages, setLanguages] = useState([]);
   const [tag, setTag] = useState("");
   const [post, setPost] = useState("");
+  const [errorSubmit, setErrorSubmit] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getLanguages = () => {
@@ -56,6 +59,9 @@ export default function CreatePost({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!languageNameSelected) {
+      setErrorSubmit("La sélection d'un langage est obligatoire *");
+    }
     const selectedLanguage = languages.find(
       (language) => language.language_name === languageNameSelected
     );
@@ -72,6 +78,7 @@ export default function CreatePost({
       .catch((error) => {
         console.error(error);
       });
+    navigate("/mes-posts");
   };
 
   return (
@@ -109,7 +116,7 @@ export default function CreatePost({
           value={languageNameSelected}
           onChange={handleLanguageChange}
           displayEmpty
-          renderValue={(value) => value || "Sélectionner un langage"}
+          renderValue={(value) => value || "Sélectionner un langage *"}
           size="small"
           sx={{
             backgroundColor: "#FFFFFF",
@@ -129,12 +136,23 @@ export default function CreatePost({
             </MenuItem>
           ))}
         </Select>
+        {errorSubmit && (
+          <Typography
+            color="#333333"
+            variant="h7"
+            fontWeight="medium"
+            textAlign="center"
+          >
+            {errorSubmit}
+          </Typography>
+        )}
         <TextField
           id="tag"
           value={tag}
-          label="TAG *"
+          label="TAG"
           onChange={handleTagChange}
           size="small"
+          required
           sx={{
             backgroundColor: "#FFFFFF",
             borderRadius: 1,
@@ -149,6 +167,7 @@ export default function CreatePost({
           onChange={handlePostChange}
           multiline
           rows={6}
+          required
           sx={{
             backgroundColor: "#FFFFFF",
             borderRadius: 1,

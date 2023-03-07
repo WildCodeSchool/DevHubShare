@@ -103,7 +103,7 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
         {answers?.length === 0 ? (
           <TextField
             disabled
-            value="Il n'y a pas encore de réponse !"
+            value="Il n'y a pas encore de réponse pour ce post !"
             size="small"
             sx={{
               width: "100%",

@@ -57,6 +57,7 @@ export default function PostFeed({ languageSelected }) {
         alignItems: "center",
         gap: 1,
         mt: 3,
+        mb: 3,
         maxWidth: "sm",
         maxHeight: "sm",
       }}
