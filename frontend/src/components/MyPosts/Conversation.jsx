@@ -16,7 +16,7 @@ export default function Conversation({ post, newAnswer }) {
     async function getMyAnswers() {
       try {
         const response = await axios.get(
-          `http://localhost:5020/answers/post/${post.id}`
+          `http://localhost:5000/answers/post/${post.id}`
         );
         setMyAnswers(response.data);
         console.info("les réponses à mon poste", response.data);

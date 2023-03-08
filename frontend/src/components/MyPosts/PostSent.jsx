@@ -19,7 +19,7 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
 
   const getMyPosts = () => {
     axios
-      .get(`http://localhost:5020/posts/user/${id}`)
+      .get(`http://localhost:5000/posts/user/${id}`)
       .then((response) => response.data)
       .then((data) => {
         setMyPosts(data);

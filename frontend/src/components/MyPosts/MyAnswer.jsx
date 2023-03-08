@@ -19,7 +19,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
 
   const handleAnswerSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:5020/answers", {
+      const response = await axios.post("http://localhost:5000/answers", {
         answer_text: answerText,
         post_id: post.id,
         user_id: 3,
