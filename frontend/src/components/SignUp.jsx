@@ -134,7 +134,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="subtitle1" gutterBottom>
-                Language préferer
+                Langage préféré
               </Typography>
               {sideLanguages.map((language) => (
                 <FormControlLabel
