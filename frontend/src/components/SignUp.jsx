@@ -1,17 +1,17 @@
-/* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import { FormControlLabel, Checkbox } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -134,7 +134,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="subtitle1" gutterBottom>
-                Langage préféré
+                Langages préférés
               </Typography>
               {sideLanguages.map((language) => (
                 <FormControlLabel
