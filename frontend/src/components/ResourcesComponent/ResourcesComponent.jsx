@@ -11,7 +11,7 @@ import { styled } from "@mui/system";
 const StyledLink = styled(Link)({
   textDecoration: "none",
   fontSize: 15,
-  color: "#FFFFFF",
+  color: "#675C53",
   "&:hover": { color: "#675C53" },
 });
 
@@ -21,36 +21,31 @@ export default function ResourcesComponent() {
   return (
     <Container
       sx={{
-        mt: 2,
+        m: 3,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 1,
-        maxWidth: "md",
-        minHeight: "md",
       }}
     >
       <Stack
         direction="column"
         alignItems="center"
-        spacing={4}
+        spacing={1}
         sx={{
           p: 2,
-          borderRadius: 2,
-          boxShadow: "10px 10px 15px 2px #D7D7D7",
-          backgroundColor: "#82BE00",
+          borderRadius: 1,
+          // boxShadow: "10px 10px 15px 8px #D7D7D7",
           width: "100%",
         }}
       >
-        <Typography variant="h5" sx={{ color: "#FFFFFF", fontWeight: "bold" }}>
-          Ressources
+        <Typography
+          variant="h4"
+          sx={{ color: "#0088CE", fontWeight: 500, textAlign: "center", mb: 4 }}
+        >
+          Ressources Web
         </Typography>
 
-        <Typography
-          variant="h6"
-          textAlign="center"
-          sx={{ color: "#FFFFFF", fontWeight: "bold" }}
-        >
+        <Typography variant="h6" textAlign="center" sx={{ color: "#333333" }}>
           Outils nécessaires à la conception de vos Projets Web
         </Typography>
 
@@ -58,14 +53,15 @@ export default function ResourcesComponent() {
           direction={isMobile ? "column" : "row"}
           alignItems={isMobile ? "center" : "null"}
           justifyContent="center"
-          spacing={isMobile ? 4 : 5}
-          sx={{ width: "70%" }}
+          spacing={isMobile ? 2 : 3}
+          sx={{ width: "90%", p: 3 }}
         >
           <Stack
             direction="column"
             alignItems="center"
             minWidth={isMobile ? "100%" : "30%"}
             sx={{
+              backgroundColor: "#FFFFFF",
               minHeight: "5rem",
               p: 0.5,
               borderRadius: 2,
@@ -75,7 +71,7 @@ export default function ResourcesComponent() {
             <Typography
               variant="body1"
               sx={{
-                height: "40%",
+                maxHeight: 60,
                 mb: 0.5,
                 textAlign: "center",
                 color: "#675C53",
@@ -120,7 +116,7 @@ export default function ResourcesComponent() {
             <Typography
               variant="body1"
               sx={{
-                height: "40%",
+                maxHeight: 60,
                 mb: 0.5,
                 textAlign: "center",
                 color: "#675C53",
@@ -155,7 +151,7 @@ export default function ResourcesComponent() {
             <Typography
               variant="body1"
               sx={{
-                height: "40%",
+                maxHeight: 60,
                 mb: 0.5,
                 textAlign: "center",
                 color: "#675C53",
@@ -191,8 +187,8 @@ export default function ResourcesComponent() {
           direction={isMobile ? "column" : "row"}
           alignItems={isMobile ? "center" : "null"}
           justifyContent="center"
-          spacing={isMobile ? 4 : 5}
-          sx={{ width: "70%" }}
+          spacing={isMobile ? 2 : 3}
+          sx={{ width: "90%", p: 3, mb: 4 }}
         >
           <Stack
             direction="column"
@@ -208,7 +204,7 @@ export default function ResourcesComponent() {
             <Typography
               variant="body1"
               sx={{
-                height: "40%",
+                maxHeight: 60,
                 mb: 0.5,
                 textAlign: "center",
                 color: "#675C53",
@@ -259,7 +255,7 @@ export default function ResourcesComponent() {
             <Typography
               variant="body1"
               sx={{
-                height: "40%",
+                maxHeight: 60,
                 mb: 0.5,
                 textAlign: "center",
                 color: "#675C53",
@@ -297,7 +293,7 @@ export default function ResourcesComponent() {
             <Typography
               variant="body1"
               sx={{
-                height: "40%",
+                maxHeight: 60,
                 mb: 0.5,
                 textAlign: "center",
                 color: "#675C53",
@@ -337,35 +333,35 @@ export default function ResourcesComponent() {
             </Stack>
           </Stack>
         </Stack>
-        <Typography
-          variant="h6"
-          textAlign="center"
-          sx={{ color: "#FFFFFF", fontWeight: "bold" }}
-        >
+        <Typography variant="h6" textAlign="center" sx={{ color: "#333333" }}>
           Sites Web pour apprendre à coder
         </Typography>
-        <Stack spacing={1}>
+        <Stack spacing={2} sx={{ p: 2 }}>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: "bold", color: "#675C53" }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
             href="https://www.codecademy.com/"
             target="_blank"
           >
             CodeAcademy
           </StyledLink>
-          <Typography sx={{ fontSize: 15, color: "#FFFFFF" }}>
+          <Typography
+            sx={{ fontSize: 15, color: "#333333", textAlign: "justify" }}
+          >
             Avec plus de 45 millions de gens ayant appris à coder sur ce site
             gratuit, CodeAcademy compte parmi les sites les plus populaires de
             cette liste. À la CodeAcademy, vous pouvez vous plonger dans
             l’apprentissage d’à peu près tout.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: "bold", color: "#675C53" }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
             href="https://www.w3schools.com/"
             target="_blank"
           >
             W3schools
           </StyledLink>
-          <Typography sx={{ fontSize: 15, color: "#FFFFFF" }}>
+          <Typography
+            sx={{ fontSize: 15, color: "#333333", textAlign: "justify" }}
+          >
             Le site, très bien doté, vous propose des tutoriels de
             programmation, diverses autres ressources ainsi que des exemples et
             des exercices pour vous aider à apprendre à coder. Commencez par
@@ -379,13 +375,15 @@ export default function ResourcesComponent() {
             propose un large éventail de langages pour apprendre à programmer.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: "bold", color: "#675C53" }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
             href="https://www.edx.org/"
             target="_blank"
           >
             edX
           </StyledLink>
-          <Typography sx={{ fontSize: 15, color: "#FFFFFF" }}>
+          <Typography
+            sx={{ fontSize: 15, color: "#333333", textAlign: "justify" }}
+          >
             EdX est une autre plateforme d’apprentissage en ligne qui mérite
             qu’on s’y intéresse. Elle a été fondée par l’université de Harvard
             et le MIT en 2012 et comptait plus de 5 millions d’utilisateurs 3
@@ -397,13 +395,15 @@ export default function ResourcesComponent() {
             d’un certificat de fin d’études.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: "bold", color: "#675C53" }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
             href="https://fr.khanacademy.org/"
             target="_blank"
           >
             Khan Academy
           </StyledLink>
-          <Typography sx={{ fontSize: 15, color: "#FFFFFF" }}>
+          <Typography
+            sx={{ fontSize: 15, color: "#333333", textAlign: "justify" }}
+          >
             Salman Khan a été l’un des premiers à créer une plateforme
             d’enseignement en ligne, entièrement gratuite. Créée en 2006, la
             plateforme vous apprend à aussi bien programmer des animations ou
@@ -414,13 +414,15 @@ export default function ResourcesComponent() {
             aux professeurs souhaitant projeter un cours en classe.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: "bold", color: "#675C53" }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
             href="https://www.udemy.com/"
             target="_blank"
           >
             Udemy
           </StyledLink>
-          <Typography sx={{ fontSize: 15, color: "#FFFFFF" }}>
+          <Typography
+            sx={{ fontSize: 15, color: "#333333", textAlign: "justify" }}
+          >
             Fondée en 2010, Udemy est une plateforme d’apprentissage en ligne
             qui peut être utilisée comme moyen d’améliorer ou d’acquérir de
             nouvelles compétences. Sur cette plateforme vous trouverez beaucoup
@@ -430,13 +432,15 @@ export default function ResourcesComponent() {
             parfois des versions gratuites de cours payants.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: "bold", color: "#675C53" }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
             href="https://openclassrooms.com/fr/"
             target="_blank"
           >
             Open ClassRooms
           </StyledLink>
-          <Typography sx={{ fontSize: 15, color: "#FFFFFF" }}>
+          <Typography
+            sx={{ fontSize: 15, color: "#333333", textAlign: "justify" }}
+          >
             Open Classrooms compte plus d’un million d’élèves qui suivent des
             cours gratuitement. La plateforme francophone dispose en outre de
             forums afin de faciliter l’entraide. Cette plateforme propose
