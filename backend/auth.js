@@ -35,7 +35,7 @@ const verifyPassword = (req, res) => {
           expiresIn: "1h",
         });
         delete req.user.hashedPassword;
-        res.send({ token, user: req.user });
+        res.status(201).send({ token, userId: req.user.id }); //  retour token + user ID
       } else {
         res.sendStatus(401);
       }
