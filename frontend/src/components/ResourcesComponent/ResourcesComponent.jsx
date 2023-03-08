@@ -333,12 +333,52 @@ export default function ResourcesComponent() {
             </Stack>
           </Stack>
         </Stack>
+
+        <Typography variant="h6" textAlign="center" sx={{ color: "#333333" }}>
+          Les bases de la programmation informatique
+        </Typography>
+        <Stack spacing={1} sx={{ alignSelf: "flex-start", p: 2 }}>
+          <StyledLink
+            sx={{ fontSize: 20, fontWeight: 500, color: "#0088CE", mb: 1 }}
+            href="https://www.data-transitionnumerique.com/programmation-informatique-guide-complet/"
+            target="_blank"
+          >
+            Data Transition Numérique
+          </StyledLink>
+          <Typography
+            sx={{ fontSize: 15, color: "#333333", textAlign: "justify" }}
+          >
+            La programmation informatique est devenue dans le numérique ce
+            qu’était l’écriture à l’époque industrielle. Dans ce guide complet,
+            nous apprenez les bases de la programmation informatique.
+          </Typography>
+          
+        </Stack>
+        <Typography variant="h6" textAlign="center" sx={{ color: "#333333" }}>
+          Tutoriels pour la programmation
+        </Typography>
+        <Stack spacing={1} sx={{ alignSelf: "flex-start", p: 2 }}>
+          <StyledLink
+            sx={{ fontSize: 20, fontWeight: 500, color: "#0088CE", mb: 1 }}
+            href="https://www.javatpoint.com/"
+            target="_blank"
+          >
+            javaTpoint
+          </StyledLink>
+          <Typography
+            sx={{ fontSize: 15, color: "#333333", textAlign: "justify" }}
+          >
+            Retrouvez un ensemble de tutoriels pour toutes les étapes de vos
+            projets.
+          </Typography>
+        </Stack>
+
         <Typography variant="h6" textAlign="center" sx={{ color: "#333333" }}>
           Sites Web pour apprendre à coder
         </Typography>
-        <Stack spacing={2} sx={{ p: 2 }}>
+        <Stack spacing={1} sx={{ alignSelf: "flex-start", p: 2 }}>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#0088CE", mb: 1 }}
             href="https://www.codecademy.com/"
             target="_blank"
           >
@@ -353,7 +393,7 @@ export default function ResourcesComponent() {
             l’apprentissage d’à peu près tout.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#0088CE", mb: 1 }}
             href="https://www.w3schools.com/"
             target="_blank"
           >
@@ -375,7 +415,7 @@ export default function ResourcesComponent() {
             propose un large éventail de langages pour apprendre à programmer.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#0088CE", mb: 1 }}
             href="https://www.edx.org/"
             target="_blank"
           >
@@ -395,7 +435,7 @@ export default function ResourcesComponent() {
             d’un certificat de fin d’études.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#0088CE", mb: 1 }}
             href="https://fr.khanacademy.org/"
             target="_blank"
           >
@@ -414,7 +454,7 @@ export default function ResourcesComponent() {
             aux professeurs souhaitant projeter un cours en classe.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#0088CE", mb: 1 }}
             href="https://www.udemy.com/"
             target="_blank"
           >
@@ -432,7 +472,7 @@ export default function ResourcesComponent() {
             parfois des versions gratuites de cours payants.
           </Typography>
           <StyledLink
-            sx={{ fontSize: 20, fontWeight: 500, color: "#333333", mb: 1 }}
+            sx={{ fontSize: 20, fontWeight: 500, color: "#0088CE", mb: 1 }}
             href="https://openclassrooms.com/fr/"
             target="_blank"
           >
