@@ -13,7 +13,6 @@ import flecheSend from "./images/flecheSend.png";
 
 export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
-  // console.info(post, "c'est quoi post?");
   const [answerText, setAnswerText] = useState("");
 
   const answerSent = (e) => setAnswerText(e.target.value);
@@ -33,11 +32,6 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
       console.error("Erreur lors de l'envoi de la réponse:", error);
     }
   };
-  // useEffect(() => {
-  //   handleAnswerSubmit();
-  // }, [post]);
-
-  // onNewAnswerSubmitted()
 
   return (
     <Container

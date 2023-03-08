@@ -4,12 +4,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Stack } from "@mui/material";
+import { format } from "date-fns";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function PostSent({ onPostSelected, onSendAnswer }) {
   const [myPosts, setMyPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
 
-  const id = 3;
+  // localStorage.setItem("user.id", "1");
+  const id = localStorage.getItem("user.id");
 
   const getMyPosts = () => {
     axios
@@ -17,7 +23,6 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
       .then((response) => response.data)
       .then((data) => {
         setMyPosts(data);
-        // console.info("postes ", data);
       });
   };
 
@@ -27,8 +32,6 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
     onPostSelected({ id: post.id, tag: post.tag, postText: post.post_text });
     onSendAnswer({ id: post.id, tag: post.tag, postText: post.post_text });
   };
-
-  // console.info(selectedPost, "poste selectionné");
 
   useEffect(() => {
     getMyPosts();
@@ -49,7 +52,6 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
       <Stack
         direction="row"
         justifyContent="center"
-        // alignItems="center"
         spacing={4}
         sx={{
           borderRadius: 1,
@@ -60,33 +62,36 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
       >
         <div style={{ padding: "1rem", width: "80%" }}>
           {myPosts.map((post) => (
-            <div
+            <Accordion
               key={post.id}
               style={{
                 backgroundColor: "#fff",
                 marginBottom: "1rem",
                 borderRadius: 2,
-                padding: "0.2rem",
+                padding: "0.5rem",
               }}
             >
-              <h3
-                style={{ cursor: "pointer" }}
-                onClick={(e) => handlePostClick(e, post)}
-                value={selectedPost}
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
-                {post.tag}
-              </h3>
-              <p>{post.post_text}</p>
-            </div>
+                <h3
+                  style={{ cursor: "pointer" }}
+                  onClick={(e) => handlePostClick(e, post)}
+                  value={selectedPost}
+                >
+                  {post.tag}
+                </h3>
+              </AccordionSummary>
+              <AccordionDetails>
+                <p>{post.post_text}</p>
+                <p> {format(new Date(post.creation_date), "dd/MM/yyyy")}</p>
+              </AccordionDetails>
+            </Accordion>
           ))}
         </div>
       </Stack>
-      {/* {selectedPost && (
-        <div>
-          <h4>{selectedPost.tag}</h4>
-          <p>{selectedPost.postText}</p>
-        </div>
-      )} */}
     </Container>
   );
 }

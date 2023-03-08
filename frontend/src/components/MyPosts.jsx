@@ -30,12 +30,11 @@ export default function MyPosts() {
     <Stack
       direction={isSmallScreen ? "column" : "row"}
       justifyContent="space-around"
-      alignItems="center"
-      spacing={2}
+      alignItems="flex-start"
+      paddingTop="1rem"
     >
       <Stack
         direction="column"
-        spacing={2}
         sx={{
           maxWidth: "100%",
           width: isSmallScreen ? "100%" : "50%",
