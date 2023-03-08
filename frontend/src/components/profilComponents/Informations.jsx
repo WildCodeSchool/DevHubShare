@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper, TextField } from "@material-ui/core";
+import { Grid, Paper, TextField, Button } from "@material-ui/core";
+import UserImage from "../UserImage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 5,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+  },
+  valider: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: theme.spacing(1),
   },
 }));
 
@@ -48,6 +54,12 @@ function Informations() {
 
   return (
     <Paper className={classes.root}>
+      <Button variant="contained" className={classes.retour}>
+        Retour
+      </Button>
+      <div className={classes.userImageContainer}>
+        <UserImage size="5rem" backgroundColor="grey" />
+      </div>
       <form className={classes.root} noValidate autoComplete="off">
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -113,6 +125,9 @@ function Informations() {
               value={userLanguages.map((lang) => lang.language_name).join(", ")}
               fullWidth
             />
+          </Grid>
+          <Grid item xs={12} className={classes.valider}>
+            <Button variant="contained">Valider</Button>
           </Grid>
         </Grid>
       </form>
