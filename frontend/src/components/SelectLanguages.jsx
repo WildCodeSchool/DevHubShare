@@ -19,7 +19,7 @@ export default function SelectLanguage() {
 
   const getLanguages = () => {
     axios
-      .get("http://localhost:5020/languages")
+      .get("http://localhost:5000/languages")
       .then((response) => response.data)
       .then((data) => {
         setSideLanguages(data);

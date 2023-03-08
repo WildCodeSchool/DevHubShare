@@ -1,8 +1,7 @@
-import * as React from "react";
+import React from "react";
 import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
-import CreatePost from "../components/HomeAfterSignIn/CreatePost";
-import Feed from "../components/HomeAfterSignIn/PostFeed";
+import HomeAfterSignInContent from "../components/HomeAfterSignIn/HomeAfterSignInContent";
 import Footer from "../components/Footer";
 
 export default function HomeAfterSignIn() {
@@ -15,8 +14,7 @@ export default function HomeAfterSignIn() {
         <Sidebar />
       </div>
       <div className="div3">
-        <CreatePost />
-        <Feed />
+        <HomeAfterSignInContent />
       </div>
       <div className="div4">
         <Footer />
