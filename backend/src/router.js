@@ -19,7 +19,7 @@ router.post(
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", verifyToken, hashPassword, userControllers.edit);
-router.post("/users", verifyToken, hashPassword, userControllers.add);
+router.post("/users", hashPassword, userControllers.add);
 router.delete("/users/:id", verifyToken, hashPassword, userControllers.destroy);
 
 router.get("/languages", languageControllers.browse);
