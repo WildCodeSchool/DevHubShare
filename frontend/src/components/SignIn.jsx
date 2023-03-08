@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-undef */
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/no-unresolved */
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -35,6 +32,28 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
+// async function connect(email, password) {
+//   const headers = new Headers();
+//   headers.append("Content-Type", "application/json");
+
+//   const options = {
+//     method: "POST",
+//     mode: "cors",
+//     body: JSON.stringify({
+//       email,
+//       password,
+//     }),
+//     headers,
+//   };
+
+//   const response = await fetch("http://localhost:5000/login", options);
+//   return response.json();
+// }
+
+// // eslint-disable-next-line no-undef
+// const tokens = await connect(email, password);
+// localStorage.setItem("tokens", JSON.stringify(tokens));
 
 export default function SignIn() {
   const classes = useStyles();

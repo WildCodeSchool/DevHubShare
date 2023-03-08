@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function PostCard({ tag, date, postContent, answers, picture }) {
+export default function PostCard({ users, tag, date, postContent, answers }) {
   const firstLine = postContent.split("\n")[0];
 
   return (
@@ -34,14 +34,17 @@ export default function PostCard({ tag, date, postContent, answers, picture }) {
           alignItems="center"
           justifyContent="center"
         >
-          <Avatar
-            src={picture}
-            sx={{
-              width: 50,
-              height: 50,
-              mr: 2,
-            }}
-          />
+          {users?.map((user) => (
+            <Avatar
+              key={user.id}
+              src={user.picture}
+              sx={{
+                width: 50,
+                height: 50,
+                mr: 2,
+              }}
+            />
+          ))}
         </Grid>
         <Grid item xs={10}>
           <Grid
@@ -75,7 +78,7 @@ export default function PostCard({ tag, date, postContent, answers, picture }) {
       <Grid item mb={1}>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>{firstLine}</Typography>
+            <Typography>Post : {firstLine}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <TextField
@@ -100,7 +103,7 @@ export default function PostCard({ tag, date, postContent, answers, picture }) {
         {answers?.length === 0 ? (
           <TextField
             disabled
-            value="Il n'y a pas encore de réponse !"
+            value="Il n'y a pas encore de réponse pour ce post !"
             size="small"
             sx={{
               width: "100%",
@@ -121,7 +124,7 @@ export default function PostCard({ tag, date, postContent, answers, picture }) {
                     <TextField
                       value={answer.answer_text}
                       rows={1}
-                      label="Réponse d'un Dev"
+                      label={"Réponse d'un dev"}
                       sx={{
                         width: "100%",
                         borderRadius: 1,
@@ -143,12 +146,18 @@ export default function PostCard({ tag, date, postContent, answers, picture }) {
 PostCard.propTypes = {
   tag: PropTypes.string.isRequired,
   postContent: PropTypes.string.isRequired,
-  picture: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       answer_text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      picture: PropTypes.instanceOf(Blob).isRequired,
+      pseudo: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
