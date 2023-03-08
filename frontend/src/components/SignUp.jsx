@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@mui/material/Container";
 import { FormControlLabel, Checkbox } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,6 +43,7 @@ export default function SignUp() {
   const [languageId, setLanguageId] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [sideLanguages, setSideLanguages] = useState([]);
+  const navigate = useNavigate();
   const classes = useStyles();
 
   const getLanguages = () => {
@@ -65,6 +67,7 @@ export default function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    navigate("/connexion");
     const newUser = {
       pseudo,
       email,
