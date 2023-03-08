@@ -34,9 +34,6 @@ export default function Conversation({ post, newAnswer }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 1,
-        maxWidth: "sm",
-        maxHeight: "sm",
       }}
     >
       <Stack
@@ -48,8 +45,6 @@ export default function Conversation({ post, newAnswer }) {
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#82BE00",
           width: "90%",
-          display: "flex",
-          flexDirection: "column",
         }}
       >
         <div style={{ padding: "1rem", width: "80%" }}>
@@ -80,29 +75,30 @@ export default function Conversation({ post, newAnswer }) {
               </Accordion>
             )}
           </div>
-        </div>
-        <div
-          style={{
-            padding: "1rem",
-            width: "80%",
-            marginLeft: "4.5rem",
-          }}
-        >
-          {myAnswers.map((answer) => (
-            <div
-              key={answer.id}
-              style={{
-                backgroundColor: "#fff",
-                marginBottom: "1rem",
-                borderRadius: 2,
-                padding: "0.5rem",
-              }}
-            >
-              <p>{answer.answer_text}</p>
-              {/* <p>{answer.user_id}</p> */}
-              <p>{format(new Date(answer.creation_date), "dd/MM/yyyy")}</p>
-            </div>
-          ))}
+
+          <div
+            style={{
+              padding: "1rem",
+              width: "80%",
+              marginLeft: "15%",
+            }}
+          >
+            {myAnswers.map((answer) => (
+              <div
+                key={answer.id}
+                style={{
+                  backgroundColor: "#fff",
+                  marginBottom: "1rem",
+                  borderRadius: 2,
+                  padding: "0.5rem",
+                }}
+              >
+                <p>{answer.answer_text}</p>
+                {/* <p>{answer.user_id}</p> */}
+                <p>{format(new Date(answer.creation_date), "dd/MM/yyyy")}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </Stack>
     </Container>
