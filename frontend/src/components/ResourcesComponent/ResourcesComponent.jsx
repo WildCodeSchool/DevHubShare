@@ -352,7 +352,6 @@ export default function ResourcesComponent() {
             qu’était l’écriture à l’époque industrielle. Dans ce guide complet,
             nous apprenez les bases de la programmation informatique.
           </Typography>
-          
         </Stack>
         <Typography variant="h6" textAlign="center" sx={{ color: "#333333" }}>
           Tutoriels pour la programmation
