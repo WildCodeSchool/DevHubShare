@@ -10,19 +10,17 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: "#009aa3",
     padding: theme.spacing(2.5),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   field: {
     background: "#FFF",
     borderRadius: 5,
     paddingLeft: 5,
-    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
   valider: {
     display: "flex",
     justifyContent: "flex-end",
-    marginTop: theme.spacing(1),
   },
 }));
 
@@ -68,6 +66,11 @@ function Informations() {
               label="Pseudo"
               value={user.pseudo}
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+                disableAnimation: true,
+                position: "top",
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -76,6 +79,11 @@ function Informations() {
               label="Prénom"
               value={user.firstname}
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+                disableAnimation: true,
+                position: "top",
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -84,6 +92,11 @@ function Informations() {
               label="Nom"
               value={user.lastname}
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+                disableAnimation: true,
+                position: "top",
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -92,6 +105,11 @@ function Informations() {
               label="Email"
               value={user.email}
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+                disableAnimation: true,
+                position: "top",
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -100,6 +118,11 @@ function Informations() {
               label="Poste Actuel"
               value={user.workplace}
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+                disableAnimation: true,
+                position: "top",
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -108,6 +131,11 @@ function Informations() {
               label="Git-Hub Page"
               value={user.github}
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+                disableAnimation: true,
+                position: "top",
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -116,6 +144,11 @@ function Informations() {
               label="Linkedin"
               value={user.linkedin}
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+                disableAnimation: true,
+                position: "top",
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -124,6 +157,11 @@ function Informations() {
               label="Langues"
               value={userLanguages.map((lang) => lang.language_name).join(", ")}
               fullWidth
+              InputLabelProps={{
+                shrink: true,
+                disableAnimation: true,
+                position: "top",
+              }}
             />
           </Grid>
           <Grid item xs={12} className={classes.valider}>
