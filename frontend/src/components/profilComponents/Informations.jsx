@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, TextField } from "@material-ui/core";
-import SelectLanguage from "../SelectLanguages";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,87 +20,102 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Informations({
-  pseudo,
-  nom,
-  prenom,
-  email,
-  poste,
-  githubPage,
-  linkedin,
-}) {
+function Informations() {
+  const [user, setUser] = useState("");
+  const [userLanguages, setUserLanguages] = useState([]);
+
   const classes = useStyles();
+  useEffect(() => {
+    axios.get("http://localhost:5000/users/208").then((response) => {
+      setUser(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/user_has_language")
+      .then((response) => response.data)
+      .then((data) => {
+        const filteredData = data.filter((lang) => lang.user_id === user.id);
+        const userLanguageObjects = filteredData.map((lang) => ({
+          id: lang.language_id,
+          language_name: lang.language_name,
+        }));
+        setUserLanguages(userLanguageObjects);
+        console.info("user languages", userLanguageObjects);
+      });
+  }, [user.id]);
 
   return (
     <Paper className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.field}
-            label="Pseudo"
-            value={pseudo}
-            fullWidth
-            disabled
-          />
+      <form className={classes.root} noValidate autoComplete="off">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.field}
+              label="Pseudo"
+              value={user.pseudo}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.field}
+              label="Prénom"
+              value={user.firstname}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.field}
+              label="Nom"
+              value={user.lastname}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.field}
+              label="Email"
+              value={user.email}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.field}
+              label="Poste Actuel"
+              value={user.workplace}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.field}
+              label="Git-Hub Page"
+              value={user.github}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.field}
+              label="Linkedin"
+              value={user.linkedin}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.field}
+              label="Langues"
+              value={userLanguages.map((lang) => lang.language_name).join(", ")}
+              fullWidth
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.field}
-            label="Nom"
-            value={nom}
-            fullWidth
-            disabled
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.field}
-            label="Prenom"
-            value={prenom}
-            fullWidth
-            disabled
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.field}
-            label="Email"
-            value={email}
-            fullWidth
-            disabled
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.field}
-            label="Poste Actuel"
-            value={poste}
-            fullWidth
-            disabled
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.field}
-            label="Git-Hub Page"
-            value={githubPage}
-            fullWidth
-            disabled
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.field}
-            label="Linkedin"
-            value={linkedin}
-            fullWidth
-            disabled
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <SelectLanguage />
-        </Grid>
-      </Grid>
+      </form>
     </Paper>
   );
 }

@@ -1,11 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardContent, Button } from "@material-ui/core";
-import axios from "axios";
-import Informations from "./profilComponents/Informations";
-import UserImage from "./UserImage";
-import TexteLibre from "./profilComponents/TexteLibre";
+import Informations from "./Informations";
+import UserImage from "../UserImage";
+import TexteLibre from "./TexteLibre";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,25 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const userProfile = {
-//   pseudo: "jijy",
-//   nom: "Jimmy",
-//   prenom: "Logan",
-//   email: "jimmy.logan@mail.com",
-//   poste: "agent de maintenance",
-//   githubPage: "https://github.com/jimmylogan",
-//   linkedin: "https://linkedin/jimmylogan",
-// };
-
 function UserProfile() {
-  const [user, setUser] = useState([]);
   const classes = useStyles();
-
-  useEffect(() => {
-    axios.get("http://localhost:5000/users/1").then((response) => {
-      setUser(response.data);
-    });
-  }, []);
 
   return (
     <div className={classes.root}>
@@ -69,15 +51,7 @@ function UserProfile() {
           <div className={classes.userImageContainer}>
             <UserImage size="5rem" backgroundColor="grey" />
           </div>
-          <Informations
-            pseudo={user.pseudo}
-            nom={user.nom}
-            prenom={user.prenom}
-            email={user.email}
-            poste={user.poste}
-            githubPage={user.githubPage}
-            linkedin={user.linkedin}
-          />
+          <Informations />
           <Grid item xs={12} className={classes.valider}>
             <Button variant="contained">Valider</Button>
           </Grid>
