@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 
 import { Container, Typography, Stack } from "@mui/material";
 import PostCard from "./PostCard";
 
-export default function PostFeed() {
+export default function PostFeed({ languageSelected }) {
   const [answers, setAnswers] = useState([]);
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
@@ -13,17 +14,12 @@ export default function PostFeed() {
     const getAnswers = async () => {
       const response = await axios.get("http://localhost:5000/answers");
       setAnswers(response.data);
-      console.info("liste des réponses : ", response.data);
     };
-    getAnswers();
-  }, []);
-
-  useEffect(() => {
     const getUsers = async () => {
       const response = await axios.get("http://localhost:5000/users");
       setUsers(response.data);
-      console.info("users :", response.data);
     };
+    getAnswers();
     getUsers();
   }, []);
 
@@ -36,22 +32,22 @@ export default function PostFeed() {
             (answer) => answer.post_id === post.id
           );
           const postUsers = users.filter((user) => user.id === post.user_id);
-          console.info(
-            "liste des réponses pour le post ",
-            post.id,
-            ":",
-            postAnswers
-          );
           return { ...post, answers: postAnswers, users: postUsers };
         });
         setPostsWithAnswers(postsAnswers);
-        console.info("liste des posts : ", response.data);
       } catch (error) {
         console.error(error);
       }
     };
     getPosts();
   }, [answers]);
+
+  const filteredPosts =
+    languageSelected.length > 0
+      ? postsWithAnswers.filter(
+          (post) => post?.language_id === languageSelected[0]?.id
+        )
+      : postsWithAnswers;
 
   return (
     <Container
@@ -60,7 +56,8 @@ export default function PostFeed() {
         flexDirection: "column",
         alignItems: "center",
         gap: 1,
-        mt: 2,
+        mt: 3,
+        mb: 3,
         maxWidth: "sm",
         maxHeight: "sm",
       }}
@@ -82,10 +79,10 @@ export default function PostFeed() {
           width: "90%",
         }}
       >
-        {postsWithAnswers.map((post) => (
+        {filteredPosts.map((post) => (
           <PostCard
             key={post.id}
-            picture={post.picture}
+            users={post.users}
             tag={post.tag}
             date={post.creation_date}
             postContent={post.post_text}
@@ -96,3 +93,12 @@ export default function PostFeed() {
     </Container>
   );
 }
+
+PostFeed.propTypes = {
+  languageSelected: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      language_name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};

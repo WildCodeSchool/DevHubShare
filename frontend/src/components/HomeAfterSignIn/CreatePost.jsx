@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import axios from "axios";
 import { styled } from "@mui/system";
 import {
@@ -22,26 +24,27 @@ const StyledButton = styled(Button)({
   marginRight: "6%",
 });
 
-export default function CreatePost() {
+export default function CreatePost({
+  languageNameSelected,
+  setLanguageNameSelected,
+}) {
   const [languages, setLanguages] = useState([]);
-  const [languageSelected, setLanguageSelected] = useState("");
   const [tag, setTag] = useState("");
   const [post, setPost] = useState("");
-
-  const getLanguages = () => {
-    axios.get("http://localhost:5000/languages").then((response) => {
-      setLanguages(response.data);
-      console.info("liste des langages : ", response.data);
-    });
-  };
+  const [errorSubmit, setErrorSubmit] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const getLanguages = () => {
+      axios.get("http://localhost:5000/languages").then((response) => {
+        setLanguages(response.data);
+      });
+    };
     getLanguages();
   }, []);
-  console.info("langage sélectionné :", languageSelected);
 
   const handleLanguageChange = (event) => {
-    setLanguageSelected(event.target.value);
+    setLanguageNameSelected(event.target.value);
   };
 
   const handleTagChange = (event) => {
@@ -56,14 +59,12 @@ export default function CreatePost() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.info(
-      `Langage: ${languageSelected}, Tag: ${tag}, Votre Post: ${post}, user_id: ${userId}`
-    );
-
+    if (!languageNameSelected) {
+      setErrorSubmit("La sélection d'un langage est obligatoire *");
+    }
     const selectedLanguage = languages.find(
-      (language) => language.language_name === languageSelected
+      (language) => language.language_name === languageNameSelected
     );
-
     axios
       .post("http://localhost:5000/posts", {
         user_id: userId,
@@ -77,6 +78,7 @@ export default function CreatePost() {
       .catch((error) => {
         console.error(error);
       });
+    navigate("/mes-posts");
   };
 
   return (
@@ -86,7 +88,7 @@ export default function CreatePost() {
         flexDirection: "column",
         alignItems: "center",
         gap: 1,
-        mt: 1,
+        mt: 3,
         maxWidth: "sm",
       }}
     >
@@ -111,10 +113,10 @@ export default function CreatePost() {
       >
         <Select
           id="language"
-          value={languageSelected}
+          value={languageNameSelected}
           onChange={handleLanguageChange}
           displayEmpty
-          renderValue={(value) => value || "Sélectionner un langage"}
+          renderValue={(value) => value || "Sélectionner un langage *"}
           size="small"
           sx={{
             backgroundColor: "#FFFFFF",
@@ -134,12 +136,23 @@ export default function CreatePost() {
             </MenuItem>
           ))}
         </Select>
+        {errorSubmit && (
+          <Typography
+            color="#333333"
+            variant="h7"
+            fontWeight="medium"
+            textAlign="center"
+          >
+            {errorSubmit}
+          </Typography>
+        )}
         <TextField
           id="tag"
           value={tag}
-          label="TAG *"
+          label="TAG"
           onChange={handleTagChange}
           size="small"
+          required
           sx={{
             backgroundColor: "#FFFFFF",
             borderRadius: 1,
@@ -154,6 +167,7 @@ export default function CreatePost() {
           onChange={handlePostChange}
           multiline
           rows={6}
+          required
           sx={{
             backgroundColor: "#FFFFFF",
             borderRadius: 1,
@@ -169,3 +183,8 @@ export default function CreatePost() {
     </Container>
   );
 }
+
+CreatePost.propTypes = {
+  languageNameSelected: PropTypes.string.isRequired,
+  setLanguageNameSelected: PropTypes.func.isRequired,
+};
