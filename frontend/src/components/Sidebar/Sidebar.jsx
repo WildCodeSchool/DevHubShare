@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useTheme, useMediaQuery } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,8 +8,12 @@ import Select from "@mui/material/Select";
 import { Icon } from "@iconify/react";
 import { NavLink, Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
+import SelectedLanguageContext from "../../services/context/SelectedLanguageContext";
 
 export default function Sidebar() {
+  const { selectedLanguage, setSelectedLanguage } = useContext(
+    SelectedLanguageContext
+  );
   const [selectOpen, setSelectOpen] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -18,13 +22,17 @@ export default function Sidebar() {
 
   const [sideLanguages, setSideLanguages] = useState([]);
 
+  const handleLanguageChange = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
+  setSelectedLanguage(selectedLanguage);
+
   const getLanguages = () => {
     axios
-      .get("http://localhost:5020/languages")
+      .get("http://localhost:5000/languages")
       .then((response) => response.data)
       .then((data) => {
         setSideLanguages(data);
-        console.info("langages api", data);
       });
   };
 
@@ -109,6 +117,7 @@ export default function Sidebar() {
                 fontSize: 14,
                 backgroundColor: "white",
               }}
+              onChange={handleLanguageChange}
               labelId="demo-controlled-open-select-label"
               id="demo-controlled-open-select"
               open={selectOpen}
