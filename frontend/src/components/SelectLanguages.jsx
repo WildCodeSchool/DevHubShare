@@ -23,7 +23,6 @@ export default function SelectLanguage() {
       .then((response) => response.data)
       .then((data) => {
         setSideLanguages(data);
-        console.info("langages api", data);
       });
   };
 

@@ -44,7 +44,13 @@ export default function Post({ tag, post, answers, date }) {
           <UserImage size="5rem" backgroundColor="grey" />
         </Grid>
         <Grid item xs={10}>
-          <Grid container direction="column" spacing={2} sx={{ width: "100%" }}>
+          <Grid
+            container
+            direction="column"
+            spacing={2}
+            padding={1}
+            sx={{ width: "100%" }}
+          >
             <Grid item>
               <Typography color="#0088CE" fontWeight="bold">
                 <span>TAG</span>
