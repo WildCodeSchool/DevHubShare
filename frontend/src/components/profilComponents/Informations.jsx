@@ -26,80 +26,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Informations() {
-  const [user, setUser] = useState("");
+  const [currentUser, setCurrentUser] = useState([]);
   const [userLanguages, setUserLanguages] = useState([]);
-  const [userUpdate, setUserUpdate] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [workplace, setWorkplace] = useState("");
-  const [github, setGithub] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-
   const classes = useStyles();
+
   useEffect(() => {
-    axios.get("http://localhost:5000/users/209").then((response) => {
-      setUser(response.data);
+    axios.get("http://localhost:5000/users/1").then((response) => {
+      setCurrentUser(response.data);
     });
   }, []);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const updateUser = {
-      firstname,
-      lastname,
-      workplace,
-      github,
-      linkedin,
-    };
-    useEffect(() => {
-      axios
-        .put("http://localhost:5000/users/209", updateUser)
-        .then((response) => {
-          setUserUpdate(response.data);
-          setFirstname("");
-          setLastname("");
-          setWorkplace("");
-          setGithub("");
-          setLinkedin("");
-        });
-    }, []);
-  };
+
   useEffect(() => {
-    if (user && user.id) {
-      // Vérifie si l'utilisateur est défini et a un ID avant de continuer
+    if (currentUser && currentUser.id) {
       axios
-        .get(`http://localhost:5000/user_has_language?user_id=${user.id}`)
+        .get(`http://localhost:5000/user_has_language/1`)
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({
-            id: lang.language_id,
             language_name: lang.language_name,
           }));
           setUserLanguages(userLanguageObjects);
-          console.info("user languages", userLanguageObjects);
         });
     }
-  }, [user]);
+  }, [currentUser]);
 
   return (
     <Paper className={classes.root}>
-      <Button variant="contained" className={classes.retour}>
+      <Button variant="contained" className={classes.retour} href="/creer-post">
         Retour
       </Button>
       <div className={classes.userImageContainer}>
         <UserImage size="5rem" backgroundColor="grey" />
       </div>
-      <form
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
+      <form className={classes.root} noValidate autoComplete="off">
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
               className={classes.field}
               label="Pseudo"
-              value={user.pseudo}
+              value={currentUser.pseudo}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -112,9 +77,8 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Prénom"
-              value={user.firstname}
+              value={currentUser.firstname}
               fullWidth
-              onChange={(e) => setFirstname(e.target.value)}
               InputLabelProps={{
                 shrink: true,
                 disableAnimation: true,
@@ -126,9 +90,8 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Nom"
-              value={user.lastname}
+              value={currentUser.lastname}
               fullWidth
-              onChange={(e) => setLastname(e.target.value)}
               InputLabelProps={{
                 shrink: true,
                 disableAnimation: true,
@@ -140,7 +103,7 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Email"
-              value={user.email}
+              value={currentUser.email}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -153,9 +116,8 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Poste Actuel"
-              value={user.workplace}
+              value={currentUser.workplace}
               fullWidth
-              onChange={(e) => setWorkplace(e.target.value)}
               InputLabelProps={{
                 shrink: true,
                 disableAnimation: true,
@@ -167,9 +129,8 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Git-Hub Page"
-              value={user.github}
+              value={currentUser.github}
               fullWidth
-              onChange={(e) => setGithub(e.target.value)}
               InputLabelProps={{
                 shrink: true,
                 disableAnimation: true,
@@ -181,9 +142,8 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Linkedin"
-              value={user.linkedin}
+              value={currentUser.linkedin}
               fullWidth
-              onChange={(e) => setLinkedin(e.target.value)}
               InputLabelProps={{
                 shrink: true,
                 disableAnimation: true,
@@ -203,9 +163,6 @@ function Informations() {
                 position: "top",
               }}
             />
-          </Grid>
-          <Grid item xs={12} className={classes.valider}>
-            <Button variant="contained">Valider</Button>
           </Grid>
         </Grid>
       </form>
