@@ -1,10 +1,9 @@
 import React from "react";
 import { format } from "date-fns";
 import { PropTypes } from "prop-types";
-import { Grid, Typography, Container, TextField } from "@mui/material";
-import UserImage from "../UserImage";
+import { Grid, Typography, Container, TextField, Avatar } from "@mui/material";
 
-export default function Post({ tag, post, answers, date }) {
+export default function Post({ tag, post, answers, date, users }) {
   return (
     <Container
       maxWidth="100%"
@@ -26,28 +25,49 @@ export default function Post({ tag, post, answers, date }) {
         mb="1%"
         width="100%"
       >
-        <Grid
-          item
-          xs={2}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          {/* <Avatar
-            src="/broken-image.jpg"
-            sx={{
-              width: "64%",
-              height: "46%",
-              borderRadius: "50%",
-            }}
-          /> */}
-          <UserImage size="5rem" backgroundColor="grey" />
-        </Grid>
+        {users ? (
+          users.map((picture) => (
+            <Grid
+              item
+              xs={2}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Avatar
+                key={picture?.id}
+                src={picture}
+                sx={{
+                  width: 50,
+                  height: 50,
+                  mr: 2,
+                }}
+              />
+              {/* // <UserImage size="5rem" backgroundColor="grey" /> */}
+            </Grid>
+          ))
+        ) : (
+          <Grid
+            item
+            xs={2}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Avatar
+              sx={{
+                width: 50,
+                height: 50,
+                mr: 2,
+              }}
+            />
+          </Grid>
+        )}
         <Grid item xs={10}>
           <Grid
             container
             direction="column"
-            spacing={2}
+            spacing={4}
             padding={1}
             sx={{ width: "100%" }}
           >
@@ -66,7 +86,7 @@ export default function Post({ tag, post, answers, date }) {
                 }}
               />
             </Grid>
-            <Grid item>
+            <Grid item color="#82BE00">
               <TextField
                 label={format(new Date(date), "dd-MM-yyyy")}
                 value={post}
@@ -76,12 +96,21 @@ export default function Post({ tag, post, answers, date }) {
                   width: "100%",
                   borderRadius: 1,
                   border: "solid 2px #82BE00",
-                  backgroundColor: "white",
+                  backgroundColor: "#FFFFFF",
                   boxSizing: "border-box",
+                  "& label": {
+                    color: "#0088CE",
+                    fontWeight: "bold",
+                    position: "absolute",
+                    top: "-10px",
+                    left: "-14px",
+                    backgroundColor: "white",
+                    // padding: "0 5px",
+                  },
                 }}
               />
             </Grid>
-            {answers.length > 1 ? (
+            {answers ? (
               answers.map((answer) => (
                 <Grid item key={answer.id}>
                   <TextField
@@ -95,6 +124,16 @@ export default function Post({ tag, post, answers, date }) {
                       border: "solid 2px #82BE00",
                       backgroundColor: "white",
                       boxSizing: "border-box",
+                      "& label": {
+                        color: "#0088CE",
+                        fontWeight: "bold",
+                        position: "absolute",
+                        top: "-10px",
+                        left: "-14px",
+                        backgroundColor: "white",
+                        // padding: "0 5px",
+                        // borderColor: "#82BE00",
+                      },
                     }}
                   />
                 </Grid>
@@ -127,8 +166,15 @@ Post.propTypes = {
   post: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(PropTypes.string),
   date: PropTypes.string.isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      picture: PropTypes.instanceOf(Blob).isRequired,
+    })
+  ),
 };
 
 Post.defaultProps = {
   answers: [],
+  users: [],
 };
