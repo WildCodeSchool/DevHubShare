@@ -3,24 +3,25 @@ import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 import SignIn from "../components/SignIn";
 import Footer from "../components/Footer";
+import "../App.css";
 
-function SignInPage() {
+export default function SignInPage() {
   return (
     <div className="parent">
-      <div className="div1">
+      <div className="header">
         <Header />
       </div>
-      <div className="div2">
-        <Sidebar />
+      <div className="middle">
+        <div className="side">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <SignIn />
+        </div>
       </div>
-      <div className="div3">
-        <SignIn />
-      </div>
-      <div className="div4">
+      <div className="footer">
         <Footer />
       </div>
     </div>
   );
 }
-
-export default SignInPage;

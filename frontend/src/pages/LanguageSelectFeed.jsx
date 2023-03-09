@@ -3,20 +3,23 @@ import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 import FeedSelected from "../components/FeedPost/FeedSelected";
 import Footer from "../components/Footer";
+import "../App.css";
 
 export default function LanguageSelectFeed() {
   return (
     <div className="parent">
-      <div className="div1">
+      <div className="header">
         <Header />
       </div>
-      <div className="div2">
-        <Sidebar />
+      <div className="middle">
+        <div className="side">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <FeedSelected />
+        </div>
       </div>
-      <div className="div3">
-        <FeedSelected />
-      </div>
-      <div className="div4">
+      <div className="footer">
         <Footer />
       </div>
     </div>

@@ -3,20 +3,23 @@ import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 import ProfileUserRegistered from "../components/ProfileUserRegistered";
 import Footer from "../components/Footer";
+import "../App.css";
 
 export default function ProfileUserRegisteredPage() {
   return (
     <div className="parent">
-      <div className="div1">
+      <div className="header">
         <Header />
       </div>
-      <div className="div2">
-        <Sidebar />
+      <div className="middle">
+        <div className="side">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <ProfileUserRegistered />
+        </div>
       </div>
-      <div className="div3">
-        <ProfileUserRegistered />
-      </div>
-      <div className="div4">
+      <div className="footer">
         <Footer />
       </div>
     </div>

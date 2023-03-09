@@ -44,6 +44,7 @@ export default function CreatePost({
   }, []);
 
   const handleLanguageChange = (event) => {
+    event.preventDefault();
     setLanguageNameSelected(event.target.value);
   };
 
@@ -89,16 +90,16 @@ export default function CreatePost({
         alignItems: "center",
         gap: 1,
         mt: 3,
-        maxWidth: "sm",
       }}
     >
-      <Typography variant="h5" sx={{ color: "#009AA6", fontWeight: "bold" }}>
+      <Typography variant="h4" sx={{ color: "#009AA6", fontWeight: "medium" }}>
         <em>Créer un post</em>
       </Typography>
       <Stack
         component="form"
         onSubmit={handleSubmit}
         sx={{
+          mt: 2,
           p: 2,
           display: "flex",
           flexDirection: "column",
@@ -151,7 +152,6 @@ export default function CreatePost({
           value={tag}
           label="TAG"
           onChange={handleTagChange}
-          size="small"
           required
           sx={{
             backgroundColor: "#FFFFFF",
@@ -166,12 +166,11 @@ export default function CreatePost({
           value={post}
           onChange={handlePostChange}
           multiline
-          rows={6}
+          rows={7}
           required
           sx={{
             backgroundColor: "#FFFFFF",
             borderRadius: 1,
-            fontSize: "sm",
             width: "100%",
           }}
         />

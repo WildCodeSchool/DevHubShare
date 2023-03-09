@@ -5,7 +5,7 @@ import axios from "axios";
 import { Container, Typography, Stack } from "@mui/material";
 import PostCard from "./PostCard";
 
-export default function PostFeed({ languageSelected }) {
+export default function PostFeed({ languageNameSelected, languageSelected }) {
   const [answers, setAnswers] = useState([]);
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
@@ -58,15 +58,14 @@ export default function PostFeed({ languageSelected }) {
         gap: 1,
         mt: 3,
         mb: 3,
-        maxWidth: "sm",
-        maxHeight: "sm",
       }}
     >
-      <Typography variant="h5" sx={{ color: "#82BE00", fontWeight: "bold" }}>
-        <em>Fil de discussion</em>
+      <Typography variant="h4" sx={{ color: "#82BE00", fontWeight: "medium" }}>
+        <em>Fil de discussion {languageNameSelected}</em>
       </Typography>
       <Stack
         sx={{
+          mt: 2,
           p: 2,
           display: "flex",
           flexDirection: "column",
@@ -101,4 +100,5 @@ PostFeed.propTypes = {
       language_name: PropTypes.string.isRequired,
     })
   ).isRequired,
+  languageNameSelected: PropTypes.string.isRequired,
 };

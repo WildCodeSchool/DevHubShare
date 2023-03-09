@@ -21,10 +21,11 @@ export default function ResourcesComponent() {
   return (
     <Container
       sx={{
-        m: 3,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        gap: 1,
+        mt: 3,
       }}
     >
       <Stack
@@ -34,13 +35,17 @@ export default function ResourcesComponent() {
         sx={{
           p: 2,
           borderRadius: 1,
-          // boxShadow: "10px 10px 15px 8px #D7D7D7",
           width: "100%",
         }}
       >
         <Typography
           variant="h4"
-          sx={{ color: "#0088CE", fontWeight: 500, textAlign: "center", mb: 4 }}
+          sx={{
+            color: "#0088CE",
+            fontWeight: "medium",
+            textAlign: "center",
+            mb: 4,
+          }}
         >
           Ressources Web
         </Typography>
@@ -350,7 +355,7 @@ export default function ResourcesComponent() {
           >
             La programmation informatique est devenue dans le numérique ce
             qu’était l’écriture à l’époque industrielle. Dans ce guide complet,
-            nous apprenez les bases de la programmation informatique.
+            vous apprenez les bases de la programmation informatique.
           </Typography>
         </Stack>
         <Typography variant="h6" textAlign="center" sx={{ color: "#333333" }}>

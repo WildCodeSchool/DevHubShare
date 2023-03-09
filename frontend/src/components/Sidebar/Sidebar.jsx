@@ -65,7 +65,7 @@ export default function Sidebar() {
   return (
     <div
       className="containerSide"
-      style={{ display: "flex", height: "100vh", margin: 0, padding: 0 }}
+      style={{ display: "flex", height: "100%", margin: 0, padding: 0 }}
     >
       <div
         className="sidebar"
@@ -73,7 +73,7 @@ export default function Sidebar() {
           display: showSidebar ? "flex" : "none",
           backgroundColor: "#009aa6",
           color: "#ffff",
-          height: "100vh",
+          height: "100%",
         }}
       >
         <div

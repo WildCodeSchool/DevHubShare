@@ -1,86 +1,62 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-button {
-  font-size: calc(10px + 2vmin);
-} */
-* {
-  margin: 0;
-  padding: 0;
-}
-
 body {
   margin: 0;
+  padding: 0;
   font-family: Avenir, sans-serif;
 }
 
+:root {
+  --heightFooter: 66px;
+  --heightHeader: 126px;
+}
 .parent {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  display: flex;
 }
-.div1 {
-  grid-area: 1 / 1 / 2 / 6;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--heightHeader);
+  z-index: 2;
 }
-.div2 {
-  grid-area: 2 / 1 / 5 / 2;
+
+.middle {
+  -ms-flex: 0 1 100%;
+  flex: 0 1 100%;
+  position: absolute;
+  top: var(--heightHeader);
+  left: 0;
+  right: 0;
+  bottom: var(--heightFooter);
+  flex-direction: row;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
-.div3 {
-  grid-area: 2 / 2 / 5 / 6;
+
+.side {
+  -ms-flex: 0 1 40%;
+  flex: 0 1 40%;
+  position: fixed;
+  top: var(--heightHeader);
+  left: 0;
+  bottom: var(--heightFooter);
 }
-.div4 {
-  grid-area: 5 / 1 / 6 / 6;
-  position: sticky;
+
+.content {
+  -ms-flex: 0 1 60%;
+  flex: 0 1 60%;
+  margin-left: 10%;
+  bottom: 2%;
+  top: var(--heightHeader);
+  z-index: 1;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--heightFooter);
+  z-index: 1;
 }

@@ -20,7 +20,7 @@ const Button = styled("button")({
 });
 
 const Logo = styled("img")({
-  width: "8%",
+  width: "8em",
 });
 
 const Notification = styled("img")({
@@ -44,7 +44,7 @@ export default function NavBar() {
           <Typography
             variant="h4"
             // component="div"
-            sx={{ flexGrow: 1, textAlign: "center" }}
+            sx={{ flexGrow: 1, textAlign: "center", fontSize: 55 }}
             color="#009AA6"
           >
             DevHubSHARE

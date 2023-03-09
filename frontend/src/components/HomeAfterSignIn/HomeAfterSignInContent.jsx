@@ -28,7 +28,10 @@ export default function HomeAfterSignInContent() {
         languageNameSelected={languageNameSelected}
         setLanguageNameSelected={setLanguageNameSelected}
       />
-      <PostFeed languageSelected={languageSelected} />
+      <PostFeed
+        languageNameSelected={languageNameSelected}
+        languageSelected={languageSelected}
+      />
     </div>
   );
 }
