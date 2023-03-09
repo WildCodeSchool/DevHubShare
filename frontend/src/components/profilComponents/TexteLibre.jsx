@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { List, Grid, TextField } from "@material-ui/core";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,12 +12,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TexteLibre() {
+  const [textArea, setTextArea] = useState("");
   const classes = useStyles();
 
-  const texte = {
-    texte:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus ex quis ante ullamcorper, vitae malesuada elit lobortis. Sed faucibus ex quis ante ullamcorper, vitae malesuada elit lobortis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-  };
+  useEffect(() => {
+    axios.get("http://localhost:5000/users/1").then((response) => {
+      setTextArea(response.data);
+    });
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -25,8 +28,7 @@ function TexteLibre() {
         <Grid item xs={12}>
           <TextField
             className={classes.field}
-            label="Texte"
-            value={texte.texte}
+            value={textArea.user_text}
             multiline
             rows={8}
             fullWidth
