@@ -1,22 +1,25 @@
 import React from "react";
 import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
-import ResourcesComponent from "../components/ResourcesComponent/ResourcesComponent";
+import ResourcesComponent from "../components/Resources/ResourcesComponent";
 import Footer from "../components/Footer";
+import "../App.css";
 
 export default function Resources() {
   return (
     <div className="parent">
-      <div className="div1">
+      <div className="header">
         <Header />
       </div>
-      <div className="div2">
-        <Sidebar />
+      <div className="middle">
+        <div className="side">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <ResourcesComponent />
+        </div>
       </div>
-      <div className="div3">
-        <ResourcesComponent />
-      </div>
-      <div className="div4">
+      <div className="footer">
         <Footer />
       </div>
     </div>

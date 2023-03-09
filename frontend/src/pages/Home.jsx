@@ -1,22 +1,25 @@
-import * as React from "react";
+import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Headermain/Header";
 import HomePage from "../components/HomePage/HomePage";
 import Sidebar from "../components/Sidebar/Sidebar";
+import "../App.css";
 
 export default function Home() {
   return (
     <div className="parent">
-      <div className="div1">
+      <div className="header">
         <Header />
       </div>
-      <div className="div2">
-        <Sidebar />
+      <div className="middle">
+        <div className="side">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <HomePage />
+        </div>
       </div>
-      <div className="div3">
-        <HomePage />
-      </div>
-      <div className="div4">
+      <div className="footer">
         <Footer />
       </div>
     </div>

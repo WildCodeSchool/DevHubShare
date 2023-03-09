@@ -18,8 +18,6 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
 
   return (
     <Container
-      maxWidth="100%"
-      maxHeight="100%"
       sx={{
         backgroundColor: "#FFFFFF",
         borderRadius: 1,

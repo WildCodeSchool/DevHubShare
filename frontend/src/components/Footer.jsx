@@ -25,7 +25,7 @@ const FooterContainer = styled(TableFooter)({
   alignItems: "center",
   backgroundColor: "#333333",
   color: "#FFFFFF",
-  position: "absolute",
+  position: "fixed",
   bottom: 0,
   left: 0,
   right: 0,
@@ -34,41 +34,24 @@ const FooterContainer = styled(TableFooter)({
 export default function Footer() {
   return (
     <FooterContainer>
-      <div
-        style={{
+      <TableRow sx={{ alignSelf: "center" }}>
+        <Logo src={LogoSNCF} alt="logo" />
+      </TableRow>
+      <TableRow
+        sx={{
           display: "flex",
-          justifyContent: "space-between",
-          minWidth: "100%",
+          justifyContent: "center",
+          flexWrap: "wrap",
         }}
       >
-        <TableRow sx={{ alignSelf: "center", width: "20%" }}>
-          <Logo src={LogoSNCF} alt="logo" />
-        </TableRow>
-        <TableRow
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignSelf: "center",
-            width: "40%",
-          }}
-        >
-          <FooterLink href="#">DevHub Connect {">"}</FooterLink>
-          <FooterLink href="#">DevHub Project {">"}</FooterLink>
-        </TableRow>
-        <TableRow sx={{ alignSelf: "flex-end", width: "20%" }}>
-          <Typography
-            variant="caption"
-            sx={{
-              fontSize: "0.5rem",
-              marginRight: "0.3rem",
-            }}
-          >
-            <em>
-              WCS Marseille 2023_Créé par Nelly, Karine, Sandra et Geoffroy
-            </em>
-          </Typography>
-        </TableRow>
-      </div>
+        <FooterLink href="#">DevHub Connect {">"}</FooterLink>
+        <FooterLink href="#">DevHub Project {">"}</FooterLink>
+      </TableRow>
+      <TableRow sx={{ alignSelf: "flex-end" }}>
+        <Typography variant="caption" sx={{ fontSize: "0.5rem", mr: 2 }}>
+          <em>WCS Marseille 2023_Créé par Nelly, Karine, Sandra et Geoffroy</em>
+        </Typography>
+      </TableRow>
     </FooterContainer>
   );
 }
