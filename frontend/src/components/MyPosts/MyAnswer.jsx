@@ -1,4 +1,6 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
 import {
   Stack,
   Container,
@@ -9,22 +11,26 @@ import {
 } from "@mui/material";
 import flecheSend from "./images/flecheSend.png";
 
-export default function MyAnswer() {
+export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
+  const [answerText, setAnswerText] = useState("");
 
-  // const [post, setPost] = useState("");
+  const answerSent = (e) => setAnswerText(e.target.value);
 
-  // const handleSendButton = () => {
-  //   // envoyer la réponse à "conversation"
-  //   console.log(post); // ou utiliser une fonction pour envoyer la réponse à "conversation"
-  // };
-
-  // const handlePostChange = (event) => {
-  //   setPost(event.target.value);
-  // };
-
-  const handleClick = () => {
-    // Logique de traitement pour le clic sur l'image
+  const handleAnswerSubmit = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/answers", {
+        answer_text: answerText,
+        post_id: post.id,
+        user_id: 3,
+      });
+      console.info("Réponse envoyée à l'API:", response.data);
+      // Réinitialise le champ de texte après envoie de la réponse
+      setAnswerText("");
+      onNewAnswerSubmitted(true);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi de la réponse:", error);
+    }
   };
 
   return (
@@ -44,27 +50,24 @@ export default function MyAnswer() {
         alignItems="center"
         spacing={4}
         sx={{
-          borderRadius: 2,
+          borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#009AA6",
           width: "75%",
         }}
       >
-        <FormControl
-          // onSubmit={handleSubmit}
-          sx={{ width: "100%", m: 2, gap: 1 }}
-        >
+        <FormControl sx={{ width: "100%", m: 2, gap: 1 }}>
           <TextField
             id="post-content"
             label="Votre texte ici..."
-            // value={post}
-            // onChange={handleSendButton}
+            value={answerText}
+            onChange={answerSent}
             multiline
             rows={4}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Button onClick={handleClick}>
+                  <Button onClick={handleAnswerSubmit}>
                     <img
                       className="flecheSend"
                       src={flecheSend}
@@ -87,3 +90,13 @@ export default function MyAnswer() {
     </Container>
   );
 }
+
+MyAnswer.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    tag: PropTypes.string.isRequired,
+    postText: PropTypes.string.isRequired,
+  }),
+  onNewAnswerSubmitted: PropTypes.func.isRequired,
+};
+MyAnswer.defaultProps = { post: {} };

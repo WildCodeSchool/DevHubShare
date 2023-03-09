@@ -1,19 +1,18 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-undef */
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/no-unresolved */
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Grid from "@material-ui/core/Grid";
+import React, { useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import BasicModal from "./BasicModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,10 +34,28 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setErr] = useState("");
+  const navigate = useNavigate();
   const classes = useStyles();
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:5000/login", {
+        email,
+        password,
+      });
+      localStorage.setItem("token", response.data.token);
+      console.info(response.data);
+      navigate("/creer-post");
+    } catch (error) {
+      setErr("Invalid email or password");
+      console.error(error.message);
+    }
+  };
+  console.info(err);
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -49,7 +66,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Connexion
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -60,6 +77,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(event) => setEmail(event.target.value)}
           />
           <TextField
             variant="outlined"
@@ -71,6 +89,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(event) => setPassword(event.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -86,10 +105,10 @@ export default function SignIn() {
             Connexion
           </Button>
           <Grid container spacing={2} columns={16}>
-            <Grid item xs={6}>
+            <Grid item xs={8}>
               <BasicModal />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={8}>
               <Button href="/inscription">Pas de compte? S'inscrire</Button>
             </Grid>
           </Grid>
