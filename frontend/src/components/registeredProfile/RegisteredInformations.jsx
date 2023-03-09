@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Grid, Paper, TextField, Button, makeStyles } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Paper, TextField, Button } from "@material-ui/core";
 import UserImage from "../UserImage";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,37 +28,11 @@ const useStyles = makeStyles((theme) => ({
 function RegisteredInformations() {
   const [currentUser, setCurrentUser] = useState([]);
   const [userLanguages, setUserLanguages] = useState([]);
-  const [userUpdate, setUserUpdate] = useState([]);
-  //   const [firstname, setFirstname] = useState("");
-  //   const [lastname, setLastname] = useState("");
-  //   const [workplace, setWorkplace] = useState("");
-  //   const [github, setGithub] = useState("");
-  //   const [linkedin, setLinkedin] = useState("");
   const classes = useStyles();
 
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     const updateUser = {
-  //       firstname,
-  //       lastname,
-  //       workplace,
-  //       github,
-  //       linkedin,
-  //     };
-
   useEffect(() => {
-    axios.get("http://localhost:5000/users/2").then((response) => {
+    axios.get("http://localhost:5000/users/1").then((response) => {
       setCurrentUser(response.data);
-    });
-  }, []);
-  useEffect(() => {
-    axios.put("http://localhost:5000/users/2").then((response) => {
-      setUserUpdate(response.data);
-      //   setFirstname("");
-      //   setLastname("");
-      //   setWorkplace("");
-      //   setGithub("");
-      //   setLinkedin("");
     });
   }, []);
 
@@ -86,7 +64,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Pseudo"
-              //   value={currentUser.pseudo}
+              value={currentUser.pseudo}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -99,7 +77,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Prénom"
-              //   value={firstname.firstname}
+              value={currentUser.firstname}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -112,7 +90,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Nom"
-              //   value={userUpdate.lastname}
+              value={currentUser.lastname}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -125,7 +103,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Email"
-              //   value={currentUser.email}
+              value={currentUser.email}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -138,7 +116,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Poste Actuel"
-              //   value={userUpdate.workplace}
+              value={currentUser.workplace}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -151,7 +129,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Git-Hub Page"
-              //   value={userUpdate.github}
+              value={currentUser.github}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -164,7 +142,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Linkedin"
-              //   value={currentUser.linkedin}
+              value={currentUser.linkedin}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -177,7 +155,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Langues"
-              //   value={userLanguages.map((lang) => lang.language_name).join(", ")}
+              value={userLanguages.map((lang) => lang.language_name).join(", ")}
               fullWidth
               InputLabelProps={{
                 shrink: true,

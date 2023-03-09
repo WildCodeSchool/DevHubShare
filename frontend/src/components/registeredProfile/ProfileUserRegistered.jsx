@@ -4,7 +4,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardContent, Button } from "@material-ui/core";
-import Informations from "../profilComponents/Informations";
+import RegisteredInformations from "./RegisteredInformations";
 import UserTextArea from "./UserTextArea";
 import ModalSuppression from "../ModalSuppression";
 
@@ -61,14 +61,14 @@ const useStyles = makeStyles((theme) => ({
 //   }, []);
 // };
 
-function UserProfile() {
+function UserProfileRegistered() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
-          <Informations />
+          <RegisteredInformations />
         </Grid>
         <Grid className={classes.gridCard} item xs={12} md={6}>
           <Grid item xs={12} className={classes.valider}>
@@ -95,4 +95,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default UserProfileRegistered;
