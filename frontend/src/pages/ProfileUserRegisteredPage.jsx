@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
-import ProfileUserRegistered from "../components/ProfileUserRegistered";
+import ProfileUserRegistered from "../components/registeredProfile/ProfileUserRegistered";
 import Footer from "../components/Footer";
 import "../App.css";
 

@@ -4,10 +4,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardContent, Button } from "@material-ui/core";
-import Informations from "./profilComponents/Informations";
-import UserImage from "./UserImage";
-import UserTextArea from "./registeredProfile/UserTextArea";
-import ModalSuppression from "./ModalSuppression";
+import Informations from "../profilComponents/Informations";
+import UserTextArea from "./UserTextArea";
+import ModalSuppression from "../ModalSuppression";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,18 +66,9 @@ function UserProfile() {
 
   return (
     <div className={classes.root}>
-      <Button variant="contained" className={classes.retour}>
-        Retour
-      </Button>
       <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
-          <div className={classes.userImageContainer}>
-            <UserImage size="5rem" backgroundColor="grey" />
-          </div>
           <Informations />
-          <Grid item xs={12} className={classes.valider}>
-            <Button variant="contained">Valider</Button>
-          </Grid>
         </Grid>
         <Grid className={classes.gridCard} item xs={12} md={6}>
           <Grid item xs={12} className={classes.valider}>
