@@ -14,13 +14,15 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
+  const userId = req.params.id;
   models.user_has_language
-    .find(req.params.id)
+    .find(userId)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        const result = rows;
+        res.send(result);
       }
     })
     .catch((err) => {
