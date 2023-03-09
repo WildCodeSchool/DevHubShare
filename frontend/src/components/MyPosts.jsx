@@ -10,22 +10,31 @@ import UserImage from "./UserImage";
 export default function MyPosts() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPost, setSelectedPost] = useState("");
+  const [sendAnswer, setSendAnswer] = useState("");
+  const [isNewAnswerSubmitted, setIsNewAnswerSubmitted] = useState(false);
 
   function handleSelectedPost(post) {
     setSelectedPost(post);
+  }
+
+  function handleAnswer(post) {
+    setSendAnswer(post);
+  }
+
+  function handleNewAnswerSubmitted(newAnswer) {
+    setIsNewAnswerSubmitted(newAnswer);
   }
 
   return (
     <Stack
       direction={isSmallScreen ? "column" : "row"}
       justifyContent="space-around"
-      alignItems="center"
-      spacing={2}
+      alignItems="flex-start"
+      paddingTop="1rem"
     >
       <Stack
         direction="column"
-        spacing={2}
         sx={{
           maxWidth: "100%",
           width: isSmallScreen ? "100%" : "50%",
@@ -33,7 +42,10 @@ export default function MyPosts() {
       >
         <UserImage size="5rem" backgroundColor="grey" />
 
-        <PostSent onPostSelected={handleSelectedPost} />
+        <PostSent
+          onPostSelected={handleSelectedPost}
+          onSendAnswer={handleAnswer}
+        />
       </Stack>
       {isSmallScreen ? (
         <Divider orientation="horizontal" flexItem />
@@ -48,8 +60,11 @@ export default function MyPosts() {
           width: isSmallScreen ? "100%" : "50%",
         }}
       >
-        <Conversation post={selectedPost} />
-        <MyAnswer />
+        <Conversation post={selectedPost} newAnswer={isNewAnswerSubmitted} />
+        <MyAnswer
+          post={sendAnswer}
+          onNewAnswerSubmitted={handleNewAnswerSubmitted}
+        />
       </Stack>
     </Stack>
   );
