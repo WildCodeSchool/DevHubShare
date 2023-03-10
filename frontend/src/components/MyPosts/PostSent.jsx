@@ -15,7 +15,7 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
   const [selectedPost, setSelectedPost] = useState("");
 
   // localStorage.setItem("user.id", "1");
-  const id = localStorage.getItem("user.id");
+  const id = localStorage.getItem("userId");
 
   const getMyPosts = () => {
     axios

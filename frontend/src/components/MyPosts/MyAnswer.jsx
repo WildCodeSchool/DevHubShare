@@ -18,7 +18,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const answerSent = (e) => setAnswerText(e.target.value);
 
   // localStorage.setItem("user.id", "1");
-  const localId = localStorage.getItem("user.id");
+  const localId = localStorage.getItem("userId");
 
   const handleAnswerSubmit = async () => {
     if (!answerText) {
