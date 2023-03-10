@@ -17,12 +17,19 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
 
   const answerSent = (e) => setAnswerText(e.target.value);
 
+  // localStorage.setItem("user.id", "1");
+  const localId = localStorage.getItem("user.id");
+
   const handleAnswerSubmit = async () => {
+    if (!answerText) {
+      return; // Sort de la fonction si le champ de texte est vide
+    }
+
     try {
       const response = await axios.post("http://localhost:5000/answers", {
         answer_text: answerText,
         post_id: post.id,
-        user_id: 3,
+        user_id: localId,
       });
       console.info("Réponse envoyée à l'API:", response.data);
       // Réinitialise le champ de texte après envoie de la réponse
@@ -59,7 +66,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
         <FormControl sx={{ width: "100%", m: 2, gap: 1 }}>
           <TextField
             id="post-content"
-            label="Votre texte ici..."
+            label="Ma réponse ici..."
             value={answerText}
             onChange={answerSent}
             multiline
