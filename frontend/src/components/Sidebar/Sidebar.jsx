@@ -33,8 +33,8 @@ export default function Sidebar() {
 
     // localStorage.setItem("user.id", "1");
     useEffect(() => {
-      const userId = localStorage.getItem("user.id");
-      setIsLoggedIn(!!userId);
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
     }, []);
 
     return isLoggedIn;
