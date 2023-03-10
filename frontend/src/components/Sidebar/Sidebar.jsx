@@ -158,7 +158,7 @@ export default function Sidebar() {
             </select>
           </div>
           <NavLink
-            to="/profil-membre"
+            to="/profil-membres"
             className="link"
             style={{
               display: "flex",
