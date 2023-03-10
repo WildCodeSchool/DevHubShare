@@ -78,7 +78,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
           width: "90%",
         }}
       >
-        {filteredPosts.map((post) => (
+        {filteredPosts?.map((post) => (
           <PostCard
             key={post.id}
             users={post.users}

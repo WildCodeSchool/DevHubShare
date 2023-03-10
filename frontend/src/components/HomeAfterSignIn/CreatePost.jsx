@@ -32,7 +32,6 @@ export default function CreatePost({
   const [tag, setTag] = useState("");
   const [post, setPost] = useState("");
   const [errorSubmit, setErrorSubmit] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getLanguages = () => {
@@ -56,7 +55,8 @@ export default function CreatePost({
     setPost(event.target.value);
   };
 
-  const userId = 1;
+  const userId = localStorage.getItem("user.id");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
