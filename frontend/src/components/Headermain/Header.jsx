@@ -1,6 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/system";
@@ -20,11 +20,11 @@ const Button = styled("button")({
 });
 
 const Logo = styled("img")({
-  width: "8em",
+  width: "45%",
 });
 
 const Notification = styled("img")({
-  width: "2%",
+  width: "12%",
   // marginRight: "2%",
 });
 
@@ -40,21 +40,43 @@ export default function NavBar() {
         }}
       >
         <Toolbar>
-          <Logo src={LogoSNCF} alt="logo" />
-          <Typography
-            variant="h4"
-            // component="div"
-            sx={{ flexGrow: 1, textAlign: "center", fontSize: 55 }}
-            color="#009AA6"
-          >
-            DevHubSHARE
-          </Typography>
-          <Button color="inherit">
-            <Typography variant="h6">
-              <Links to="/connexion">Mon compte</Links>
-            </Typography>
-          </Button>
-          <Notification src={NotificationImg} alt="notificationBell" />
+          <Grid container alignItems="center">
+            <Grid item xs={2}>
+              <Logo src={LogoSNCF} alt="logo" />
+            </Grid>
+            <Grid item xs={8}>
+              <Typography
+                variant="h4"
+                // component="div"
+                sx={{
+                  textAlign: "center",
+                  fontSize: "4vw",
+                  color: "#009AA6",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              >
+                DevHubSHARE
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={2}
+              sx={{ display: "flex", justifyContent: "flex-end" }}
+            >
+              <Button color="inherit">
+                <Typography variant="h6" fontSize="1.2vw">
+                  <Links to="/connexion">Connexion</Links>
+                </Typography>
+              </Button>
+              <Button color="inherit">
+                <Typography variant="h6" fontSize="1.2vw">
+                  <Links to="/mon-compte">Mon compte</Links>
+                </Typography>
+              </Button>
+              <Notification src={NotificationImg} alt="notificationBell" />
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </Box>
