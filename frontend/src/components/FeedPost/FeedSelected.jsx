@@ -19,17 +19,23 @@ export default function FeedSelected() {
   const [postList, setPostList] = useState([]);
   const [answerList, setAnswerList] = useState([]);
   const [languageList, setLanguageList] = useState([]);
+  const [userList, setUserList] = useState([]);
 
   const getPostList = async () => {
     const response = await axios.get("http://localhost:5000/posts");
     setPostList(response.data);
-    console.info("post :", response.data);
   };
 
   const getAnswerList = async () => {
     const response = await axios.get("http://localhost:5000/answers");
     setAnswerList(response.data);
   };
+
+  const getUserList = async () => {
+    const response = await axios.get("http://localhost:5000/users");
+    setUserList(response.data);
+  };
+  console.info("users:", userList);
 
   useEffect(() => {
     const getLanguageList = async () => {
@@ -42,6 +48,7 @@ export default function FeedSelected() {
   useEffect(() => {
     getPostList();
     getAnswerList();
+    getUserList();
   }, []);
 
   const languageFiltered = languageList.filter(
@@ -89,6 +96,9 @@ export default function FeedSelected() {
           {selectedLanguage
             ? postFiltered.map((postMap) => (
                 <Post
+                  users={userList
+                    .filter((user) => user.id === postMap?.user_id)
+                    .map((userMap) => userMap.picture)}
                   key={postMap?.id}
                   tag={postMap?.tag}
                   post={postMap?.post_text}
@@ -100,6 +110,9 @@ export default function FeedSelected() {
               ))
             : postList.map((postMap) => (
                 <Post
+                  users={userList
+                    .filter((user) => user.id === postMap?.user_id)
+                    .map((userMap) => userMap.picture)}
                   key={postMap?.id}
                   tag={postMap?.tag}
                   post={postMap?.post_text}

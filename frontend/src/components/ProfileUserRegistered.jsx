@@ -41,15 +41,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const userProfile = {
-  pseudo: "jijy",
-  nom: "Jimmy",
-  prenom: "Logan",
-  email: "jimmy.logan@mail.com",
-  poste: "agent de maintenance",
-  githubPage: "https://github.com/jimmylogan",
-  linkedin: "https://linkedin/jimmylogan",
-};
+// const handleSubmit = (event) => {
+//   event.preventDefault();
+//   const updateUser = {
+//     firstname,
+//     lastname,
+//     workplace,
+//     github,
+//     linkedin,
+//   };
+//   useEffect(() => {
+//     axios.put("http://localhost:5000/users/1").then((response) => {
+//       setUserUpdate(response.data);
+//       setFirstname("");
+//       setLastname("");
+//       setWorkplace("");
+//       setGithub("");
+//       setLinkedin("");
+//     });
+//   }, []);
+// };
 
 function UserProfile() {
   const classes = useStyles();
@@ -64,15 +75,7 @@ function UserProfile() {
           <div className={classes.userImageContainer}>
             <UserImage size="5rem" backgroundColor="grey" />
           </div>
-          <Informations
-            pseudo={userProfile.pseudo}
-            nom={userProfile.nom}
-            prenom={userProfile.prenom}
-            email={userProfile.email}
-            poste={userProfile.poste}
-            githubPage={userProfile.githubPage}
-            linkedin={userProfile.linkedin}
-          />
+          <Informations />
           <Grid item xs={12} className={classes.valider}>
             <Button variant="contained">Valider</Button>
           </Grid>
