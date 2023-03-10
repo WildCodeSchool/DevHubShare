@@ -29,25 +29,46 @@ const read = (req, res) => {
     });
 };
 
+// const edit = (req, res) => {
+//   const user = req.body;
+
+//   user.id = parseInt(req.params.id, 10);
+//   const language = user.language_id;
+//   models.user
+//     .update(user)
+//     .then(() => {
+//       return models.user_has_language.deleteAllByUserId(user.id);
+//     })
+//     .then(() => {
+//       const promises = language.map((language_id) => {
+//         return models.user_has_language.insert({
+//           user_id: user.id,
+//           language_id,
+//         });
+//       });
+//       return Promise.all(promises);
+//     })
+//     .then(([result]) => {
+//       if (result.affectedRows === 0) {
+//         res.sendStatus(404);
+//       } else {
+//         res.sendStatus(204);
+//       }
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.sendStatus(500);
+//     });
+// };
 const edit = (req, res) => {
   const user = req.body;
 
+  // TODO validations (length, format...)
+
   user.id = parseInt(req.params.id, 10);
-  const language = user.language_id;
+
   models.user
     .update(user)
-    .then(() => {
-      return models.user_has_language.deleteAllByUserId(user.id);
-    })
-    .then(() => {
-      const promises = language.map((language_id) => {
-        return models.user_has_language.insert({
-          user_id: user.id,
-          language_id,
-        });
-      });
-      return Promise.all(promises);
-    })
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);

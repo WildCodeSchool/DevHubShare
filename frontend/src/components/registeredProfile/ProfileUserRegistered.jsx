@@ -40,27 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const handleSubmit = (event) => {
-//   event.preventDefault();
-//   const updateUser = {
-//     firstname,
-//     lastname,
-//     workplace,
-//     github,
-//     linkedin,
-//   };
-//   useEffect(() => {
-//     axios.put("http://localhost:5000/users/1").then((response) => {
-//       setUserUpdate(response.data);
-//       setFirstname("");
-//       setLastname("");
-//       setWorkplace("");
-//       setGithub("");
-//       setLinkedin("");
-//     });
-//   }, []);
-// };
-
 function UserProfileRegistered() {
   const classes = useStyles();
 
