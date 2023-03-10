@@ -6,7 +6,7 @@ body {
 
 :root {
   --heightFooter: 66px;
-  --heightHeader: 126px;
+  --heightHeader: 116px;
 }
 .parent {
   display: flex;
@@ -46,7 +46,7 @@ body {
 .content {
   -ms-flex: 0 1 60%;
   flex: 0 1 60%;
-  margin-left: 10%;
+  margin-left: 20%;
   bottom: 2%;
   top: var(--heightHeader);
   z-index: 1;
