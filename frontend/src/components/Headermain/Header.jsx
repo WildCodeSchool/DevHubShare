@@ -24,7 +24,8 @@ const Logo = styled("img")({
 });
 
 const Notification = styled("img")({
-  width: "12%",
+  width: "30%",
+  position: "relative",
   // marginRight: "2%",
 });
 
@@ -44,7 +45,7 @@ export default function NavBar() {
             <Grid item xs={2}>
               <Logo src={LogoSNCF} alt="logo" />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={7}>
               <Typography
                 variant="h4"
                 // component="div"
@@ -61,7 +62,7 @@ export default function NavBar() {
             </Grid>
             <Grid
               item
-              xs={2}
+              xs={3}
               sx={{ display: "flex", justifyContent: "flex-end" }}
             >
               <Button color="inherit">
@@ -70,11 +71,32 @@ export default function NavBar() {
                 </Typography>
               </Button>
               <Button color="inherit">
-                <Typography variant="h6" fontSize="1.2vw">
+                <Typography variant="h6" fontSize="1.2vw" width="10vw">
                   <Links to="/mon-compte">Mon compte</Links>
                 </Typography>
               </Button>
-              <Notification src={NotificationImg} alt="notificationBell" />
+              <Button
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Notification src={NotificationImg} alt="notificationBell" />
+                <Typography
+                  sx={{
+                    backgroundColor: "red",
+                    position: "absolute",
+                    top: "30%",
+                    right: "5.8%",
+                    width: "1.3%",
+                    height: "18%",
+                    borderRadius: "50%",
+                    fontSize: "100%",
+                  }}
+                >
+                  1
+                </Typography>
+              </Button>
             </Grid>
           </Grid>
         </Toolbar>
