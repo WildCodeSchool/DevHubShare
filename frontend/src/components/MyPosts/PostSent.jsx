@@ -61,6 +61,16 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
         }}
       >
         <div style={{ padding: "1rem", width: "80%" }}>
+          <h2
+            style={{
+              color: "#009AA6",
+              backgroundColor: "#ffff",
+              borderRadius: 2,
+              padding: "0.5rem",
+            }}
+          >
+            Mes posts ici:
+          </h2>
           {myPosts.map((post) => (
             <Accordion
               key={post.id}

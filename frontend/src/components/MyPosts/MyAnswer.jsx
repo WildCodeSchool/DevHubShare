@@ -66,7 +66,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
         <FormControl sx={{ width: "100%", m: 2, gap: 1 }}>
           <TextField
             id="post-content"
-            label="Ma réponse ici..."
+            label="Mon texte ici..."
             value={answerText}
             onChange={answerSent}
             multiline
