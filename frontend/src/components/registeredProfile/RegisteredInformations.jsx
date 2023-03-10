@@ -38,11 +38,10 @@ function RegisteredInformations() {
   const [workplace, setWorkplace] = useState([currentUser]);
   const [github, setGithub] = useState([currentUser]);
   const [linkedin, setLinkedin] = useState([currentUser]);
-  const [hashedPassword, setHashedPassword] = useState([currentUser]);
   const classes = useStyles();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/users/2").then((response) => {
+    axios.get("http://localhost:5000/users/1").then((response) => {
       setCurrentUser(response.data);
     });
   }, []);
@@ -50,7 +49,7 @@ function RegisteredInformations() {
   useEffect(() => {
     if (currentUser && currentUser.id) {
       axios
-        .get(`http://localhost:5000/user_has_language/2`)
+        .get("http://localhost:5000/user_has_language/1")
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({
@@ -62,7 +61,7 @@ function RegisteredInformations() {
   }, [currentUser]);
 
   const handleSaveChanges = () => {
-    axios.put("http://localhost:5000/users/2", userUpdate).then((response) => {
+    axios.put("http://localhost:5000/users/1", userUpdate).then((response) => {
       setUserUpdate(response.data);
     });
   };
@@ -110,7 +109,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Pseudo"
-              value={pseudo}
+              value={currentUser.pseudo}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -152,7 +151,7 @@ function RegisteredInformations() {
             <TextField
               className={classes.field}
               label="Email"
-              value={email}
+              value={currentUser.email}
               fullWidth
               InputLabelProps={{
                 shrink: true,

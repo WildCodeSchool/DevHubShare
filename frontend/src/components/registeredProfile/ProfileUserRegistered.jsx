@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Card, CardContent, Button } from "@material-ui/core";
 import RegisteredInformations from "./RegisteredInformations";
 import UserTextArea from "./UserTextArea";
-import ModalSuppression from "../ModalSuppression";
+import ModalSuppression from "./ModalSuppression";
 
 const useStyles = makeStyles((theme) => ({
   root: {
