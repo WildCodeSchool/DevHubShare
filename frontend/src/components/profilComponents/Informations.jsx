@@ -6,6 +6,7 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, TextField, Button } from "@material-ui/core";
 import UserImage from "../UserImage";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +31,11 @@ function Informations() {
   const [userLanguages, setUserLanguages] = useState([]);
   const classes = useStyles();
 
+  const userId = localStorage.getItem("userId");
+  const { userIdSelected } = useParams();
+
   useEffect(() => {
-    axios.get("http://localhost:5000/users/1").then((response) => {
+    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
       setCurrentUser(response.data);
     });
   }, []);
@@ -39,7 +43,7 @@ function Informations() {
   useEffect(() => {
     if (currentUser && currentUser.id) {
       axios
-        .get(`http://localhost:5000/user_has_language/1`)
+        .get(`http://localhost:5000/user_has_language/${userId}`)
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({
@@ -48,7 +52,15 @@ function Informations() {
           setUserLanguages(userLanguageObjects);
         });
     }
-  }, [currentUser]);
+  }, []);
+
+  useEffect(() => {
+    const getUserClicked = async () => {
+      const response = await axios.get(`http://localhost:5000/users/${userIdSelected}`);
+      setCurrentUser(response.data);
+    };
+    getUserClicked();
+  }, [userIdSelected]);
 
   return (
     <Paper className={classes.root}>

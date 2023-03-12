@@ -56,8 +56,8 @@ export default function ProfileMembers() {
   };
 
   const navigate = useNavigate();
-  const onClickUser = (userId) => {
-    navigate(`/profil-membre/${userId}`);
+  const onClickUser = (userIdSelected) => {
+    navigate(`/profil-membre/${userIdSelected}`);
   };
 
   return (
@@ -68,12 +68,13 @@ export default function ProfileMembers() {
         alignItems: "center",
         gap: 1,
         mt: 3,
+        mb: 3,
       }}
     >
       <Typography variant="h4" sx={{ color: "#009AA6", fontWeight: "medium" }}>
         <em>Profil des membres {languageNameSelected}</em>
       </Typography>
-      <Stack
+      <Stack spacing={2}
         sx={{
           mt: 2,
           p: 2,
@@ -100,6 +101,7 @@ export default function ProfileMembers() {
             alignSelf: "flex-end",
             width: "30%",
             mt: 1,
+            mb: 1,
           }}
         >
           {languages?.map((language) => (

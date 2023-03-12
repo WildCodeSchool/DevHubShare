@@ -14,14 +14,12 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function PostCard({ users, tag, date, postContent, answers }) {
-  const firstLine = postContent.split("\n")[0];
 
   return (
     <Container
       sx={{
         backgroundColor: "#FFFFFF",
         borderRadius: 1,
-        mb: 1,
       }}
     >
       <Grid container mb={1}>
@@ -42,7 +40,7 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
                 mr: 2,
               }}
             />
-          ))}
+            ))}
         </Grid>
         <Grid item xs={10}>
           <Grid
@@ -76,17 +74,18 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
       <Grid item mb={1}>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Post : {firstLine}</Typography>
+            {users.map((user) =>(
+            <Typography>Post de {user.pseudo}</Typography>
+            ))}
           </AccordionSummary>
           <AccordionDetails>
             <TextField
               value={postContent}
               multiline
-              rows={3}
+              rows={5}
               size="small"
               InputLabelProps={{ shrink: true }}
               label={format(new Date(date), "dd-MM-yyyy")}
-              readOnly
               sx={{
                 width: "100%",
                 borderRadius: 1,
@@ -108,6 +107,7 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
               borderRadius: 1,
               border: "dotted 1px #82BE00",
               backgroundColor: "#FFFFFF",
+              fontStyle: "italic",
             }}
           />
         ) : (
@@ -121,8 +121,9 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
                   <Grid item key={answer.id}>
                     <TextField
                       value={answer.answer_text}
-                      rows={1}
-                      label={"Réponse d'un dev"}
+                      multiline
+                      rows={4}
+                      label={format(new Date(date), "dd-MM-yyyy")}
                       sx={{
                         width: "100%",
                         borderRadius: 1,

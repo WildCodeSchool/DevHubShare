@@ -19,17 +19,16 @@ export default function ProfileCard({
   userText,
   onClickUser,
 }) {
-  const firstLine = (userText ?? "").replace(/\r?\n/g, " ").split(" ");
+
   return (
     <Container
-      onClick={onClickUser}
       sx={{
         backgroundColor: "#FFFFFF",
         borderRadius: 1,
-        mt: 2,
+        mt: 1,
       }}
     >
-      <Grid container mb={0}>
+      <Grid container mb={1}>
         <Grid
           item
           xs={2}
@@ -38,6 +37,7 @@ export default function ProfileCard({
           justifyContent="center"
         >
           <Avatar
+            onClick={onClickUser}
             src={picture}
             sx={{
               width: 70,
@@ -92,16 +92,17 @@ export default function ProfileCard({
           </Grid>
         </Grid>
         <Grid item sx={{ m: 1, width: "100%" }}>
+          {userText ? (
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Texte libre du dev : {firstLine}</Typography>
+              <Typography>Texte libre de {pseudo}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <TextField
                 readOnly
                 value={userText}
                 multiline
-                rows={4}
+                rows={2}
                 size="small"
                 sx={{
                   width: "100%",
@@ -112,6 +113,20 @@ export default function ProfileCard({
               />
             </AccordionDetails>
           </Accordion>
+          ) : (
+            <TextField
+            disabled
+            value={`Il n'y a pas  de texte libre pour ${pseudo} !`}
+            size="small"
+            sx={{
+              width: "100%",
+              borderRadius: 1,
+              border: "dotted 1px #009AA6",
+              backgroundColor: "#FFFFFF",
+              fontStyle: "italic",
+            }}
+          />
+          )}
         </Grid>
       </Grid>
     </Container>
