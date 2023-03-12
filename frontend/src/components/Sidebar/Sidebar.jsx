@@ -33,8 +33,8 @@ export default function Sidebar() {
 
     // localStorage.setItem("user.id", "1");
     useEffect(() => {
-      const userId = localStorage.getItem("user.id");
-      setIsLoggedIn(!!userId);
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
     }, []);
 
     return isLoggedIn;
@@ -158,7 +158,7 @@ export default function Sidebar() {
             </select>
           </div>
           <NavLink
-            to="/profil-membre"
+            to="/profil-membres"
             className="link"
             style={{
               display: "flex",
