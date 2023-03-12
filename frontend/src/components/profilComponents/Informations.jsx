@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, TextField, Button } from "@material-ui/core";
-import UserImage from "../UserImage";
 import { useParams } from "react-router-dom";
+import UserImage from "../UserImage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +56,9 @@ function Informations() {
 
   useEffect(() => {
     const getUserClicked = async () => {
-      const response = await axios.get(`http://localhost:5000/users/${userIdSelected}`);
+      const response = await axios.get(
+        `http://localhost:5000/users/${userIdSelected}`
+      );
       setCurrentUser(response.data);
     };
     getUserClicked();

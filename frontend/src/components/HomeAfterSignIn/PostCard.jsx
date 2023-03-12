@@ -14,7 +14,6 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function PostCard({ users, tag, date, postContent, answers }) {
-
   return (
     <Container
       sx={{
@@ -40,7 +39,7 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
                 mr: 2,
               }}
             />
-            ))}
+          ))}
         </Grid>
         <Grid item xs={10}>
           <Grid
@@ -74,8 +73,8 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
       <Grid item mb={1}>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            {users.map((user) =>(
-            <Typography>Post de {user.pseudo}</Typography>
+            {users.map((user) => (
+              <Typography>Post de {user.pseudo}</Typography>
             ))}
           </AccordionSummary>
           <AccordionDetails>

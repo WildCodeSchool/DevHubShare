@@ -74,7 +74,8 @@ export default function ProfileMembers() {
       <Typography variant="h4" sx={{ color: "#009AA6", fontWeight: "medium" }}>
         <em>Profil des membres {languageNameSelected}</em>
       </Typography>
-      <Stack spacing={2}
+      <Stack
+        spacing={2}
         sx={{
           mt: 2,
           p: 2,

@@ -63,7 +63,8 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
       <Typography variant="h4" sx={{ color: "#82BE00", fontWeight: "medium" }}>
         <em>Fil de discussion {languageNameSelected}</em>
       </Typography>
-      <Stack spacing={1}
+      <Stack
+        spacing={1}
         sx={{
           mt: 2,
           p: 2,

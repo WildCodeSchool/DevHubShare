@@ -41,7 +41,10 @@ function App() {
             <Route path="/creer-post" element={<HomeAfterSignIn />} />
             <Route path="/mon-compte" element={<ProfileUserRegistered />} />
             <Route path="/profil-membres" element={<ProfileMembersPage />} />
-            <Route path="/profil-membre/:userIdSelected" element={<ProfileUserPage />} />
+            <Route
+              path="/profil-membre/:userIdSelected"
+              element={<ProfileUserPage />}
+            />
             <Route path="/fil-de-discussion" element={<LanguageSelectFeed />} />
             <Route path="/mes-posts" element={<MyPostsPage />} />
           </Route>

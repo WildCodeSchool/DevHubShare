@@ -19,7 +19,6 @@ export default function ProfileCard({
   userText,
   onClickUser,
 }) {
-
   return (
     <Container
       sx={{
@@ -93,39 +92,39 @@ export default function ProfileCard({
         </Grid>
         <Grid item sx={{ m: 1, width: "100%" }}>
           {userText ? (
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Texte libre de {pseudo}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TextField
-                readOnly
-                value={userText}
-                multiline
-                rows={2}
-                size="small"
-                sx={{
-                  width: "100%",
-                  borderRadius: 1,
-                  border: "solid 1px #009AA6",
-                  backgroundColor: "#FFFFFF",
-                }}
-              />
-            </AccordionDetails>
-          </Accordion>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography>Texte libre de {pseudo}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <TextField
+                  readOnly
+                  value={userText}
+                  multiline
+                  rows={2}
+                  size="small"
+                  sx={{
+                    width: "100%",
+                    borderRadius: 1,
+                    border: "solid 1px #009AA6",
+                    backgroundColor: "#FFFFFF",
+                  }}
+                />
+              </AccordionDetails>
+            </Accordion>
           ) : (
             <TextField
-            disabled
-            value={`Il n'y a pas  de texte libre pour ${pseudo} !`}
-            size="small"
-            sx={{
-              width: "100%",
-              borderRadius: 1,
-              border: "dotted 1px #009AA6",
-              backgroundColor: "#FFFFFF",
-              fontStyle: "italic",
-            }}
-          />
+              disabled
+              value={`Il n'y a pas  de texte libre pour ${pseudo} !`}
+              size="small"
+              sx={{
+                width: "100%",
+                borderRadius: 1,
+                border: "dotted 1px #009AA6",
+                backgroundColor: "#FFFFFF",
+                fontStyle: "italic",
+              }}
+            />
           )}
         </Grid>
       </Grid>
