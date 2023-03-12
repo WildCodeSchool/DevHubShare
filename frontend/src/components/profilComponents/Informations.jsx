@@ -3,9 +3,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, TextField, Button } from "@material-ui/core";
-import { useParams } from "react-router-dom";
 import UserImage from "../UserImage";
 
 const useStyles = makeStyles((theme) => ({
