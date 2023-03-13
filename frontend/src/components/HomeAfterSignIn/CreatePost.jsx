@@ -92,7 +92,10 @@ export default function CreatePost({
         mt: 3,
       }}
     >
-      <Typography variant="h4" sx={{ color: "#009AA6", fontWeight: "medium" }}>
+      <Typography
+        variant="h4"
+        sx={{ textAlign: "center", color: "#009AA6", fontWeight: "medium" }}
+      >
         <em>Créer un post</em>
       </Typography>
       <Stack
