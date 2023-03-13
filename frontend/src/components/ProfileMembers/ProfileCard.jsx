@@ -11,6 +11,7 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function ProfileCard({
   picture,
@@ -19,18 +20,25 @@ export default function ProfileCard({
   userText,
   onClickUser,
 }) {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   return (
     <Container
       sx={{
         backgroundColor: "#FFFFFF",
         borderRadius: 1,
-        mt: 1,
       }}
     >
-      <Grid container mb={1}>
+      <Grid
+        container
+        sx={{
+          flexDirection: isMobile && "column",
+          alignContent: "center",
+        }}
+      >
         <Grid
           item
-          xs={2}
+          sm={2}
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -41,16 +49,21 @@ export default function ProfileCard({
             sx={{
               width: 70,
               height: 70,
-              mr: 2,
+              mr: 3,
+              "&:hover": { boxShadow: "0px 10px 15px -2px #D7D7D7" },
+              mt: isMobile && 1,
             }}
           />
         </Grid>
-        <Grid item xs={10}>
+        <Grid item sm={10}>
           <Grid
             container
             direction="column"
-            spacing={0.8}
-            sx={{ width: "100%" }}
+            spacing={0.6}
+            sx={{
+              width: isMobile ? "100%" : "90%",
+              alignContent: isMobile && "center",
+            }}
           >
             <Grid item>
               <Typography color="#009AA6" fontWeight="bold">
@@ -85,6 +98,7 @@ export default function ProfileCard({
                   borderRadius: 1,
                   border: "solid 1px #009AA6",
                   width: "100%",
+                  mb: 1,
                 }}
               />
             </Grid>
