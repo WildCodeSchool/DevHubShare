@@ -22,8 +22,7 @@ export default function NotFoundError() {
   return (
     <Container
       onClick={handlePage}
-      position= "center"
-
+      position="center"
       sx={{
         display: "flex",
       }}

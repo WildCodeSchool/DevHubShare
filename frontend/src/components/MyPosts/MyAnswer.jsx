@@ -9,8 +9,8 @@ import {
   InputAdornment,
   Button,
 } from "@mui/material";
-import flecheSend from "./images/flecheSend.png";
 import { useNavigate } from "react-router-dom";
+import flecheSend from "./images/flecheSend.png";
 
 export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };

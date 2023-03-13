@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import BadRequestPage from "@pages/BadRequestPage";
 import SelectedLanguageContext from "./services/context/SelectedLanguageContext";
 import Home from "./pages/Home";
 import SignUpPage from "./pages/SignUpPage";
@@ -15,7 +16,6 @@ import Resources from "./pages/Resources";
 import MyPostsPage from "./pages/MyPostsPage";
 import SignInPage from "./pages/SignInPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import BadRequestPage from "@pages/BadRequestPage";
 import PrivateRoutes from "./services/PrivateRoutes";
 import "./App.css";
 
