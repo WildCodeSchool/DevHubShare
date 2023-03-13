@@ -14,7 +14,17 @@ export default function SignOutButton() {
   };
   return (
     <Stack spacing={2} direction="row">
-      <Button onClick={handleSignOut} variant="contained">
+      <Button
+        onClick={handleSignOut}
+        variant="contained"
+        sx={{
+          backgroundColor: "#009AA6",
+          color: "#ffff",
+          "&:hover": {
+            backgroundColor: "#5dacb2",
+          },
+        }}
+      >
         Déconnexion
       </Button>
     </Stack>
