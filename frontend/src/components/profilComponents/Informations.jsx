@@ -31,7 +31,7 @@ function Informations() {
   const classes = useStyles();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/users/1").then((response) => {
+    axios.get("http://localhost:5000/users/4").then((response) => {
       setCurrentUser(response.data);
     });
   }, []);
@@ -39,7 +39,7 @@ function Informations() {
   useEffect(() => {
     if (currentUser && currentUser.id) {
       axios
-        .get(`http://localhost:5000/user_has_language/1`)
+        .get(`http://localhost:5000/user_has_language/4`)
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({

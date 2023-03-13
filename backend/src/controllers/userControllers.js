@@ -31,15 +31,17 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const user = req.body;
-
+  console.log(user, "user de controller");
+  console.log(req, "req");
   user.id = parseInt(req.params.id, 10);
-  const language = user.language_id;
+  const language = user.languageId;
   models.user
     .update(user)
     .then(() => {
       return models.user_has_language.deleteAllByUserId(user.id);
     })
     .then(() => {
+      console.info(language, "languageusercontroller");
       const promises = language.map((language_id) => {
         return models.user_has_language.insert({
           user_id: user.id,
@@ -60,27 +62,6 @@ const edit = (req, res) => {
       res.sendStatus(500);
     });
 };
-// const edit = (req, res) => {
-//   const user = req.body;
-
-//   // TODO validations (length, format...)
-
-//   user.id = parseInt(req.params.id, 10);
-
-//   models.user
-//     .update(user)
-//     .then(([result]) => {
-//       if (result.affectedRows === 0) {
-//         res.sendStatus(404);
-//       } else {
-//         res.sendStatus(204);
-//       }
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(500);
-//     });
-// };
 
 const add = (req, res) => {
   const user = req.body;
