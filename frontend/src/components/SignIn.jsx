@@ -48,6 +48,7 @@ export default function SignIn() {
         password,
       });
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId.toString());
       console.info(response.data);
       navigate("/creer-post");
     } catch (error) {

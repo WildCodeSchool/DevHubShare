@@ -57,7 +57,7 @@ export default function Conversation({ post, newAnswer }) {
             }}
           >
             <h2 style={{ margin: "0.5rem", color: "#82BE00" }}>
-              Mes Posts ici
+              Les réponses ici:
             </h2>
             {post && (
               <Accordion sx={{ margin: "0.5rem" }}>
