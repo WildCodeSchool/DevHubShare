@@ -60,7 +60,10 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         mb: 3,
       }}
     >
-      <Typography variant="h4" sx={{ textAlign: "center", color: "#82BE00", fontWeight: "medium" }}>
+      <Typography
+        variant="h4"
+        sx={{ textAlign: "center", color: "#82BE00", fontWeight: "medium" }}
+      >
         <em>Fil de discussion {languageNameSelected}</em>
       </Typography>
       <Stack

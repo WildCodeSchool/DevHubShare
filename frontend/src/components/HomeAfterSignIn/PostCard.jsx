@@ -24,14 +24,19 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
         borderRadius: 1,
       }}
     >
-      <Grid container mb={1}
-          sx={{
-            flexDirection: isMobile && "column",
-            alignContent: isMobile && "center",
-          }}>
+      <Grid
+        container
+        mb={1}
+        sx={{
+          flexDirection: isMobile && "column",
+          alignContent: isMobile && "center",
+        }}
+      >
         <Grid
           item
-          md={2} sm={2} xs={12}
+          md={2}
+          sm={2}
+          xs={12}
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -61,7 +66,7 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
                 TAG
               </Typography>
             </Grid>
-            <Grid item xs = {12}>
+            <Grid item xs={12}>
               <TextField
                 multiline
                 rows={1}
