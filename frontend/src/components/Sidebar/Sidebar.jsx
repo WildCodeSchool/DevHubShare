@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { useMediaQuery, createTheme } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SelectedLanguageContext from "../../services/context/SelectedLanguageContext";
 
 const themeMedia = createTheme({
@@ -27,6 +27,8 @@ export default function Sidebar() {
   const [showButton, setShowButton] = useState(false);
 
   const [sideLanguages, setSideLanguages] = useState([]);
+
+  const navigate = useNavigate();
 
   function useLoggedIn() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,6 +73,7 @@ export default function Sidebar() {
 
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
+    navigate("/fil-de-discussion");
   };
   setSelectedLanguage(selectedLanguage);
   console.info(selectedLanguage, "langage sélectionné");
@@ -152,7 +155,7 @@ export default function Sidebar() {
                   value={langage.langage_name}
                   style={{ color: "#009AA6" }}
                 >
-                  <Link to="/fil-de-discussion"> {langage.language_name}</Link>
+                  {langage.language_name}
                 </option>
               ))}
             </select>
