@@ -14,7 +14,8 @@ import LanguageSelectFeed from "./pages/LanguageSelectFeed";
 import Resources from "./pages/Resources";
 import MyPostsPage from "./pages/MyPostsPage";
 import SignInPage from "./pages/SignInPage";
-import ErreurPage from "./pages/ErreurPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import BadRequestPage from "@pages/BadRequestPage";
 import PrivateRoutes from "./services/PrivateRoutes";
 import "./App.css";
 
@@ -35,7 +36,8 @@ function App() {
           <Route path="/inscription" element={<SignUpPage />} />
           <Route path="/connexion" element={<SignInPage />} />
           <Route path="/ressources" element={<Resources />} />
-          <Route path="/erreur" element={<ErreurPage />} />
+          <Route path="/erreur404" element={<NotFoundPage />} />
+          <Route path="/erreur400" element={<BadRequestPage />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/creation-compte" element={<ProfileUserPage />} />
             <Route path="/creer-post" element={<HomeAfterSignIn />} />
