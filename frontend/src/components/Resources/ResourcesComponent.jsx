@@ -1,4 +1,5 @@
 import React from "react";
+import { styled } from "@mui/system";
 import {
   Container,
   Link,
@@ -6,13 +7,12 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { styled } from "@mui/system";
 
 const StyledLink = styled(Link)({
   textDecoration: "none",
   fontSize: 15,
   color: "#675C53",
-  "&:hover": { color: "#675C53" },
+  "&:hover": { color: "#82BE00" },
 });
 
 export default function ResourcesComponent() {
@@ -26,6 +26,7 @@ export default function ResourcesComponent() {
         alignItems: "center",
         gap: 1,
         mt: 3,
+        minWidth: isMobile && "95vw",
       }}
     >
       <Stack
