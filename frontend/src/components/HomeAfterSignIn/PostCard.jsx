@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
+import { styled } from "@mui/system";
 import {
   Grid,
   Typography,
@@ -10,9 +11,21 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Button,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+const StyledButton = styled(Button)({
+  backgroundColor: "#82BE00",
+  color: "#FFFFFF",
+  "&:hover": { backgroundColor: "#82BE00" },
+  fontSize: 9,
+  fontWeight: "bold",
+  width: "10%",
+  marginLeft: "84%",
+  marginTop: "1%",
+});
 
 export default function PostCard({ users, tag, date, postContent, answers }) {
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -46,8 +59,8 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
               key={user.id}
               src={user.picture}
               sx={{
-                width: 50,
-                height: 50,
+                width: 60,
+                height: 60,
                 mr: isMobile ? 0 : 2,
                 mt: isMobile && 1,
               }}
@@ -108,21 +121,30 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
           </AccordionDetails>
         </Accordion>
       </Grid>
-      <Grid item mb={1}>
-        {answers?.length === 0 ? (
+
+      {answers?.length === 0 ? (
+        <Grid item mb={1}>
           <TextField
-            disabled
-            value="Il n'y a pas encore de réponse pour ce post !"
-            size="small"
+            id="answer-content"
+            InputLabelProps={{ shrink: true }}
+            label="Il n'y a pas de réponse pour ce post encore ! Pourquoi pas vous ?"
+            // value={answer}
+            // onChange={handleAnswerChange}
+            multiline
+            rows={2}
             sx={{
-              width: "100%",
-              borderRadius: 1,
-              border: "dotted 1px #82BE00",
               backgroundColor: "#FFFFFF",
+              border: "dotted 1px #82BE00",
+              borderRadius: 1,
+              width: "100%",
               fontStyle: "italic",
+              mt: 1,
             }}
           />
-        ) : (
+          <StyledButton type="submit">Poster</StyledButton>
+        </Grid>
+      ) : (
+        <Grid item mb={1}>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Réponse(s) au post</Typography>
@@ -143,13 +165,31 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
                         backgroundColor: "#FFFFFF",
                       }}
                     />
+                    <TextField
+                      id="answer-content"
+                      InputLabelProps={{ shrink: true }}
+                      label="Votre réponse"
+                      // value={answer}
+                      // onChange={handleAnswerChange}
+                      multiline
+                      rows={2}
+                      sx={{
+                        backgroundColor: "#FFFFFF",
+                        border: "dotted 1px #82BE00",
+                        borderRadius: 1,
+                        width: "100%",
+                        fontStyle: "italic",
+                        mt: 1,
+                      }}
+                    />
+                    <StyledButton type="submit">Poster</StyledButton>
                   </Grid>
                 ))}
               </Grid>
             </AccordionDetails>
           </Accordion>
-        )}
-      </Grid>
+        </Grid>
+      )}
     </Container>
   );
 }

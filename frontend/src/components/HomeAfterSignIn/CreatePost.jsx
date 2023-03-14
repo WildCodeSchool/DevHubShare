@@ -17,7 +17,7 @@ const StyledButton = styled(Button)({
   backgroundColor: "#FFFFFF",
   color: "#009AA6",
   "&:hover": { backgroundColor: "#FFFFFF" },
-  fontSize: 8,
+  fontSize: 9,
   fontWeight: "bold",
   width: "10%",
   alignSelf: "flex-end",
