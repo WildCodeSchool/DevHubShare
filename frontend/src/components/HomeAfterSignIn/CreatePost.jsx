@@ -11,6 +11,7 @@ import {
   MenuItem,
   TextField,
   Button,
+  useMediaQuery,
 } from "@mui/material";
 
 const StyledButton = styled(Button)({
@@ -33,6 +34,7 @@ export default function CreatePost({
   const [post, setPost] = useState("");
   const [errorSubmit, setErrorSubmit] = useState("");
   const userId = localStorage.getItem("userId");
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   useEffect(() => {
     const getLanguages = () => {
@@ -90,6 +92,7 @@ export default function CreatePost({
         alignItems: "center",
         gap: 1,
         mt: 3,
+        minWidth: isMobile && "95vw",
       }}
     >
       <Typography
@@ -156,6 +159,7 @@ export default function CreatePost({
           label="TAG"
           onChange={handleTagChange}
           required
+          size="small"
           sx={{
             backgroundColor: "#FFFFFF",
             borderRadius: 1,

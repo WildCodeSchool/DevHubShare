@@ -1,11 +1,12 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Box, Grid } from "@mui/material";
+import { Container, Grid, useMediaQuery } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
-import LogoSNCF from "./images/logo_sncf.png";
+// import LogoSNCF from "./images/logo_sncf.png";
+import LogoSNCF from "./images/DevHubSHARE_logo.png";
 import NotificationImg from "./images/bellNotification.png";
 
 const Links = styled(Link)({
@@ -20,57 +21,89 @@ const Button = styled("button")({
 });
 
 const Logo = styled("img")({
-  width: "45%",
+  maxWidth: "7rem",
+  minWidth: "6rem",
 });
 
 const Notification = styled("img")({
-  width: "12%",
-  // marginRight: "2%",
+  width: "1.5rem",
+  minHeight: "1.5rem",
 });
 
 export default function NavBar() {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+  const isTablet = useMediaQuery("(max-width: 900px)");
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Container
+      position="fixed"
+      sx={{
+        maxHeight: "96px",
+        alignItems: "center",
+      }}
+    >
       <AppBar
-        position="static"
         sx={{
           backgroundColor: "#FFFFFF",
-          boxShadow: "none",
           borderBottom: "solid 1px #D7D7D7",
+          flexWrap: "nowrap",
+          boxShadow: "none",
         }}
       >
-        <Toolbar>
-          <Grid container alignItems="center">
-            <Grid item xs={2}>
+        <Toolbar sx={{ padding: 0 }}>
+          <Grid
+            container
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Grid
+              item
+              xl={2}
+              lg={2}
+              md={2}
+              sm={2.5}
+              xs={2.6}
+              sx={{
+                position: isMobile && "none",
+              }}
+            >
               <Logo src={LogoSNCF} alt="logo" />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item>
               <Typography
                 variant="h4"
-                // component="div"
                 sx={{
                   textAlign: "center",
-                  fontSize: "4vw",
+                  fontSize: isTablet ? "250%" : "400%",
                   color: "#009AA6",
-                  marginLeft: "auto",
-                  marginRight: "auto",
                 }}
               >
                 DevHubSHARE
               </Typography>
             </Grid>
             <Grid
-              item
-              xs={2}
-              sx={{ display: "flex", justifyContent: "flex-end" }}
+              container
+              xl={2}
+              lg={2}
+              md={2}
+              sm={3}
+              xs={2.6}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignContent: "flex-end",
+                alignItems: "center",
+              }}
             >
               <Button color="inherit">
-                <Typography variant="h6" fontSize="1.2vw">
+                <Typography variant="h6">
                   <Links to="/connexion">Connexion</Links>
                 </Typography>
               </Button>
               <Button color="inherit">
-                <Typography variant="h6" fontSize="1.2vw">
+                <Typography variant="h6">
                   <Links to="/mon-compte">Mon compte</Links>
                 </Typography>
               </Button>
@@ -79,6 +112,6 @@ export default function NavBar() {
           </Grid>
         </Toolbar>
       </AppBar>
-    </Box>
+    </Container>
   );
 }

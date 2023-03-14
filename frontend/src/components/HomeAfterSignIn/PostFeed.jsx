@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-
-import { Container, Typography, Stack } from "@mui/material";
+import { Container, Typography, Stack, useMediaQuery } from "@mui/material";
 import PostCard from "./PostCard";
 
 export default function PostFeed({ languageNameSelected, languageSelected }) {
   const [answers, setAnswers] = useState([]);
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   useEffect(() => {
     const getAnswers = async () => {
@@ -58,6 +58,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         gap: 1,
         mt: 3,
         mb: 3,
+        minWidth: isMobile && "95vw",
       }}
     >
       <Typography
@@ -75,7 +76,6 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 1,
           borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#82BE00",

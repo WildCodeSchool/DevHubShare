@@ -1,28 +1,28 @@
 import * as React from "react";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { useMediaQuery, createTheme } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import SelectedLanguageContext from "../../services/context/SelectedLanguageContext";
 
-const themeMedia = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 800,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-});
+// const themeMedia = createTheme({
+//   breakpoints: {
+//     values: {
+//       xs: 0,
+//       sm: 600,
+//       md: 900,
+//       lg: 1200,
+//       xl: 1536,
+//     },
+//   },
+// });
 
 export default function Sidebar() {
   const { selectedLanguage, setSelectedLanguage } = useContext(
     SelectedLanguageContext
   );
-  const isMediumScreen = useMediaQuery(themeMedia.breakpoints.down("md"));
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const [showSidebar, setShowSidebar] = useState(true);
   const [showButton, setShowButton] = useState(false);
 
@@ -58,14 +58,14 @@ export default function Sidebar() {
   }, []);
 
   useEffect(() => {
-    if (isMediumScreen) {
+    if (isMobile) {
       setShowButton(true);
       setShowSidebar(false);
     } else {
       setShowButton(false);
       setShowSidebar(true);
     }
-  }, [isMediumScreen]);
+  }, [isMobile]);
 
   const clickButton = () => {
     setShowSidebar(!showSidebar);

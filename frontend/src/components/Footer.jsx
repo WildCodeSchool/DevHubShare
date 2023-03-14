@@ -1,11 +1,16 @@
 import React from "react";
-import { TableFooter, TableRow, Link, Typography } from "@mui/material";
+import {
+  TableFooter,
+  TableRow,
+  Link,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { styled } from "@mui/system";
 import LogoSNCF from "../assets/LOGO_SNCF_GROUPE_RVB_small.png";
 
 const Logo = styled("img")({
   width: "4rem",
-  marginLeft: "0.3rem",
 });
 
 const FooterLink = styled(Link)({
@@ -32,10 +37,18 @@ const FooterContainer = styled(TableFooter)({
 });
 
 export default function Footer() {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   return (
     <FooterContainer>
       <TableRow sx={{ alignSelf: "center" }}>
-        <Logo src={LogoSNCF} alt="logo" />
+        <Logo
+          src={LogoSNCF}
+          alt="logo"
+          sx={{
+            ml: isMobile ? "0rem" : "1.6rem",
+          }}
+        />
       </TableRow>
       <TableRow
         sx={{
@@ -47,8 +60,18 @@ export default function Footer() {
         <FooterLink href="#">DevHub Connect {">"}</FooterLink>
         <FooterLink href="#">DevHub Project {">"}</FooterLink>
       </TableRow>
-      <TableRow sx={{ alignSelf: "flex-end" }}>
-        <Typography variant="caption" sx={{ fontSize: "0.5rem", mr: 2 }}>
+      <TableRow
+        sx={{
+          alignSelf: isMobile ? "center" : "flex-end",
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            fontSize: "0.5rem",
+            mr: isMobile ? "0.2rem" : "1.6rem",
+          }}
+        >
           <em>WCS Marseille 2023_Créé par Nelly, Karine, Sandra et Geoffroy</em>
         </Typography>
       </TableRow>
