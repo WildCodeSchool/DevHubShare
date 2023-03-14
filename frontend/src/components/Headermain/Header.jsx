@@ -157,7 +157,7 @@ export default function NavBar() {
                   <Links to="/mon-compte">Mon compte</Links>
                 </Typography>
               </Button>
-              <Button>
+              <Button sx={{ p: 0 }}>
                 <Icon src={NotificationImg} alt="notificationBell" />
                 {newResponsesCount >= 0 && (
                   <Typography
