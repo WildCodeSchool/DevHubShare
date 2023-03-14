@@ -20,7 +20,7 @@ const hashPassword = (req, res, next) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
@@ -37,12 +37,12 @@ const verifyPassword = (req, res) => {
         delete req.user.hashedPassword;
         res.status(201).send({ token, userId: req.user.id }); //  retour token + user ID
       } else {
-        res.sendStatus(401);
+        res.status(401).send("Status: Unauthorized");
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 const verifyToken = (req, res, next) => {
@@ -64,7 +64,7 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-    res.sendStatus(401);
+    res.status(401).send("Status: Unauthorized");
   }
 };
 const verifyId = (req, res, next) => {
@@ -72,11 +72,11 @@ const verifyId = (req, res, next) => {
     if (req.payload.sub === parseInt(req.params.id, 10)) {
       next();
     } else {
-      res.sendStatus(403);
+      res.status(403).send("Status: Forbidden");
     }
   } catch (err) {
     console.error(err);
-    res.sendStatus(401);
+    res.status(401).send("Status: Unauthorized");
   }
 };
 

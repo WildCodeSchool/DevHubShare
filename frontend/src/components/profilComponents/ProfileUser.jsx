@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Card, CardContent } from "@material-ui/core";
+import { Grid, Card, CardContent, Button } from "@material-ui/core";
 import Informations from "./Informations";
 import TexteLibre from "./TexteLibre";
 
@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
   gridCard: {
     display: "grid",
     alignItems: "center",
+  },
+  valider: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: theme.spacing(1),
   },
 }));
 
@@ -38,6 +43,11 @@ function UserProfile() {
               </div>
             </CardContent>
           </Card>
+          <Grid item xs={12} className={classes.valider}>
+            <Button variant="text" href="/creation-compte">
+              Modifier le profil
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </div>

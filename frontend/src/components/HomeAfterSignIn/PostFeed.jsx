@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { Container, Typography, Stack, useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 
 export default function PostFeed({ languageNameSelected, languageSelected }) {
@@ -9,6 +10,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAnswers = async () => {
@@ -37,6 +39,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         setPostsWithAnswers(postsAnswers);
       } catch (error) {
         console.error(error);
+        navigate("/erreur400");
       }
     };
     getPosts();

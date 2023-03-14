@@ -9,7 +9,7 @@ const browse = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
@@ -19,7 +19,7 @@ const read = (req, res) => {
     .find(userId)
     .then(([rows]) => {
       if (rows[0] == null) {
-        res.sendStatus(404);
+        res.status(404).send("Status: Not Found");
       } else {
         const result = rows;
         res.send(result);
@@ -27,7 +27,7 @@ const read = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
@@ -41,14 +41,14 @@ const edit = (req, res) => {
     .update(user_has_language)
     .then(([result]) => {
       if (result.affectedRows === 0) {
-        res.sendStatus(404);
+        res.status(404).send("Status: Not Found");
       } else {
-        res.sendStatus(204);
+        res.status(204).send("Status: No Content");
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
@@ -64,7 +64,7 @@ const add = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
@@ -73,14 +73,14 @@ const destroy = (req, res) => {
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
-        res.sendStatus(404);
+        res.status(404).send("Status: Not Found");
       } else {
-        res.sendStatus(204);
+        res.status(204).send("Status: No Content");
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 

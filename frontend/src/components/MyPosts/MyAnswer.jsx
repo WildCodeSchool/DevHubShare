@@ -9,11 +9,13 @@ import {
   InputAdornment,
   Button,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import flecheSend from "./images/flecheSend.png";
 
 export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
+  const navigate = useNavigate();
 
   const answerSent = (e) => setAnswerText(e.target.value);
 
@@ -37,6 +39,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
       onNewAnswerSubmitted(true);
     } catch (error) {
       console.error("Erreur lors de l'envoi de la réponse:", error);
+      navigate("/erreur400");
     }
   };
 

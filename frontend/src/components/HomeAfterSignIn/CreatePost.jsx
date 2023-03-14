@@ -35,6 +35,7 @@ export default function CreatePost({
   const [errorSubmit, setErrorSubmit] = useState("");
   const userId = localStorage.getItem("userId");
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getLanguages = () => {
@@ -58,8 +59,6 @@ export default function CreatePost({
     setPost(event.target.value);
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!languageNameSelected) {
@@ -80,6 +79,7 @@ export default function CreatePost({
       })
       .catch((error) => {
         console.error(error);
+        navigate("/erreur400");
       });
     navigate("/mes-posts");
   };

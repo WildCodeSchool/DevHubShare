@@ -51,6 +51,7 @@ export default function Sidebar() {
       // console.info("langages api", data);
     } catch (error) {
       console.error(error);
+      navigate("/erreur400");
     }
   };
   useEffect(() => {

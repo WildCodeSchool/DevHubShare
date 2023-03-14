@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import { Container, Grid, useMediaQuery } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
@@ -25,14 +26,57 @@ const Logo = styled("img")({
   minWidth: "6rem",
 });
 
-const Notification = styled("img")({
-  width: "1.5rem",
-  minHeight: "1.5rem",
+const Icon = styled("img")({
+  width: "30%",
+  position: "relative",
 });
 
 export default function NavBar() {
+  const [answers, setAnswers] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [newResponsesCount, setNewResponsesCount] = useState();
   const isMobile = useMediaQuery("(max-width: 600px)");
   const isTablet = useMediaQuery("(max-width: 900px)");
+
+  const localId = localStorage.getItem("userId");
+  const postId = 1;
+
+  const filteredPosts = posts.filter((post) => post.user_id === localId);
+
+  const filteredAnswers = answers.filter(
+    (answer) =>
+      answer.user_id !== localId && answer.post_id === filteredPosts[0]?.id
+  );
+
+  const getPosts = async () => {
+    const response = await axios.get(
+      `http://localhost:5000/posts/user/${localId}`
+    );
+    setPosts(response.data);
+    console.info("posts2:", response.data);
+  };
+
+  const getAnswers = async () => {
+    const response = await axios.get(
+      `http://localhost:5000/answers/post/${postId}`
+    );
+    setAnswers(response.data);
+    console.info("answers2:", response.data);
+  };
+
+  useEffect(() => {
+    getAnswers();
+    getPosts();
+  }, []);
+
+  useEffect(() => {
+    setNewResponsesCount(
+      filteredAnswers.filter(
+        (answer) => answer.post_id === filteredPosts[0]?.id
+      ).length
+    );
+  }, [filteredAnswers, filteredPosts]);
+
   return (
     <Container
       position="fixed"
@@ -107,7 +151,30 @@ export default function NavBar() {
                   <Links to="/mon-compte">Mon compte</Links>
                 </Typography>
               </Button>
-              <Notification src={NotificationImg} alt="notificationBell" />
+              <Button
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Icon src={NotificationImg} alt="notificationBell" />
+                {newResponsesCount >= 0 && (
+                  <Typography
+                    sx={{
+                      backgroundColor: "red",
+                      position: "absolute",
+                      top: "30%",
+                      right: "5.8%",
+                      width: "1.3%",
+                      height: "18%",
+                      borderRadius: "50%",
+                      fontSize: "1.2vw",
+                    }}
+                  >
+                    {newResponsesCount}
+                  </Typography>
+                )}
+              </Button>
             </Grid>
           </Grid>
         </Toolbar>
