@@ -39,9 +39,12 @@ function App() {
           <Route path="/erreur404" element={<NotFoundPage />} />
           <Route path="/erreur400" element={<BadRequestPage />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="/creation-compte" element={<ProfileUserPage />} />
+            <Route path="/mon-compte" element={<ProfileUserPage />} />
             <Route path="/creer-post" element={<HomeAfterSignIn />} />
-            <Route path="/mon-compte" element={<ProfileUserRegistered />} />
+            <Route
+              path="/creation-compte"
+              element={<ProfileUserRegistered />}
+            />
             <Route path="/profil-membres" element={<ProfileMembersPage />} />
             <Route
               path="/profil-membre/:userIdSelected"

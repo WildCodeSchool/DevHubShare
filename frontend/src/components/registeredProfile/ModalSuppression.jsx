@@ -1,4 +1,6 @@
-import * as React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -8,14 +10,33 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [deletedUser, setDeletedUser] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    setEmail("");
     setOpen(false);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:5000/users?email=${email}`)
+      .then((response) => {
+        setDeletedUser(response.data);
+        handleClose();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -27,8 +48,8 @@ export default function FormDialog() {
         <DialogTitle>ATTENTION vous allez supprimer votre compte</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Pour supprimer votre compte, veuillez comfirmer en entrant votre
-            addresse mail.
+            Pour supprimer votre compte, veuillez confirmer en entrant votre
+            adresse email.
           </DialogContentText>
           <TextField
             autoFocus
@@ -38,11 +59,13 @@ export default function FormDialog() {
             type="email"
             fullWidth
             variant="standard"
+            value={email}
+            onChange={handleEmailChange}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Annuler</Button>
-          <Button onClick={handleClose}>Confirmer</Button>
+          <Button onClick={handleDelete}>Confirmer</Button>
         </DialogActions>
       </Dialog>
     </div>

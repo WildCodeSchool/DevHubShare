@@ -14,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
 function TexteLibre() {
   const [textArea, setTextArea] = useState("");
   const classes = useStyles();
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/users/1").then((response) => {
+    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
       setTextArea(response.data);
     });
   }, []);

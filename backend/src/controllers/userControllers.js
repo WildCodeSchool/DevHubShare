@@ -31,7 +31,6 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const user = req.body;
-
   user.id = parseInt(req.params.id, 10);
   const language = user.language_id;
   models.user
@@ -90,8 +89,12 @@ const add = (req, res) => {
 };
 
 const destroy = (req, res) => {
+  const userId = req.params.id;
   models.user
-    .delete(req.params.id)
+    .delete(userId)
+    .then(() => {
+      return models.user.delete(userId);
+    })
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.status(404).send("Status: Not Found");
@@ -104,7 +107,6 @@ const destroy = (req, res) => {
       res.status(500).send("Status: Internal Server Error");
     });
 };
-
 const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
   const { email } = req.body;
   models.user
