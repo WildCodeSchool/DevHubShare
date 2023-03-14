@@ -35,7 +35,7 @@ export default function NavBar() {
   const [answers, setAnswers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [newResponsesCount, setNewResponsesCount] = useState();
-  // const isMobile = useMediaQuery("(max-width: 600px)");
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const isTablet = useMediaQuery("(max-width: 900px)");
 
   const localId = localStorage.getItem("userId");
@@ -103,10 +103,24 @@ export default function NavBar() {
               justifyContent: "space-between",
             }}
           >
-            <Grid item xl={2} lg={2} md={2} sm={2.5} xs={2.6}>
-              <Logo src={LogoSNCF} alt="logo" />
+            <Grid item xl={2} lg={2} md={2} sm={2.7} xs={3}>
+              <Logo
+                src={LogoSNCF}
+                alt="logo"
+                sx={{
+                  display: isMobile && "flex",
+                  flexDirection: isMobile && "row",
+                  justifySelf: isMobile && "flex-end",
+                }}
+              />
             </Grid>
-            <Grid item>
+            <Grid
+              item
+              xs={0}
+              sx={{
+                display: isMobile && "none",
+              }}
+            >
               <Typography
                 variant="h4"
                 sx={{
@@ -123,11 +137,12 @@ export default function NavBar() {
               xl={2}
               lg={2}
               md={2}
-              sm={3}
-              xs={2.6}
+              sm={2.7}
+              xs={9}
               sx={{
                 display: "flex",
-                flexDirection: "column",
+                flexDirection: isMobile ? "row" : "column",
+                justifyContent: isMobile && "center",
                 alignContent: "flex-end",
                 alignItems: "center",
               }}
