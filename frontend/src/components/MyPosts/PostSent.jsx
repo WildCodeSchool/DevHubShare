@@ -116,14 +116,17 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
               </AccordionSummary>
               <AccordionDetails>
                 <p>{post.post_text}</p>
-                <div className="MyPostDelete" style={{ display: "flex" }}>
+                <div
+                  className="MyPostDelete"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <p> {format(new Date(post.creation_date), "dd/MM/yyyy")}</p>
                   <IconButton
                     aria-label="delete"
                     size="large"
                     onClick={() => handleDeletePost(post.id)}
                   >
-                    <DeleteIcon />
+                    <DeleteIcon sx={{ color: "#009AA6" }} />
                   </IconButton>
                 </div>
               </AccordionDetails>
