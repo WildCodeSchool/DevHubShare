@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
-import ProfileMember from "../components/ProfileMember/ProfileMember";
+import ProfileMembers from "../components/ProfileMembers/ProfileMembers";
 import Footer from "../components/Footer";
 import "../App.css";
 
-export default function ProfileMemberPage() {
+export default function ProfileMembersPage() {
   return (
     <div className="parent">
       <div className="header">
@@ -16,7 +16,7 @@ export default function ProfileMemberPage() {
           <Sidebar />
         </div>
         <div className="content">
-          <ProfileMember />
+          <ProfileMembers />
         </div>
       </div>
       <div className="footer">

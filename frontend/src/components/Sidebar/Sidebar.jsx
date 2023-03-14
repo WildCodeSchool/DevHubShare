@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { useMediaQuery, createTheme } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SelectedLanguageContext from "../../services/context/SelectedLanguageContext";
 
 const themeMedia = createTheme({
@@ -28,13 +28,15 @@ export default function Sidebar() {
 
   const [sideLanguages, setSideLanguages] = useState([]);
 
+  const navigate = useNavigate();
+
   function useLoggedIn() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // localStorage.setItem("user.id", "1");
     useEffect(() => {
-      const userId = localStorage.getItem("user.id");
-      setIsLoggedIn(!!userId);
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
     }, []);
 
     return isLoggedIn;
@@ -49,6 +51,7 @@ export default function Sidebar() {
       // console.info("langages api", data);
     } catch (error) {
       console.error(error);
+      navigate("/erreur400");
     }
   };
   useEffect(() => {
@@ -71,6 +74,7 @@ export default function Sidebar() {
 
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
+    navigate("/fil-de-discussion");
   };
   setSelectedLanguage(selectedLanguage);
   console.info(selectedLanguage, "langage sélectionné");
@@ -152,13 +156,13 @@ export default function Sidebar() {
                   value={langage.langage_name}
                   style={{ color: "#009AA6" }}
                 >
-                  <Link to="/fil-de-discussion"> {langage.language_name}</Link>
+                  {langage.language_name}
                 </option>
               ))}
             </select>
           </div>
           <NavLink
-            to="/profil-membre"
+            to="/profil-membres"
             className="link"
             style={{
               display: "flex",

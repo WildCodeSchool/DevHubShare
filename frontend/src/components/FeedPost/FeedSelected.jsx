@@ -25,11 +25,13 @@ export default function FeedSelected() {
     const response = await axios.get("http://localhost:5000/posts");
     setPostList(response.data);
   };
+  console.info("posts:", postList);
 
   const getAnswerList = async () => {
     const response = await axios.get("http://localhost:5000/answers");
     setAnswerList(response.data);
   };
+  console.info("answers1:", answerList);
 
   const getUserList = async () => {
     const response = await axios.get("http://localhost:5000/users");

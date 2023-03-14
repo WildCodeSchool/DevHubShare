@@ -7,9 +7,11 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useNavigate } from "react-router-dom";
 
 export default function Conversation({ post, newAnswer }) {
   const [myAnswers, setMyAnswers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!post && !newAnswer) return;
@@ -22,6 +24,7 @@ export default function Conversation({ post, newAnswer }) {
         console.info("les réponses à mon poste", response.data);
       } catch (error) {
         console.error(error);
+        navigate("/erreur400");
       }
     }
     getMyAnswers();
@@ -57,7 +60,7 @@ export default function Conversation({ post, newAnswer }) {
             }}
           >
             <h2 style={{ margin: "0.5rem", color: "#82BE00" }}>
-              Mes Posts ici
+              Les réponses ici:
             </h2>
             {post && (
               <Accordion sx={{ margin: "0.5rem" }}>

@@ -9,16 +9,18 @@ import {
   InputAdornment,
   Button,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import flecheSend from "./images/flecheSend.png";
 
 export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
+  const navigate = useNavigate();
 
   const answerSent = (e) => setAnswerText(e.target.value);
 
   // localStorage.setItem("user.id", "1");
-  const localId = localStorage.getItem("user.id");
+  const localId = localStorage.getItem("userId");
 
   const handleAnswerSubmit = async () => {
     if (!answerText) {
@@ -37,6 +39,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
       onNewAnswerSubmitted(true);
     } catch (error) {
       console.error("Erreur lors de l'envoi de la réponse:", error);
+      navigate("/erreur400");
     }
   };
 
@@ -66,7 +69,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
         <FormControl sx={{ width: "100%", m: 2, gap: 1 }}>
           <TextField
             id="post-content"
-            label="Ma réponse ici..."
+            label="Mon texte ici..."
             value={answerText}
             onChange={answerSent}
             multiline

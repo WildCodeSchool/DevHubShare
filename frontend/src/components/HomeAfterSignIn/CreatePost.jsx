@@ -32,6 +32,7 @@ export default function CreatePost({
   const [tag, setTag] = useState("");
   const [post, setPost] = useState("");
   const [errorSubmit, setErrorSubmit] = useState("");
+  const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,8 +57,6 @@ export default function CreatePost({
     setPost(event.target.value);
   };
 
-  const userId = 1;
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!languageNameSelected) {
@@ -78,6 +77,7 @@ export default function CreatePost({
       })
       .catch((error) => {
         console.error(error);
+        navigate("/erreur400");
       });
     navigate("/mes-posts");
   };
@@ -92,7 +92,10 @@ export default function CreatePost({
         mt: 3,
       }}
     >
-      <Typography variant="h4" sx={{ color: "#009AA6", fontWeight: "medium" }}>
+      <Typography
+        variant="h4"
+        sx={{ textAlign: "center", color: "#009AA6", fontWeight: "medium" }}
+      >
         <em>Créer un post</em>
       </Typography>
       <Stack

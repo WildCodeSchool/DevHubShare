@@ -10,13 +10,12 @@ export default function HomeAfterSignInContent() {
   useEffect(() => {
     const handleLanguage = async () => {
       const languageName = languageNameSelected;
-      const response = await axios.get(
-        `http://localhost:5000/languages?name=${languageName}`
-      );
+      const response = await axios.get("http://localhost:5000/languages");
       const languages = response.data;
       const selectLanguage = languages.filter(
         (language) => language.language_name === languageName
       );
+      console.info("home :", response);
       setLanguageSelected(selectLanguage);
     };
     handleLanguage();
