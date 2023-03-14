@@ -71,6 +71,8 @@ function RegisteredInformations() {
   const navigate = useNavigate();
   const classes = useStyles();
 
+  const userId = localStorage.getItem("userId");
+
   const getLanguages = () => {
     axios
       .get("http://localhost:5000/languages")
@@ -85,7 +87,7 @@ function RegisteredInformations() {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/users/5").then((response) => {
+    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
       setCurrentUser(response.data);
     });
   }, []);
@@ -93,7 +95,7 @@ function RegisteredInformations() {
   useEffect(() => {
     if (currentUser && currentUser.id) {
       axios
-        .get("http://localhost:5000/user_has_language/5")
+        .get(`http://localhost:5000/user_has_language/${userId}`)
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({
@@ -106,13 +108,13 @@ function RegisteredInformations() {
 
   const handleSaveChanges = (event) => {
     event.preventDefault();
-    navigate("/creation-compte");
+    navigate("/mon-compte");
     const languageUpdate = {
       language_id,
     };
     axios
       .put(
-        "http://localhost:5000/users/5",
+        `http://localhost:5000/users/${userId}`,
         { ...userUpdate, language_id },
         languageUpdate,
         language_id
