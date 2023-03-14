@@ -27,15 +27,15 @@ const Logo = styled("img")({
 });
 
 const Icon = styled("img")({
-  width: "30%",
-  position: "relative",
+  width: "1.8rem",
+  position: "absolute",
 });
 
 export default function NavBar() {
   const [answers, setAnswers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [newResponsesCount, setNewResponsesCount] = useState();
-  const isMobile = useMediaQuery("(max-width: 600px)");
+  // const isMobile = useMediaQuery("(max-width: 600px)");
   const isTablet = useMediaQuery("(max-width: 900px)");
 
   const localId = localStorage.getItem("userId");
@@ -82,7 +82,8 @@ export default function NavBar() {
       position="fixed"
       sx={{
         maxHeight: "96px",
-        alignItems: "center",
+        display: "flex",
+        alignItems: "flex-start",
       }}
     >
       <AppBar
@@ -102,17 +103,7 @@ export default function NavBar() {
               justifyContent: "space-between",
             }}
           >
-            <Grid
-              item
-              xl={2}
-              lg={2}
-              md={2}
-              sm={2.5}
-              xs={2.6}
-              sx={{
-                position: isMobile && "none",
-              }}
-            >
+            <Grid item xl={2} lg={2} md={2} sm={2.5} xs={2.6}>
               <Logo src={LogoSNCF} alt="logo" />
             </Grid>
             <Grid item>
@@ -151,24 +142,18 @@ export default function NavBar() {
                   <Links to="/mon-compte">Mon compte</Links>
                 </Typography>
               </Button>
-              <Button
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-start",
-                }}
-              >
+              <Button>
                 <Icon src={NotificationImg} alt="notificationBell" />
                 {newResponsesCount >= 0 && (
                   <Typography
                     sx={{
                       backgroundColor: "red",
-                      position: "absolute",
-                      top: "30%",
-                      right: "5.8%",
-                      width: "1.3%",
-                      height: "18%",
-                      borderRadius: "50%",
-                      fontSize: "1.2vw",
+                      position: "relative",
+                      bottom: "0.5rem",
+                      left: "1.7rem",
+                      height: "1.1rem",
+                      width: "1.2rem",
+                      borderRadius: "60%",
                     }}
                   >
                     {newResponsesCount}
