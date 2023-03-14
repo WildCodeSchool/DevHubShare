@@ -144,7 +144,7 @@ function RegisteredInformations() {
           <Grid item xs={12}>
             <TextField
               className={classes.field}
-              label="Pseudo"
+              label="Pseudo*"
               value={pseudo}
               fullWidth
               InputLabelProps={{
@@ -186,7 +186,7 @@ function RegisteredInformations() {
           <Grid item xs={12}>
             <TextField
               className={classes.field}
-              label="Email"
+              label="Email*"
               value={email}
               fullWidth
               InputLabelProps={{
@@ -254,7 +254,7 @@ function RegisteredInformations() {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="subtitle1" gutterBottom>
-              Langages préférés
+              Langages préférés*
             </Typography>
             {sideLanguages.map((language) => (
               <FormControlLabel
@@ -287,6 +287,9 @@ function RegisteredInformations() {
             >
               Valider
             </Button>
+          </Grid>
+          <Grid item xs={12}>
+            *Champs obligatoire
           </Grid>
         </Grid>
       </form>
