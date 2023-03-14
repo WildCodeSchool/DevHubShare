@@ -37,9 +37,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function SignIn() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [err, setErr] = useState("");
   const schema = Yup.object({
     email: Yup.string().email("Email non valide").required("Email requis"),
     password: Yup.string()
@@ -63,7 +60,6 @@ export default function SignIn() {
         });
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.userId.toString());
-        // console.info(response.data);
         navigate("/creer-post");
       } catch (error) {
         helpers.setErrors({ submit: "Email ou mot de passe invalide" });
@@ -100,7 +96,6 @@ export default function SignIn() {
             error={Boolean(formik.errors.email)}
             helperText={formik.errors.email}
             onChange={formik.handleChange}
-            // onChange={(event) => setEmail(event.target.value)}
           />
           <TextField
             variant="outlined"
@@ -114,7 +109,6 @@ export default function SignIn() {
             autoComplete="current-password"
             error={Boolean(formik.errors.password)}
             helperText={formik.errors.password}
-            // onChange={(event) => setPassword(event.target.value)}
             onChange={formik.handleChange}
           />
           <FormControlLabel
