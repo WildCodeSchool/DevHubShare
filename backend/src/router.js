@@ -46,6 +46,7 @@ router.get("/answers/:id", answerControllers.read);
 router.put("/answers/:id", answerControllers.edit);
 router.post("/answers", answerControllers.add);
 router.delete("/answers/:id", answerControllers.destroy);
+router.delete("/answers/post/:postId", answerControllers.destroyAnswerByPostId);
 
 router.get("/user_has_language", userHasLanguageControllers.browse);
 router.get("/user_has_language/:id", userHasLanguageControllers.read);

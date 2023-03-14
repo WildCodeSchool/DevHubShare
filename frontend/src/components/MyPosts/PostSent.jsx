@@ -9,6 +9,8 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function PostSent({ onPostSelected, onSendAnswer }) {
   const [myPosts, setMyPosts] = useState([]);
@@ -36,6 +38,24 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
   useEffect(() => {
     getMyPosts();
   }, []);
+
+  const handleDeletePost = (postId) => {
+    axios
+      .delete(`http://localhost:5000/answers/post/${postId}`)
+      .then(() => {
+        axios
+          .delete(`http://localhost:5000/posts/${postId}`)
+          .then(() => {
+            getMyPosts();
+          })
+          .catch((error) => {
+            console.info(error);
+          });
+      })
+      .catch((error) => {
+        console.info(error);
+      });
+  };
 
   return (
     <Container
@@ -96,7 +116,16 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
               </AccordionSummary>
               <AccordionDetails>
                 <p>{post.post_text}</p>
-                <p> {format(new Date(post.creation_date), "dd/MM/yyyy")}</p>
+                <div className="MyPostDelete" style={{ display: "flex" }}>
+                  <p> {format(new Date(post.creation_date), "dd/MM/yyyy")}</p>
+                  <IconButton
+                    aria-label="delete"
+                    size="large"
+                    onClick={() => handleDeletePost(post.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
               </AccordionDetails>
             </Accordion>
           ))}
