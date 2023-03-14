@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 import { Container, Typography, Stack } from "@mui/material";
 import PostCard from "./PostCard";
 
@@ -9,6 +9,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
   const [answers, setAnswers] = useState([]);
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAnswers = async () => {
@@ -37,6 +38,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         setPostsWithAnswers(postsAnswers);
       } catch (error) {
         console.error(error);
+        navigate("/erreur400");
       }
     };
     getPosts();

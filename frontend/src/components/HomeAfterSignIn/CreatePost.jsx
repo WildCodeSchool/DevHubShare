@@ -33,6 +33,7 @@ export default function CreatePost({
   const [post, setPost] = useState("");
   const [errorSubmit, setErrorSubmit] = useState("");
   const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getLanguages = () => {
@@ -56,8 +57,6 @@ export default function CreatePost({
     setPost(event.target.value);
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!languageNameSelected) {
@@ -78,6 +77,7 @@ export default function CreatePost({
       })
       .catch((error) => {
         console.error(error);
+        navigate("/erreur400");
       });
     navigate("/mes-posts");
   };
