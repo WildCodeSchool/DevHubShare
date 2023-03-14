@@ -45,7 +45,7 @@ function UserProfile() {
           </Card>
           <Grid item xs={12} className={classes.valider}>
             <Button variant="text" href="/creation-compte">
-              Modifier le profile
+              Modifier le profil
             </Button>
           </Grid>
         </Grid>
