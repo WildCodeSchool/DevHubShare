@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import SignUpPage from "./pages/SignUpPage";
 import HomeAfterSignIn from "./pages/HomeAfterSignIn";
 import ProfileUserPage from "./pages/ProfileUserPage";
+import ProfilePersoPage from "./pages/ProfilePersoPage";
 import ProfileUserRegistered from "./pages/ProfileUserRegisteredPage";
 import ProfileMembersPage from "./pages/ProfileMembersPage";
 import LanguageSelectFeed from "./pages/LanguageSelectFeed";
@@ -39,7 +40,8 @@ function App() {
           <Route path="/erreur404" element={<NotFoundPage />} />
           <Route path="/erreur400" element={<BadRequestPage />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="/mon-compte" element={<ProfileUserPage />} />
+            <Route path="/user-compte" element={<ProfileUserPage />} />
+            <Route path="/mon-compte" element={<ProfilePersoPage />} />
             <Route path="/creer-post" element={<HomeAfterSignIn />} />
             <Route
               path="/creation-compte"

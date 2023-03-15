@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Card, CardContent } from "@material-ui/core";
-import Informations from "./Informations";
-import TexteLibre from "./TexteLibre";
+import { Grid, Card, CardContent, Button } from "@material-ui/core";
+import InfoUser from "./InfoUser";
+import TextPerso from "./TextPerso";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -33,16 +33,21 @@ function UserProfile() {
     <div>
       <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
-          <Informations />
+          <InfoUser />
         </Grid>
         <Grid className={classes.gridCard} item xs={12} md={6}>
           <Card className={classes.card}>
             <CardContent>
               <div className={classes.texteLibreContainer}>
-                <TexteLibre />
+                <TextPerso />
               </div>
             </CardContent>
           </Card>
+          <Grid item xs={12} className={classes.valider}>
+            <Button variant="text" href="/creation-compte">
+              Modifier le profil
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </div>

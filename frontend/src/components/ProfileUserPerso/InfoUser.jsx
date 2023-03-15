@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Informations() {
+function InfoUser() {
   const [currentUser, setCurrentUser] = useState([]);
   const [userLanguages, setUserLanguages] = useState([]);
   const classes = useStyles();
@@ -35,34 +35,24 @@ function Informations() {
   const { userIdSelected } = useParams();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/users/${userIdSelected}`)
-      .then((response) => {
-        setCurrentUser(response.data);
-      });
+    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
+      setCurrentUser(response.data);
+    });
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/user_has_language/${userIdSelected}`)
-      .then((response) => response.data)
-      .then((data) => {
-        const userLanguageObjects = data.map((lang) => ({
-          language_name: lang.language_name,
-        }));
-        setUserLanguages(userLanguageObjects);
-      });
-  }, [userIdSelected]);
-
-  useEffect(() => {
-    const getUserClicked = async () => {
-      const response = await axios.get(
-        `http://localhost:5000/users/${userIdSelected}`
-      );
-      setCurrentUser(response.data);
-    };
-    getUserClicked();
-  }, [userIdSelected]);
+    if (currentUser && currentUser.id) {
+      axios
+        .get(`http://localhost:5000/user_has_language/${userId}`)
+        .then((response) => response.data)
+        .then((data) => {
+          const userLanguageObjects = data.map((lang) => ({
+            language_name: lang.language_name,
+          }));
+          setUserLanguages(userLanguageObjects);
+        });
+    }
+  }, [currentUser]);
 
   return (
     <Paper className={classes.root}>
@@ -184,4 +174,4 @@ function Informations() {
   );
 }
 
-export default Informations;
+export default InfoUser;
