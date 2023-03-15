@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Grid,
   Typography,
@@ -10,9 +11,8 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  useMediaQuery,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function PostCard({ users, tag, date, postContent, answers }) {
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -29,16 +29,15 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
         mb={1}
         sx={{
           flexDirection: isMobile && "column",
-          alignContent: isMobile && "center",
+          alignContent: isMobile && "stretch",
         }}
       >
         <Grid
           item
-          md={2}
           sm={2}
           xs={12}
           display="flex"
-          alignItems="center"
+          // alignItems="center"
           justifyContent="center"
         >
           {users?.map((user) => (
@@ -46,27 +45,22 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
               key={user.id}
               src={user.picture}
               sx={{
-                width: 50,
-                height: 50,
+                width: 60,
+                height: 60,
                 mr: isMobile ? 0 : 2,
-                mt: isMobile && 1,
+                mt: 1,
               }}
             />
           ))}
         </Grid>
-        <Grid item md={10} sm={10} xs={12}>
-          <Grid
-            container
-            direction="column"
-            spacing={0.8}
-            sx={{ width: "100%" }}
-          >
-            <Grid item xs={12}>
+        <Grid item sm={10} xs={12}>
+          <Grid container direction="column" spacing={0.6}>
+            <Grid item sx={{ mt: isMobile ? 0 : 1 }}>
               <Typography color="#82BE00" fontWeight="bold">
                 TAG
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item sx={{ m: 0 }}>
               <TextField
                 multiline
                 rows={1}
@@ -76,7 +70,7 @@ export default function PostCard({ users, tag, date, postContent, answers }) {
                   backgroundColor: "#FFFFFF",
                   borderRadius: 1,
                   border: "solid 1px #82BE00",
-                  width: "100%",
+                  minWidth: "100%",
                 }}
               />
             </Grid>
