@@ -9,6 +9,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
   const [answers, setAnswers] = useState([]);
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
+  const [newAnswerSubmitted, setNewAnswerSubmitted] = useState(false);
   const isMobile = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
 
@@ -23,7 +24,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
     };
     getAnswers();
     getUsers();
-  }, []);
+  }, [newAnswerSubmitted]);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -94,7 +95,8 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
             postDate={post.creation_date}
             postText={post.post_text}
             postAnswers={post.answers}
-            setAnswers={setAnswers}
+            setNewAnswerSubmitted={setNewAnswerSubmitted}
+            // setAnswers={setAnswers}
           />
         ))}
       </Stack>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { styled } from "@mui/system";
 import {
   Grid,
   Typography,
@@ -14,6 +15,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   useMediaQuery,
+  Button,
 } from "@mui/material";
 
 const StyledButton = styled(Button)({
@@ -34,40 +36,36 @@ export default function PostCard({
   postDate,
   postText,
   postAnswers,
-  setAnswers,
+  setNewAnswerSubmitted,
+  // setAnswers,
 }) {
   const [answerText, setAnswerText] = useState("");
   const isMobile = useMediaQuery("(max-width: 600px)");
   const localId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
-  console.info("postId :", postId);
-  console.info("postUsers :", postUsers);
-  console.info("postTag :", postTag);
-  console.info("postDate :", postDate);
-  console.info("postText :", postText);
-  console.info("postAnswers :", postAnswers);
-  console.info(setAnswers);
+  // console.info("postId :", postId);
+  // console.info("postUsers :", postUsers);
+  // console.info("postTag :", postTag);
+  // console.info("postDate :", postDate);
+  // console.info("postText :", postText);
+  // console.info("postAnswers :", postAnswers);
+  // console.info(setAnswers);
 
   const handleAnswerSubmit = async (event) => {
-    console.info("fonction lancée");
     event.preventDefault();
-    // if (!answerText) {
-    //   return;
-    // }
     try {
       const response = await axios.post("http://localhost:5000/answers", {
-        user_id: localId, // Replace with the actual user ID
-        post_id: postId, // Replace with the ID of the post being answered
+        user_id: localId,
+        post_id: postId,
         answer_text: answerText,
-        // creation_date: new Date(),
       });
       console.info("Réponse envoyée à l'API:", response.data);
 
       const newAnswer = response.data;
       setAnswerText("");
-      // Add the new answer to the list of answers
-      setAnswers([...postAnswers, newAnswer]);
+      setNewAnswerSubmitted(true);
+      // setAnswers([...postAnswers, newAnswer]);
       console.info("newAnswer : ", newAnswer);
     } catch (error) {
       console.error(error);
@@ -203,7 +201,7 @@ export default function PostCard({
                       )}
                       value={answer.answer_text}
                       multiline
-                      rows={4}
+                      rows={2}
                       sx={{
                         width: "100%",
                         borderRadius: 1,
@@ -247,7 +245,6 @@ PostCard.propTypes = {
   postTag: PropTypes.string.isRequired,
   postText: PropTypes.string.isRequired,
   postDate: PropTypes.string.isRequired,
-  setAnswers: PropTypes.func.isRequired,
   postAnswers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -261,4 +258,5 @@ PostCard.propTypes = {
       pseudo: PropTypes.string.isRequired,
     })
   ).isRequired,
+  setNewAnswerSubmitted: PropTypes.func.isRequired,
 };
