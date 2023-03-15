@@ -1,5 +1,5 @@
-/* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
+/* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -72,6 +72,7 @@ function RegisteredInformations() {
   const classes = useStyles();
 
   const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
   const getLanguages = () => {
     axios
@@ -87,15 +88,21 @@ function RegisteredInformations() {
   }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
-      setCurrentUser(response.data);
-    });
+    axios
+      .get(`http://localhost:5000/users/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setCurrentUser(response.data);
+      });
   }, []);
 
   useEffect(() => {
     if (currentUser && currentUser.id) {
       axios
-        .get(`http://localhost:5000/user_has_language/${userId}`)
+        .get(`http://localhost:5000/user_has_language/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({
@@ -115,6 +122,9 @@ function RegisteredInformations() {
     axios
       .put(
         `http://localhost:5000/users/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
         { ...userUpdate, language_id },
         languageUpdate,
         language_id

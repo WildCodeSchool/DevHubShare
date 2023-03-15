@@ -3,7 +3,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, TextField, Button } from "@material-ui/core";
 import UserImage from "../UserImage";
@@ -32,18 +31,24 @@ function InfoUser() {
   const classes = useStyles();
 
   const userId = localStorage.getItem("userId");
-  const { userIdSelected } = useParams();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
-      setCurrentUser(response.data);
-    });
+    axios
+      .get(`http://localhost:5000/users/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setCurrentUser(response.data);
+      });
   }, []);
 
   useEffect(() => {
     if (currentUser && currentUser.id) {
       axios
-        .get(`http://localhost:5000/user_has_language/${userId}`)
+        .get(`http://localhost:5000/user_has_language/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({
