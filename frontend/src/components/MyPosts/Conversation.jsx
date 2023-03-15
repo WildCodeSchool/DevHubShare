@@ -80,10 +80,10 @@ export default function Conversation({ post, newAnswer }) {
           borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#82BE00",
-          width: "90%",
+          width: "100%",
         }}
       >
-        <div style={{ padding: "1rem", width: "80%" }}>
+        <div style={{ padding: "1rem", width: "100%" }}>
           <div
             style={{
               backgroundColor: "#fff",
