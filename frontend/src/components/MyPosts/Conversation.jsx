@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { Container, Stack } from "@mui/material";
+import { Container, Stack, TextField } from "@mui/material";
 import { format } from "date-fns";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -11,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Conversation({ post, newAnswer }) {
   const [myAnswers, setMyAnswers] = useState([]);
+  const [editingAnswer, setEditingAnswer] = useState([]);
+  const [editedAnswerText, setEditedAnswerText] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +34,34 @@ export default function Conversation({ post, newAnswer }) {
     }
     getMyAnswers();
   }, [post, newAnswer]);
+
+  const handleEditAnswer = (answer) => {
+    setEditingAnswer(answer);
+    setEditedAnswerText(answer.answer_text);
+  };
+
+  const localId = localStorage.getItem("userId");
+
+  async function updateAnswer(answerId) {
+    try {
+      await axios.put(`http://localhost:5000/answers/${answerId}`, {
+        answer_text: editedAnswerText,
+        post_id: post.id,
+        user_id: localId,
+      });
+      // Update myAnswers pour réafficher les réponses
+      setMyAnswers((prevAnswers) =>
+        prevAnswers.map((answer) =>
+          answer.id === answerId
+            ? { ...answer, answer_text: editedAnswerText }
+            : answer
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      navigate("/erreur400");
+    }
+  }
 
   return (
     <Container
@@ -80,6 +113,7 @@ export default function Conversation({ post, newAnswer }) {
           </div>
 
           <div
+            className="TexteReponse"
             style={{
               padding: "1rem",
               width: "80%",
@@ -96,9 +130,47 @@ export default function Conversation({ post, newAnswer }) {
                   padding: "0.5rem",
                 }}
               >
-                <p>{answer.answer_text}</p>
-                {/* <p>{answer.user_id}</p> */}
-                <p>{format(new Date(answer.creation_date), "dd/MM/yyyy")}</p>
+                {editingAnswer === answer ? (
+                  <TextField
+                    id="post-content"
+                    label="Mon nouveau texte ici..."
+                    value={editedAnswerText}
+                    onChange={(e) => setEditedAnswerText(e.target.value)}
+                    multiline
+                    rows={4}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton
+                          position="end"
+                          onClick={() => updateAnswer(answer.id)}
+                        >
+                          <SaveIcon sx={{ color: "#82BE00" }} />
+                        </IconButton>
+                      ),
+                    }}
+                    sx={{
+                      backgroundColor: "#FFFFFF",
+                      borderRadius: 1,
+                      fontSize: "sm",
+                      width: "100%",
+                    }}
+                  />
+                ) : (
+                  <p>{answer.answer_text}</p>
+                )}
+                <div
+                  className="editAnswer"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <p>{format(new Date(answer.creation_date), "dd/MM/yyyy")}</p>
+                  <IconButton
+                    aria-label="delete"
+                    size="large"
+                    onClick={() => handleEditAnswer(answer, answer.id)}
+                  >
+                    <EditIcon sx={{ color: "#82BE00" }} />
+                  </IconButton>
+                </div>
               </div>
             ))}
           </div>
