@@ -2,10 +2,10 @@
 import Divider from "@mui/material/Divider";
 import { Stack, useTheme, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
-import PostSent from "./MyPosts/PostSent";
-import Conversation from "./MyPosts/Conversation";
-import MyAnswer from "./MyPosts/MyAnswer";
-import UserImage from "./UserImage";
+import PostSent from "./PostSent";
+import Conversation from "./Conversation";
+import MyAnswer from "./MyAnswer";
+import UserImage from "../UserImage";
 
 export default function MyPosts() {
   const theme = useTheme();
