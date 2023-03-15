@@ -87,11 +87,13 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         {filteredPosts?.map((post) => (
           <PostCard
             key={post.id}
-            users={post.users}
-            tag={post.tag}
-            date={post.creation_date}
-            postContent={post.post_text}
-            answers={post.answers}
+            postId={post.id}
+            postUsers={post.users}
+            postTag={post.tag}
+            postDate={post.creation_date}
+            postText={post.post_text}
+            postAnswers={post.answers}
+            setAnswers={setAnswers}
           />
         ))}
       </Stack>
