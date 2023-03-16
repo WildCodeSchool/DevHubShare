@@ -1,5 +1,4 @@
 const argon2 = require("argon2");
-
 const jwt = require("jsonwebtoken");
 
 const hashingOptions = {
@@ -10,20 +9,19 @@ const hashingOptions = {
 };
 
 const hashPassword = (req, res, next) => {
+  // hash the password using argon2 then call next()
   argon2
     .hash(req.body.password, hashingOptions)
     .then((hashedPassword) => {
       req.body.hashedPassword = hashedPassword;
       delete req.body.password;
-
       next();
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Status: Internal Server Error");
+      res.sendStatus(500);
     });
 };
-
 const verifyPassword = (req, res) => {
   argon2
     .verify(req.user.hashedPassword, req.body.password)
@@ -32,19 +30,23 @@ const verifyPassword = (req, res) => {
         const payload = { sub: req.user.id };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "1h",
+          expiresIn: process.env.JWT_EXPIRESIN,
         });
+
         delete req.user.hashedPassword;
-        res.status(201).send({ token, userId: req.user.id }); //  retour token + user ID
+        res
+          .status(201)
+          .send({ token, userId: req.user.id, toggle: process.env.APP_DECO }); //  retour token + user ID
       } else {
-        res.status(401).send("Status: Unauthorized");
+        res.sendStatus(401);
       }
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Status: Internal Server Error");
+      res.sendStatus(500);
     });
 };
+
 const verifyToken = (req, res, next) => {
   try {
     const authorizationHeader = req.get("Authorization");
@@ -64,19 +66,20 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-    res.status(401).send("Status: Unauthorized");
+    res.sendStatus(401);
   }
 };
+
 const verifyId = (req, res, next) => {
   try {
     if (req.payload.sub === parseInt(req.params.id, 10)) {
       next();
     } else {
-      res.status(403).send("Status: Forbidden");
+      res.sendStatus(403);
     }
   } catch (err) {
     console.error(err);
-    res.status(401).send("Status: Unauthorized");
+    res.sendStatus(401);
   }
 };
 
