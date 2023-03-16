@@ -36,21 +36,13 @@ export default function PostCard({
   postDate,
   postText,
   postAnswers,
+  newAnswerSubmitted,
   setNewAnswerSubmitted,
-  // setAnswers,
 }) {
   const [answerText, setAnswerText] = useState("");
-  const isMobile = useMediaQuery("(max-width: 600px)");
   const localId = localStorage.getItem("userId");
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
-
-  // console.info("postId :", postId);
-  // console.info("postUsers :", postUsers);
-  // console.info("postTag :", postTag);
-  // console.info("postDate :", postDate);
-  // console.info("postText :", postText);
-  // console.info("postAnswers :", postAnswers);
-  // console.info(setAnswers);
 
   const handleAnswerSubmit = async (event) => {
     event.preventDefault();
@@ -60,16 +52,12 @@ export default function PostCard({
         post_id: postId,
         answer_text: answerText,
       });
-      console.info("Réponse envoyée à l'API:", response.data);
-
-      const newAnswer = response.data;
+      console.info(response.data);
       setAnswerText("");
-      setNewAnswerSubmitted(true);
-      // setAnswers([...postAnswers, newAnswer]);
-      console.info("newAnswer : ", newAnswer);
+      setNewAnswerSubmitted(!newAnswerSubmitted);
     } catch (error) {
       console.error(error);
-      navigate("/erreur400");
+      navigate("/erreur404");
     }
   };
 
@@ -88,23 +76,18 @@ export default function PostCard({
           alignContent: isMobile && "stretch",
         }}
       >
-        <Grid
-          item
-          sm={2}
-          xs={12}
-          display="flex"
-          // alignItems="center"
-          justifyContent="center"
-        >
+        <Grid item sm={2} xs={12} display="flex" justifyContent="center">
           {postUsers?.map((user) => (
             <Avatar
               key={user.id}
-              src={user.picture}
+              alt={user.pseudo}
+              src="/broken-image.jpg"
               sx={{
                 width: 60,
                 height: 60,
                 mr: isMobile ? 0 : 2,
                 mt: 1,
+                alignSelf: "center",
               }}
             />
           ))}
@@ -135,7 +118,7 @@ export default function PostCard({
       </Grid>
       <Grid item mb={1}>
         {postUsers.map((user) => (
-          <Accordion>
+          <Accordion defaultExpanded>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Post de {user.pseudo}</Typography>
             </AccordionSummary>
@@ -158,7 +141,6 @@ export default function PostCard({
           </Accordion>
         ))}
       </Grid>
-
       {postAnswers?.length === 0 ? (
         <Grid item mb={1} component="form" onSubmit={handleAnswerSubmit}>
           <TextField
@@ -185,15 +167,10 @@ export default function PostCard({
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Réponse(s) au post</Typography>
             </AccordionSummary>
-            <AccordionDetails>
-              <Grid container direction="column" spacing={1}>
-                {postAnswers?.map((answer) => (
-                  <Grid
-                    item
-                    key={answer.id}
-                    component="form"
-                    onSubmit={handleAnswerSubmit}
-                  >
+            {postAnswers?.map((answer) => (
+              <AccordionDetails key={answer.id}>
+                <Grid container direction="column" spacing={1}>
+                  <Grid item component="form" onSubmit={handleAnswerSubmit}>
                     <TextField
                       label={format(
                         new Date(answer.creation_date),
@@ -210,30 +187,31 @@ export default function PostCard({
                       }}
                     />
                   </Grid>
-                ))}
-              </Grid>
-            </AccordionDetails>
+                </Grid>
+              </AccordionDetails>
+            ))}
           </Accordion>
-
-          <Grid item mb={1} component="form" onSubmit={handleAnswerSubmit}>
-            <TextField
-              InputLabelProps={{ shrink: true }}
-              label="Votre réponse"
-              value={answerText}
-              onChange={(e) => setAnswerText(e.target.value)}
-              multiline
-              rows={2}
-              sx={{
-                backgroundColor: "#FFFFFF",
-                border: "dotted 1px #82BE00",
-                borderRadius: 1,
-                width: "100%",
-                fontStyle: "italic",
-                mt: 1,
-              }}
-            />
-            <StyledButton type="submit">Poster</StyledButton>
-          </Grid>
+          {postUsers?.map((user) => (
+            <Grid item mb={1} component="form" onSubmit={handleAnswerSubmit}>
+              <TextField
+                InputLabelProps={{ shrink: true }}
+                label={`Souhaitez-vous apporter votre aide à ${user.pseudo}`}
+                value={answerText}
+                onChange={(e) => setAnswerText(e.target.value)}
+                multiline
+                rows={2}
+                sx={{
+                  backgroundColor: "#FFFFFF",
+                  border: "dotted 1px #82BE00",
+                  borderRadius: 1,
+                  width: "100%",
+                  fontStyle: "italic",
+                  mt: 2,
+                }}
+              />
+              <StyledButton type="submit">Poster</StyledButton>
+            </Grid>
+          ))}
         </Grid>
       )}
     </Container>
@@ -258,5 +236,6 @@ PostCard.propTypes = {
       pseudo: PropTypes.string.isRequired,
     })
   ).isRequired,
+  newAnswerSubmitted: PropTypes.bool.isRequired,
   setNewAnswerSubmitted: PropTypes.func.isRequired,
 };

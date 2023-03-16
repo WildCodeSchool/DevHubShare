@@ -40,11 +40,11 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         setPostsWithAnswers(postsAnswers);
       } catch (error) {
         console.error(error);
-        navigate("/erreur400");
+        navigate("/erreur404");
       }
     };
     getPosts();
-  }, [answers]);
+  }, [answers, newAnswerSubmitted]);
 
   const filteredPosts =
     languageSelected.length > 0
@@ -95,8 +95,8 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
             postDate={post.creation_date}
             postText={post.post_text}
             postAnswers={post.answers}
+            newAnswerSubmitted={newAnswerSubmitted}
             setNewAnswerSubmitted={setNewAnswerSubmitted}
-            // setAnswers={setAnswers}
           />
         ))}
       </Stack>
