@@ -48,7 +48,7 @@ router.get("/posts", postControllers.browse);
 router.get("/posts/:id", verifyToken, postControllers.read);
 router.put("/posts/:id", verifyToken, postControllers.edit);
 router.post("/posts", postControllers.add);
-router.delete("/posts/:id", verifyToken, postControllers.destroy);
+router.delete("/posts/:id", postControllers.destroy);
 
 // Filtre des posts par utilisateur
 router.get(
@@ -67,7 +67,7 @@ router.get(
 
 router.get("/answers", answerControllers.browse);
 router.get("/answers/:id", answerControllers.read);
-router.put("/answers/:id", answerControllers.edit);
+router.put("/answers/:id", verifyToken, answerControllers.edit);
 router.post("/answers", verifyToken, answerControllers.add);
 router.delete("/answers/:id", verifyToken, answerControllers.destroy);
 router.delete(
