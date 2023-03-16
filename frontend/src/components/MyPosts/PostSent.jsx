@@ -79,10 +79,10 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
           borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#009AA6",
-          width: "90%",
+          width: "100%",
         }}
       >
-        <div style={{ padding: "1rem", width: "80%" }}>
+        <div style={{ padding: "1rem", width: "100%" }}>
           <h2
             style={{
               color: "#009AA6",
@@ -107,6 +107,11 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
+                sx={{
+                  "& .MuiAccordionSummary-content": {
+                    margin: 0,
+                  },
+                }}
               >
                 <h3
                   style={{ cursor: "pointer" }}
@@ -120,7 +125,10 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
                 <p>{post.post_text}</p>
                 <div
                   className="MyPostDelete"
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
                 >
                   <p> {format(new Date(post.creation_date), "dd/MM/yyyy")}</p>
                   <IconButton

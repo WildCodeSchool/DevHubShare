@@ -35,10 +35,7 @@ export default function MyPosts() {
     >
       <Stack
         direction="column"
-        sx={{
-          maxWidth: "100%",
-          width: isSmallScreen ? "100%" : "50%",
-        }}
+        sx={{ minWidth: isSmallScreen ? "96vw" : "50%" }}
       >
         <UserImage size="5rem" backgroundColor="grey" />
 
@@ -48,17 +45,14 @@ export default function MyPosts() {
         />
       </Stack>
       {isSmallScreen ? (
-        <Divider orientation="horizontal" flexItem />
+        <Divider orientation="horizontal" flexItem sx={{ marginTop: "1rem" }} />
       ) : (
         <Divider orientation="vertical" flexItem />
       )}
       <Stack
         direction="column"
         spacing={2}
-        sx={{
-          maxWidth: "100%",
-          width: isSmallScreen ? "100%" : "50%",
-        }}
+        sx={{ minWidth: isSmallScreen ? "96vw" : "50%" }}
       >
         <Conversation post={selectedPost} newAnswer={isNewAnswerSubmitted} />
         <MyAnswer
