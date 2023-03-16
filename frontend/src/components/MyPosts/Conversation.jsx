@@ -17,13 +17,17 @@ export default function Conversation({ post, newAnswer }) {
   const [editingAnswer, setEditingAnswer] = useState([]);
   const [editedAnswerText, setEditedAnswerText] = useState([]);
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (!post && !newAnswer) return;
     async function getMyAnswers() {
       try {
         const response = await axios.get(
-          `http://localhost:5000/answers/post/${post.id}`
+          `http://localhost:5000/answers/post/${post.id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
         setMyAnswers(response.data);
         console.info("les réponses à mon poste", response.data);
@@ -44,11 +48,17 @@ export default function Conversation({ post, newAnswer }) {
 
   async function updateAnswer(answerId) {
     try {
-      await axios.put(`http://localhost:5000/answers/${answerId}`, {
-        answer_text: editedAnswerText,
-        post_id: post.id,
-        user_id: localId,
-      });
+      await axios.put(
+        `http://localhost:5000/answers/${answerId}`,
+        {
+          answer_text: editedAnswerText,
+          post_id: post.id,
+          user_id: localId,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       // Update myAnswers pour réafficher les réponses
       setMyAnswers((prevAnswers) =>
         prevAnswers.map((answer) =>
@@ -80,10 +90,10 @@ export default function Conversation({ post, newAnswer }) {
           borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#82BE00",
-          width: "90%",
+          width: "100%",
         }}
       >
-        <div style={{ padding: "1rem", width: "80%" }}>
+        <div style={{ padding: "1rem", width: "100%" }}>
           <div
             style={{
               backgroundColor: "#fff",

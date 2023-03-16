@@ -16,6 +16,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const answerSent = (e) => setAnswerText(e.target.value);
 
@@ -28,11 +29,17 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/answers", {
-        answer_text: answerText,
-        post_id: post.id,
-        user_id: localId,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/answers",
+        {
+          answer_text: answerText,
+          post_id: post.id,
+          user_id: localId,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.info("Réponse envoyée à l'API:", response.data);
       // Réinitialise le champ de texte après envoie de la réponse
       setAnswerText("");

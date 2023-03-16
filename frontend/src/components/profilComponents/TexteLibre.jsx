@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { List, Grid, TextField } from "@material-ui/core";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,12 +15,14 @@ const useStyles = makeStyles((theme) => ({
 function TexteLibre() {
   const [textArea, setTextArea] = useState("");
   const classes = useStyles();
-  const userId = localStorage.getItem("userId");
+  const { userIdSelected } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
-      setTextArea(response.data);
-    });
+    axios
+      .get(`http://localhost:5000/users/${userIdSelected}`)
+      .then((response) => {
+        setTextArea(response.data);
+      });
   }, []);
 
   return (
