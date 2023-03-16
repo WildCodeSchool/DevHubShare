@@ -18,10 +18,13 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
 
   // localStorage.setItem("user.id", "1");
   const id = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
   const getMyPosts = () => {
     axios
-      .get(`http://localhost:5000/posts/user/${id}`)
+      .get(`http://localhost:5000/posts/user/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((data) => {
         setMyPosts(data);
@@ -41,10 +44,14 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
 
   const handleDeletePost = (postId) => {
     axios
-      .delete(`http://localhost:5000/answers/post/${postId}`)
+      .delete(`http://localhost:5000/answers/post/${postId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then(() => {
         axios
-          .delete(`http://localhost:5000/posts/${postId}`)
+          .delete(`http://localhost:5000/posts/${postId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
           .then(() => {
             getMyPosts();
           })
