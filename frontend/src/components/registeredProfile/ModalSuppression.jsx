@@ -31,17 +31,17 @@ export default function FormDialog() {
     }
     const token = localStorage.getItem("token");
 
-    axios
-      .delete(`http://localhost:5000/users/${email}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    axios.delete(`http://localhost:5000/users/${email}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.info("token:", token);
+    console
+      .info("email", email)
       .then((response) => {
         setDeletedUser(response.data);
         setErrorMessage("");
         console.info("Compte supprimé avec succès!", deletedUser);
         handleClose();
-        console.info("token:", token);
-        console.info("email", email);
       })
       .catch((error) => {
         console.error(error);

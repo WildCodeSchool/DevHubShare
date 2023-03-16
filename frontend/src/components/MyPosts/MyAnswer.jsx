@@ -16,7 +16,6 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const answerSent = (e) => setAnswerText(e.target.value);
 
