@@ -37,7 +37,7 @@ export default function NavBar() {
   const [newResponsesCount, setNewResponsesCount] = useState();
   const isMobile = useMediaQuery("(max-width: 600px)");
   const isTablet = useMediaQuery("(max-width: 900px)");
-
+  const token = localStorage.getItem("token");
   const localId = localStorage.getItem("userId");
   const postId = 1;
 
@@ -50,7 +50,10 @@ export default function NavBar() {
 
   const getPosts = async () => {
     const response = await axios.get(
-      `http://localhost:5000/posts/user/${localId}`
+      `http://localhost:5000/posts/user/${localId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
     setPosts(response.data);
     console.info("posts2:", response.data);
@@ -58,7 +61,10 @@ export default function NavBar() {
 
   const getAnswers = async () => {
     const response = await axios.get(
-      `http://localhost:5000/answers/post/${postId}`
+      `http://localhost:5000/answers/post/${postId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
     setAnswers(response.data);
     console.info("answers2:", response.data);
