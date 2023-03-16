@@ -80,9 +80,23 @@ const verifyId = (req, res, next) => {
   }
 };
 
+const verifyEmail = (req, res, next) => {
+  try {
+    if (req.body.email === req.params.email) {
+      next();
+    } else {
+      res.sendStatus(403);
+    }
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(401);
+  }
+};
+
 module.exports = {
   hashPassword,
   verifyPassword,
   verifyToken,
   verifyId,
+  verifyEmail,
 };

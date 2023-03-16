@@ -1,5 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable camelcase */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable camelcase */
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -31,6 +33,7 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const user = req.body;
+
   user.id = parseInt(req.params.id, 10);
   const language = user.language_id;
   models.user
@@ -125,6 +128,23 @@ const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
       res.status(500).send("Error retrieving data from database");
     });
 };
+const deleteUserByEmail = async (req, res) => {
+  // const { email } = req.param.email;
+  const { email } = req.body;
+
+  try {
+    const deletedUser = await models.user.findOneAndDelete({ email });
+    if (!deletedUser) {
+      return res.status(404).send("Utilisateur introuvable");
+    }
+    res.send("Utilisateur supprimé avec succès");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erreur lors de la suppression de l'utilisateur");
+  }
+  return Promise.resolve();
+};
+
 module.exports = {
   browse,
   read,
@@ -132,4 +152,5 @@ module.exports = {
   add,
   destroy,
   getUserByEmailWithPasswordAndPassToNext,
+  deleteUserByEmail,
 };

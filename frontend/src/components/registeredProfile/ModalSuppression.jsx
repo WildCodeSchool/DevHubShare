@@ -12,7 +12,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [deletedUser, setDeletedUser] = useState(null);
+  const [deletedUser, setDeletedUser] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,24 +22,38 @@ export default function FormDialog() {
   const handleClose = () => {
     setEmail("");
     setOpen(false);
+    setErrorMessage("");
   };
+  const handleConfirm = () => {
+    if (!email) {
+      setErrorMessage("Veuillez entrer votre adresse e-mail");
+      return;
+    }
+    const token = localStorage.getItem("token");
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handleDelete = () => {
     axios
-      .delete(`http://localhost:5000/users?email=${email}`)
+      .delete(`http://localhost:5000/users/${email}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         setDeletedUser(response.data);
+        setErrorMessage("");
+        console.info("Compte supprimé avec succès!", deletedUser);
         handleClose();
+        console.info("token:", token);
+        console.info("email", email);
       })
       .catch((error) => {
         console.error(error);
+        setErrorMessage(
+          "Une erreur s'est produite lors de la suppression du compte"
+        );
       });
   };
-
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+    setErrorMessage("");
+  };
   return (
     <div>
       <Button variant="text" onClick={handleClickOpen}>
@@ -48,8 +63,7 @@ export default function FormDialog() {
         <DialogTitle>ATTENTION vous allez supprimer votre compte</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Pour supprimer votre compte, veuillez confirmer en entrant votre
-            adresse email.
+            Pour supprimer votre compte, veuillez confirmer votre adresse email.
           </DialogContentText>
           <TextField
             autoFocus
@@ -61,11 +75,13 @@ export default function FormDialog() {
             variant="standard"
             value={email}
             onChange={handleEmailChange}
+            error={!!errorMessage}
+            helperText={errorMessage}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Annuler</Button>
-          <Button onClick={handleDelete}>Confirmer</Button>
+          <Button onClick={handleConfirm}>Confirmer</Button>
         </DialogActions>
       </Dialog>
     </div>
