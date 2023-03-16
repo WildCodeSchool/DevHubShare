@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+
 const jwt = require("jsonwebtoken");
 
 const hashingOptions = {
@@ -9,19 +10,20 @@ const hashingOptions = {
 };
 
 const hashPassword = (req, res, next) => {
-  // hash the password using argon2 then call next()
   argon2
     .hash(req.body.password, hashingOptions)
     .then((hashedPassword) => {
       req.body.hashedPassword = hashedPassword;
       delete req.body.password;
+
       next();
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
+
 const verifyPassword = (req, res) => {
   argon2
     .verify(req.user.hashedPassword, req.body.password)
@@ -32,21 +34,17 @@ const verifyPassword = (req, res) => {
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRESIN,
         });
-
         delete req.user.hashedPassword;
-        res
-          .status(201)
-          .send({ token, userId: req.user.id, toggle: process.env.APP_DECO }); //  retour token + user ID
+        res.status(201).send({ token, userId: req.user.id }); //  retour token + user ID
       } else {
-        res.sendStatus(401);
+        res.status(401).send("Status: Unauthorized");
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
-
 const verifyToken = (req, res, next) => {
   try {
     const authorizationHeader = req.get("Authorization");
@@ -66,26 +64,25 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-    res.sendStatus(401);
+    res.status(401).send("Status: Unauthorized");
   }
 };
-
 const verifyId = (req, res, next) => {
   try {
     if (req.payload.sub === parseInt(req.params.id, 10)) {
       next();
     } else {
-      res.sendStatus(403);
+      res.status(403).send("Status: Forbidden");
     }
   } catch (err) {
     console.error(err);
-    res.sendStatus(401);
+    res.status(401).send("Status: Unauthorized");
   }
 };
 
 const verifyEmail = (req, res, next) => {
   try {
-    if (req.body.email === req.params.email) {
+    if (req.payload.email === req.params.email) {
       next();
     } else {
       res.sendStatus(403);
