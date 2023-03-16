@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Headermain/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
-import MyPosts from "../components/MyPosts";
+import MyPosts from "../components/MyPosts/MyPosts";
 import Footer from "../components/Footer";
 import "../App.css";
 

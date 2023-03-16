@@ -66,6 +66,19 @@ const add = (req, res) => {
     });
 };
 
+const getAnswersByPostId = (req, res) => {
+  const { postId } = req.params;
+  models.answer
+    .findAnswersByPostId({ post_id: postId })
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Status: Internal Server Error");
+    });
+};
+
 const destroy = (req, res) => {
   models.answer
     .delete(req.params.id)
@@ -82,12 +95,16 @@ const destroy = (req, res) => {
     });
 };
 
-const getAnswersByPostId = (req, res) => {
+const destroyAnswerByPostId = (req, res) => {
   const { postId } = req.params;
   models.answer
-    .findAnswersByPostId({ post_id: postId })
-    .then(([rows]) => {
-      res.send(rows);
+    .deleteAnswersByPostId({ post_id: postId })
+    .then((result) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Status: Not Found");
+      } else {
+        res.status(204).send("Status: No Content");
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -102,4 +119,5 @@ module.exports = {
   add,
   destroy,
   getAnswersByPostId,
+  destroyAnswerByPostId,
 };

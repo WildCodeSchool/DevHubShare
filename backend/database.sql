@@ -122,6 +122,15 @@ CREATE TABLE IF NOT EXISTS `user_has_language` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+INSERT INTO language (id , language_name)
+VALUES
+(1, 'HTML'),
+(2, 'CSS'),
+(3, 'JAVASCRIPT'),
+(4, 'JAVA'),
+(5, 'PYTHON'),
+(6, 'C#'),
+(7, 'AUTRE');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

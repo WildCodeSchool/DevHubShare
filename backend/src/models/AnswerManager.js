@@ -25,6 +25,12 @@ class AnswerManager extends AbstractManager {
       [answer.post_id]
     );
   }
+
+  deleteAnswersByPostId(answer) {
+    return this.database.query(`delete from ${this.table} where post_id = ?`, [
+      answer.post_id,
+    ]);
+  }
 }
 
 module.exports = AnswerManager;

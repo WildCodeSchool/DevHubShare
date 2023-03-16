@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,6 +13,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@mui/material/Container";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import BasicModal from "./BasicModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,28 +37,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
+  const schema = Yup.object({
+    email: Yup.string().email("Email non valide").required("Email requis"),
+    password: Yup.string()
+      .min(8, "8 charactères minimum requis")
+      .required("Mot de passe requis"),
+  });
+
   const navigate = useNavigate();
   const classes = useStyles();
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:5000/login", {
-        email,
-        password,
-      });
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.userId.toString());
-      console.info(response.data);
-      navigate("/creer-post");
-    } catch (error) {
-      setErr("Invalid email or password");
-      console.error(error.message);
-    }
-  };
-  console.info(err);
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: async (values, helpers) => {
+      try {
+        const response = await axios.post("http://localhost:5000/login", {
+          email: values.email,
+          password: values.password,
+        });
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.userId.toString());
+        navigate("/creer-post");
+      } catch (error) {
+        helpers.setErrors({ submit: "Email ou mot de passe invalide" });
+      }
+    },
+    validationSchema: schema,
+  });
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -67,7 +78,11 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Connexion
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={formik.handleSubmit}
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -78,7 +93,9 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(event) => setEmail(event.target.value)}
+            error={Boolean(formik.errors.email)}
+            helperText={formik.errors.email}
+            onChange={formik.handleChange}
           />
           <TextField
             variant="outlined"
@@ -90,7 +107,9 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(event) => setPassword(event.target.value)}
+            error={Boolean(formik.errors.password)}
+            helperText={formik.errors.password}
+            onChange={formik.handleChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

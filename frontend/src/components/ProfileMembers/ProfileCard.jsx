@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Grid,
   Typography,
@@ -9,9 +10,8 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  useMediaQuery,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function ProfileCard({
   picture,
@@ -33,12 +33,13 @@ export default function ProfileCard({
         container
         sx={{
           flexDirection: isMobile && "column",
-          alignContent: "center",
+          alignContent: isMobile && "center",
         }}
       >
         <Grid
           item
           sm={2}
+          xs={12}
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -47,24 +48,16 @@ export default function ProfileCard({
             onClick={onClickUser}
             src={picture}
             sx={{
-              width: 70,
-              height: 70,
-              mr: 3,
-              "&:hover": { boxShadow: "0px 10px 15px -2px #D7D7D7" },
+              width: isMobile ? 60 : 70,
+              height: isMobile ? 60 : 70,
+              mr: isMobile ? 0 : 3,
+              "&:hover": { boxShadow: "0px 8px 15px -2px #D7D7D7" },
               mt: isMobile && 1,
             }}
           />
         </Grid>
-        <Grid item sm={10}>
-          <Grid
-            container
-            direction="column"
-            spacing={0.6}
-            sx={{
-              width: isMobile ? "100%" : "90%",
-              alignContent: isMobile && "center",
-            }}
-          >
+        <Grid item sm={10} xs={12}>
+          <Grid container direction="column" spacing={0.6} sx={{ m: 0 }}>
             <Grid item>
               <Typography color="#009AA6" fontWeight="bold">
                 Pseudo
@@ -79,7 +72,7 @@ export default function ProfileCard({
                   backgroundColor: "#FFFFFF",
                   borderRadius: 1,
                   border: "solid 1px #009AA6",
-                  width: "100%",
+                  minWidth: isMobile ? "100%" : "97%",
                 }}
               />
             </Grid>
@@ -97,7 +90,7 @@ export default function ProfileCard({
                   backgroundColor: "#FFFFFF",
                   borderRadius: 1,
                   border: "solid 1px #009AA6",
-                  width: "100%",
+                  width: isMobile ? "100%" : "97%",
                   mb: 1,
                 }}
               />

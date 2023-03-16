@@ -11,7 +11,7 @@ export default function ProfileMembers() {
   const [languageSelected, setLanguageSelected] = useState([]);
   const [users, setUsers] = useState([]);
   const [languagesUsers, setLanguagesUsers] = useState([]);
-  const isMobile = useMediaQuery("(max-width: 700px)");
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   useEffect(() => {
     const getUsers = async () => {
@@ -71,6 +71,7 @@ export default function ProfileMembers() {
         gap: 1,
         mt: 3,
         mb: 3,
+        minWidth: isMobile && "95vw",
       }}
     >
       <Typography
