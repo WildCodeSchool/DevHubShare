@@ -182,7 +182,7 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Pseudo*"
+                    label={`Pseudo* (${currentUser.pseudo})`}
                     value={pseudo}
                     fullWidth
                     InputLabelProps={{
@@ -196,7 +196,7 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Prénom"
+                    label={`Prénom (${currentUser.firstname})`}
                     value={firstname}
                     fullWidth
                     InputLabelProps={{
@@ -210,7 +210,7 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Nom"
+                    label={`Nom (${currentUser.lastname})`}
                     value={lastname}
                     fullWidth
                     InputLabelProps={{
@@ -224,7 +224,7 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Email*"
+                    label={`Email* (${currentUser.email})`}
                     value={email}
                     fullWidth
                     InputLabelProps={{
@@ -238,7 +238,7 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Poste Actuel"
+                    label={`Poste actuel (${currentUser.workplace})`}
                     value={workplace}
                     fullWidth
                     InputLabelProps={{
@@ -252,7 +252,7 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Git-Hub Page"
+                    label={`Github (${currentUser.github})`}
                     value={github}
                     fullWidth
                     InputLabelProps={{
@@ -266,7 +266,7 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Linkedin"
+                    label={`Linkedin (${currentUser.linkedin})`}
                     value={linkedin}
                     fullWidth
                     InputLabelProps={{
@@ -280,7 +280,7 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Langues"
+                    label="Langages"
                     value={userLanguages
                       .map((lang) => lang.language_name)
                       .join(", ")}
