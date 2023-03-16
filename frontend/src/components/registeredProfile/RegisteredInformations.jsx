@@ -1,5 +1,5 @@
-/* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
+/* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -18,6 +18,7 @@ import { FormControlLabel, Checkbox } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UserImage from "../UserImage";
 import ModalSuppression from "./ModalSuppression";
+import SignOutButton from "../SignOutButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +73,7 @@ function RegisteredInformations() {
   const classes = useStyles();
 
   const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
   const getLanguages = () => {
     axios
@@ -115,9 +117,10 @@ function RegisteredInformations() {
     axios
       .put(
         `http://localhost:5000/users/${userId}`,
-        { ...userUpdate, language_id },
-        languageUpdate,
-        language_id
+        { ...userUpdate, language_id, languageUpdate },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       )
       .then((response) => {
         setUserUpdate([...userUpdate, response.data]);
@@ -335,7 +338,7 @@ function RegisteredInformations() {
 
         <Grid className={classes.gridCard} item xs={12} md={6}>
           <Grid item xs={12} className={classes.valider}>
-            <Button variant="contained">Déconnecter</Button>
+            <SignOutButton />
           </Grid>
           <Card className={classes.card}>
             <CardContent>
