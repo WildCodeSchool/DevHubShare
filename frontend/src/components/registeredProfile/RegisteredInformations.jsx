@@ -18,6 +18,7 @@ import { FormControlLabel, Checkbox } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UserImage from "../UserImage";
 import ModalSuppression from "./ModalSuppression";
+import SignOutButton from "../SignOutButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -337,7 +338,7 @@ function RegisteredInformations() {
 
         <Grid className={classes.gridCard} item xs={12} md={6}>
           <Grid item xs={12} className={classes.valider}>
-            <Button variant="contained">Déconnecter</Button>
+            <SignOutButton />
           </Grid>
           <Card className={classes.card}>
             <CardContent>
