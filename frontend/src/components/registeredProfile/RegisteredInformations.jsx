@@ -201,6 +201,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="pseudo"
                     onChange={handlePseudoChange}
                   />
                 </Grid>
@@ -217,6 +219,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="firstname"
                     onChange={handleFirstnameChange}
                   />
                 </Grid>
@@ -233,6 +237,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="lastname"
                     onChange={handleLastnameChange}
                   />
                 </Grid>
@@ -249,6 +255,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="email"
+                    id="email"
                     onChange={handleEmailChange}
                   />
                 </Grid>
@@ -265,6 +273,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="workplace"
                     onChange={handleWorkplaceChange}
                   />
                 </Grid>
@@ -281,6 +291,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="github"
                     onChange={handleGithubChange}
                   />
                 </Grid>
@@ -297,6 +309,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="linkedin"
                     onChange={handleLinkkedinChange}
                   />
                 </Grid>
@@ -313,6 +327,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="langages"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -363,6 +379,8 @@ function RegisteredInformations() {
                     multiline
                     rows={8}
                     fullWidth
+                    type="text"
+                    id="texte libre"
                     onChange={handleUserTextChange}
                   />
                 </Grid>
