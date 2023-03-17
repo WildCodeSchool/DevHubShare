@@ -6,18 +6,6 @@ import { Icon } from "@iconify/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import SelectedLanguageContext from "../../services/context/SelectedLanguageContext";
 
-// const themeMedia = createTheme({
-//   breakpoints: {
-//     values: {
-//       xs: 0,
-//       sm: 600,
-//       md: 900,
-//       lg: 1200,
-//       xl: 1536,
-//     },
-//   },
-// });
-
 export default function Sidebar() {
   const { selectedLanguage, setSelectedLanguage } = useContext(
     SelectedLanguageContext
@@ -77,7 +65,7 @@ export default function Sidebar() {
     navigate("/fil-de-discussion");
   };
   setSelectedLanguage(selectedLanguage);
-  console.info(selectedLanguage, "langage sélectionné");
+  // console.info(selectedLanguage, "langage sélectionné");
 
   return (
     <div
