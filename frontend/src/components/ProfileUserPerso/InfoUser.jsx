@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -31,24 +29,17 @@ function InfoUser() {
   const classes = useStyles();
 
   const userId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/users/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setCurrentUser(response.data);
-      });
+    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
+      setCurrentUser(response.data);
+    });
   }, []);
 
   useEffect(() => {
     if (currentUser && currentUser.id) {
       axios
-        .get(`http://localhost:5000/user_has_language/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .get(`http://localhost:5000/user_has_language/${userId}`)
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({
@@ -80,6 +71,8 @@ function InfoUser() {
                 disableAnimation: true,
                 position: "top",
               }}
+              type="text"
+              id="pseudo"
             />
           </Grid>
           <Grid item xs={12}>
@@ -93,6 +86,8 @@ function InfoUser() {
                 disableAnimation: true,
                 position: "top",
               }}
+              type="text"
+              id="firstname"
             />
           </Grid>
           <Grid item xs={12}>
@@ -106,6 +101,8 @@ function InfoUser() {
                 disableAnimation: true,
                 position: "top",
               }}
+              type="text"
+              id="lastname"
             />
           </Grid>
           <Grid item xs={12}>
@@ -119,6 +116,8 @@ function InfoUser() {
                 disableAnimation: true,
                 position: "top",
               }}
+              type="email"
+              id="email"
             />
           </Grid>
           <Grid item xs={12}>
@@ -132,6 +131,8 @@ function InfoUser() {
                 disableAnimation: true,
                 position: "top",
               }}
+              type="text"
+              id="workplace"
             />
           </Grid>
           <Grid item xs={12}>
@@ -145,6 +146,8 @@ function InfoUser() {
                 disableAnimation: true,
                 position: "top",
               }}
+              type="text"
+              id="github"
             />
           </Grid>
           <Grid item xs={12}>
@@ -158,6 +161,8 @@ function InfoUser() {
                 disableAnimation: true,
                 position: "top",
               }}
+              type="text"
+              id="linkedin"
             />
           </Grid>
           <Grid item xs={12}>
@@ -171,6 +176,8 @@ function InfoUser() {
                 disableAnimation: true,
                 position: "top",
               }}
+              type="text"
+              id="langues"
             />
           </Grid>
         </Grid>

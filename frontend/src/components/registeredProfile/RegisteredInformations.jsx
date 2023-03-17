@@ -1,6 +1,5 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable camelcase */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,7 +17,6 @@ import { FormControlLabel, Checkbox } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UserImage from "../UserImage";
 import ModalSuppression from "./ModalSuppression";
-import SignOutButton from "../SignOutButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,7 +63,7 @@ function RegisteredInformations() {
   const [workplace, setWorkplace] = useState([currentUser]);
   const [github, setGithub] = useState([currentUser]);
   const [linkedin, setLinkedin] = useState([currentUser]);
-  const [user_text, setUserText] = useState([currentUser]);
+  const [userText, setUserText] = useState([currentUser]);
   const [sideLanguages, setSideLanguages] = useState([]);
   const [language_id, setLanguageId] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
@@ -161,6 +159,17 @@ function RegisteredInformations() {
     setUserText(event.target.value);
     setUserUpdate({ ...userUpdate, user_text: event.target.value });
   };
+  function handleLanguageChange(id) {
+    if (typeof id === "number") {
+      if (language_id.includes(id)) {
+        setLanguageId((prev) => prev.filter((languageId) => languageId !== id));
+      } else {
+        setLanguageId((prev) => [...prev, id]);
+      }
+    } else {
+      setLanguageId((prev) => prev);
+    }
+  }
 
   return (
     <div>
@@ -182,7 +191,9 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Pseudo*"
+                    label={`Pseudo*${
+                      currentUser.pseudo ? ` (${currentUser.pseudo})` : ""
+                    }`}
                     value={pseudo}
                     fullWidth
                     InputLabelProps={{
@@ -190,13 +201,17 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="pseudo"
                     onChange={handlePseudoChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Prénom"
+                    label={`Prénom${
+                      currentUser.firstname ? ` (${currentUser.firstname})` : ""
+                    }`}
                     value={firstname}
                     fullWidth
                     InputLabelProps={{
@@ -204,13 +219,17 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="firstname"
                     onChange={handleFirstnameChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Nom"
+                    label={`Nom${
+                      currentUser.lastname ? ` (${currentUser.lastname})` : ""
+                    }`}
                     value={lastname}
                     fullWidth
                     InputLabelProps={{
@@ -218,13 +237,17 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="lastname"
                     onChange={handleLastnameChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Email*"
+                    label={`Email*${
+                      currentUser.email ? ` (${currentUser.email})` : ""
+                    }`}
                     value={email}
                     fullWidth
                     InputLabelProps={{
@@ -232,13 +255,17 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="email"
+                    id="email"
                     onChange={handleEmailChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Poste Actuel"
+                    label={`Poste actuel${
+                      currentUser.workplace ? ` (${currentUser.workplace})` : ""
+                    }`}
                     value={workplace}
                     fullWidth
                     InputLabelProps={{
@@ -246,13 +273,17 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="workplace"
                     onChange={handleWorkplaceChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Git-Hub Page"
+                    label={`Github${
+                      currentUser.github ? ` (${currentUser.github})` : ""
+                    }`}
                     value={github}
                     fullWidth
                     InputLabelProps={{
@@ -260,13 +291,17 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="github"
                     onChange={handleGithubChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Linkedin"
+                    label={`Linkedin${
+                      currentUser.linkedin ? ` (${currentUser.linkedin})` : ""
+                    }`}
                     value={linkedin}
                     fullWidth
                     InputLabelProps={{
@@ -274,13 +309,15 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="linkedin"
                     onChange={handleLinkkedinChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label="Langues"
+                    label="Langages"
                     value={userLanguages
                       .map((lang) => lang.language_name)
                       .join(", ")}
@@ -290,6 +327,8 @@ function RegisteredInformations() {
                       disableAnimation: true,
                       position: "top",
                     }}
+                    type="text"
+                    id="langages"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -302,16 +341,7 @@ function RegisteredInformations() {
                       control={
                         <Checkbox
                           checked={language_id.includes(language.id)}
-                          onChange={() =>
-                            setLanguageId((prev) =>
-                              prev.includes(language.id) &&
-                              typeof language.id === "number"
-                                ? prev.filter((id) => id !== language.id)
-                                : typeof language.id === "number"
-                                ? [...prev, language.id]
-                                : prev
-                            )
-                          }
+                          onChange={() => handleLanguageChange(language.id)}
                           name={language.language_name}
                         />
                       }
@@ -337,9 +367,6 @@ function RegisteredInformations() {
         </Grid>
 
         <Grid className={classes.gridCard} item xs={12} md={6}>
-          <Grid item xs={12} className={classes.valider}>
-            <SignOutButton />
-          </Grid>
           <Card className={classes.card}>
             <CardContent>
               <h3>Texte libre</h3>
@@ -348,10 +375,12 @@ function RegisteredInformations() {
                   <TextField
                     className={classes.field}
                     label="Votre texte ici"
-                    value={user_text}
+                    value={userText}
                     multiline
                     rows={8}
                     fullWidth
+                    type="text"
+                    id="texte libre"
                     onChange={handleUserTextChange}
                   />
                 </Grid>
