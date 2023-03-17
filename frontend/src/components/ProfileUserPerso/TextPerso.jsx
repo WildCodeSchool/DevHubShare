@@ -34,6 +34,8 @@ function TextPerso() {
             rows={8}
             fullWidth
             disabled
+            type="text"
+            id="text libre"
           />
         </Grid>
       </List>
