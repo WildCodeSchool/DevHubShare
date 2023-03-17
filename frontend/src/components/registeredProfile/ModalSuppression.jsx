@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -11,28 +12,35 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
   const [deletedUser, setDeletedUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    setEmail("");
+    setUser("");
     setOpen(false);
     setErrorMessage("");
   };
   const handleConfirm = () => {
-    if (!email) {
-      setErrorMessage("Veuillez entrer votre adresse e-mail");
+    navigate("/inscription");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    if (!userId) {
+      setErrorMessage("Veuillez confirmer la suppression");
+
       return;
     }
-    const token = localStorage.getItem("token");
 
     axios
-      .delete(`http://localhost:5000/users/${email}`, {
+      .delete(`http://localhost:5000/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       // console.info("token:", token);
@@ -51,10 +59,7 @@ export default function FormDialog() {
         );
       });
   };
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    setErrorMessage("");
-  };
+
   return (
     <div>
       <Button variant="text" onClick={handleClickOpen}>
@@ -64,21 +69,8 @@ export default function FormDialog() {
         <DialogTitle>ATTENTION vous allez supprimer votre compte</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Pour supprimer votre compte, veuillez confirmer votre adresse email.
+            Pour supprimer votre compte, veuillez confirmer.
           </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email"
-            type="email"
-            fullWidth
-            variant="standard"
-            value={email}
-            onChange={handleEmailChange}
-            error={!!errorMessage}
-            helperText={errorMessage}
-          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Annuler</Button>

@@ -1,10 +1,5 @@
 const express = require("express");
-const {
-  hashPassword,
-  verifyPassword,
-  verifyToken,
-  verifyEmail,
-} = require("../auth");
+const { hashPassword, verifyPassword, verifyToken } = require("../auth");
 
 const router = express.Router();
 
@@ -26,12 +21,12 @@ router.get("/users/:id", userControllers.read);
 router.put("/users/:id", verifyToken, userControllers.edit);
 router.post("/users", hashPassword, userControllers.add);
 router.delete("/users/:id", verifyToken, userControllers.destroy);
-router.delete(
-  "/users/:email",
-  verifyToken,
-  verifyEmail,
-  userControllers.deleteUserByEmail
-);
+// router.delete(
+//   "/users/:email",
+//   verifyToken,
+//   verifyEmail,
+//   userControllers.deleteUserByEmail
+// );
 
 router.get("/languages", languageControllers.browse);
 router.get("/languages/:id", languageControllers.read);
@@ -42,7 +37,7 @@ router.delete("/languages/:id", languageControllers.destroy);
 router.get("/posts", postControllers.browse);
 router.get("/posts/:id", verifyToken, postControllers.read);
 router.put("/posts/:id", verifyToken, postControllers.edit);
-router.post("/posts", verifyToken, postControllers.add);
+router.post("/posts", postControllers.add);
 router.delete("/posts/:id", postControllers.destroy);
 
 // Filtre des posts par utilisateur
