@@ -17,7 +17,6 @@ import { FormControlLabel, Checkbox } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UserImage from "../UserImage";
 import ModalSuppression from "./ModalSuppression";
-import SignOutButton from "../SignOutButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -192,7 +191,9 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label={`Pseudo* (${currentUser.pseudo})`}
+                    label={`Pseudo*${
+                      currentUser.pseudo ? ` (${currentUser.pseudo})` : ""
+                    }`}
                     value={pseudo}
                     fullWidth
                     InputLabelProps={{
@@ -206,7 +207,9 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label={`Prénom (${currentUser.firstname})`}
+                    label={`Prénom${
+                      currentUser.firstname ? ` (${currentUser.firstname})` : ""
+                    }`}
                     value={firstname}
                     fullWidth
                     InputLabelProps={{
@@ -220,7 +223,9 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label={`Nom (${currentUser.lastname})`}
+                    label={`Nom${
+                      currentUser.lastname ? ` (${currentUser.lastname})` : ""
+                    }`}
                     value={lastname}
                     fullWidth
                     InputLabelProps={{
@@ -234,7 +239,9 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label={`Email* (${currentUser.email})`}
+                    label={`Email*${
+                      currentUser.email ? ` (${currentUser.email})` : ""
+                    }`}
                     value={email}
                     fullWidth
                     InputLabelProps={{
@@ -248,7 +255,9 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label={`Poste actuel (${currentUser.workplace})`}
+                    label={`Poste actuel${
+                      currentUser.workplace ? ` (${currentUser.workplace})` : ""
+                    }`}
                     value={workplace}
                     fullWidth
                     InputLabelProps={{
@@ -262,7 +271,9 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label={`Github (${currentUser.github})`}
+                    label={`Github${
+                      currentUser.github ? ` (${currentUser.github})` : ""
+                    }`}
                     value={github}
                     fullWidth
                     InputLabelProps={{
@@ -276,7 +287,9 @@ function RegisteredInformations() {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.field}
-                    label={`Linkedin (${currentUser.linkedin})`}
+                    label={`Linkedin${
+                      currentUser.linkedin ? ` (${currentUser.linkedin})` : ""
+                    }`}
                     value={linkedin}
                     fullWidth
                     InputLabelProps={{
@@ -338,9 +351,6 @@ function RegisteredInformations() {
         </Grid>
 
         <Grid className={classes.gridCard} item xs={12} md={6}>
-          <Grid item xs={12} className={classes.valider}>
-            <SignOutButton />
-          </Grid>
           <Card className={classes.card}>
             <CardContent>
               <h3>Texte libre</h3>
