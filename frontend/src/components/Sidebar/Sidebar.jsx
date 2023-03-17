@@ -67,6 +67,11 @@ export default function Sidebar() {
   setSelectedLanguage(selectedLanguage);
   // console.info(selectedLanguage, "langage sélectionné");
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+  };
+
   return (
     <div
       className="containerSide"
@@ -184,6 +189,20 @@ export default function Sidebar() {
             }}
           >
             <div className="link_text">Mes Posts</div>
+          </NavLink>
+          <NavLink
+            to="/connexion"
+            className="link"
+            style={{
+              display: "flex",
+              color: isLoggedIn ? "#ffff" : "rgb(120 111 111)",
+              padding: "1rem 2rem",
+              textDecoration: "none",
+              fontSize: "0.9rem",
+            }}
+            onClick={handleLogout}
+          >
+            <div className="link_text">Déconnexion</div>
           </NavLink>
         </div>
       </div>
