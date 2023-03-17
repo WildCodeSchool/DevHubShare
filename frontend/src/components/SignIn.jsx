@@ -40,7 +40,7 @@ export default function SignIn() {
   const schema = Yup.object({
     email: Yup.string().email("Email non valide").required("Email requis"),
     password: Yup.string()
-      .min(3, "8 charactères minimum requis")
+      .min(8, "8 charactères minimum requis")
       .required("Mot de passe requis"),
   });
 
