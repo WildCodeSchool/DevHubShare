@@ -10,16 +10,22 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
   const [newAnswerSubmitted, setNewAnswerSubmitted] = useState(false);
+
+  const token = localStorage.getItem("token");
   const isMobile = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
 
   useEffect(() => {
     const getAnswers = async () => {
-      const response = await axios.get("http://localhost:5000/answers");
+      const response = await axios.get("http://localhost:5000/answers", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setAnswers(response.data);
     };
     const getUsers = async () => {
-      const response = await axios.get("http://localhost:5000/users");
+      const response = await axios.get("http://localhost:5000/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setUsers(response.data);
     };
     getAnswers();
@@ -29,7 +35,9 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/posts");
+        const response = await axios.get("http://localhost:5000/posts", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const postsAnswers = response.data.map((post) => {
           const postAnswers = answers.filter(
             (answer) => answer.post_id === post.id

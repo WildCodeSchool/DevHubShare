@@ -13,13 +13,19 @@ const useStyles = makeStyles((theme) => ({
 
 function TextPerso() {
   const [textArea, setTextArea] = useState("");
+
   const classes = useStyles();
+  const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
-      setTextArea(response.data);
-    });
+    axios
+      .get(`http://localhost:5000/users/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setTextArea(response.data);
+      });
   }, []);
 
   return (
