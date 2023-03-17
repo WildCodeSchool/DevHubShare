@@ -9,6 +9,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
   const [answers, setAnswers] = useState([]);
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
+  const [newAnswerSubmitted, setNewAnswerSubmitted] = useState(false);
   const isMobile = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
 
@@ -23,7 +24,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
     };
     getAnswers();
     getUsers();
-  }, []);
+  }, [newAnswerSubmitted]);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -39,11 +40,11 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         setPostsWithAnswers(postsAnswers);
       } catch (error) {
         console.error(error);
-        navigate("/erreur400");
+        navigate("/erreur404");
       }
     };
     getPosts();
-  }, [answers]);
+  }, [answers, newAnswerSubmitted]);
 
   const filteredPosts =
     languageSelected.length > 0
@@ -88,11 +89,14 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         {filteredPosts?.map((post) => (
           <PostCard
             key={post.id}
-            users={post.users}
-            tag={post.tag}
-            date={post.creation_date}
-            postContent={post.post_text}
-            answers={post.answers}
+            postId={post.id}
+            postUsers={post.users}
+            postTag={post.tag}
+            postDate={post.creation_date}
+            postText={post.post_text}
+            postAnswers={post.answers}
+            newAnswerSubmitted={newAnswerSubmitted}
+            setNewAnswerSubmitted={setNewAnswerSubmitted}
           />
         ))}
       </Stack>

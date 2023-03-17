@@ -13,13 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-export default function ProfileCard({
-  picture,
-  pseudo,
-  email,
-  userText,
-  onClickUser,
-}) {
+export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   return (
@@ -46,7 +40,8 @@ export default function ProfileCard({
         >
           <Avatar
             onClick={onClickUser}
-            src={picture}
+            alt={pseudo}
+            src="/broken-image.jpg"
             sx={{
               width: isMobile ? 60 : 70,
               height: isMobile ? 60 : 70,
@@ -140,7 +135,6 @@ export default function ProfileCard({
 }
 
 ProfileCard.propTypes = {
-  picture: PropTypes.instanceOf(Blob).isRequired,
   pseudo: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   userText: PropTypes.string.isRequired,
