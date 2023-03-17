@@ -1,6 +1,5 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable camelcase */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -65,7 +64,7 @@ function RegisteredInformations() {
   const [workplace, setWorkplace] = useState([currentUser]);
   const [github, setGithub] = useState([currentUser]);
   const [linkedin, setLinkedin] = useState([currentUser]);
-  const [user_text, setUserText] = useState([currentUser]);
+  const [userText, setUserText] = useState([currentUser]);
   const [sideLanguages, setSideLanguages] = useState([]);
   const [language_id, setLanguageId] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
@@ -161,6 +160,17 @@ function RegisteredInformations() {
     setUserText(event.target.value);
     setUserUpdate({ ...userUpdate, user_text: event.target.value });
   };
+  function handleLanguageChange(id) {
+    if (typeof id === "number") {
+      if (language_id.includes(id)) {
+        setLanguageId((prev) => prev.filter((languageId) => languageId !== id));
+      } else {
+        setLanguageId((prev) => [...prev, id]);
+      }
+    } else {
+      setLanguageId((prev) => prev);
+    }
+  }
 
   return (
     <div>
@@ -302,16 +312,7 @@ function RegisteredInformations() {
                       control={
                         <Checkbox
                           checked={language_id.includes(language.id)}
-                          onChange={() =>
-                            setLanguageId((prev) =>
-                              prev.includes(language.id) &&
-                              typeof language.id === "number"
-                                ? prev.filter((id) => id !== language.id)
-                                : typeof language.id === "number"
-                                ? [...prev, language.id]
-                                : prev
-                            )
-                          }
+                          onChange={() => handleLanguageChange(language.id)}
                           name={language.language_name}
                         />
                       }
@@ -348,7 +349,7 @@ function RegisteredInformations() {
                   <TextField
                     className={classes.field}
                     label="Votre texte ici"
-                    value={user_text}
+                    value={userText}
                     multiline
                     rows={8}
                     fullWidth
