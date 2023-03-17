@@ -33,15 +33,21 @@ export default function CreatePost({
   const [tag, setTag] = useState("");
   const [post, setPost] = useState("");
   const [errorSubmit, setErrorSubmit] = useState("");
+
+  const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const isMobile = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
 
   useEffect(() => {
     const getLanguages = () => {
-      axios.get("http://localhost:5000/languages").then((response) => {
-        setLanguages(response.data);
-      });
+      axios
+        .get("http://localhost:5000/languages", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setLanguages(response.data);
+        });
     };
     getLanguages();
   }, []);
@@ -68,12 +74,18 @@ export default function CreatePost({
       (language) => language.language_name === languageNameSelected
     );
     axios
-      .post("http://localhost:5000/posts", {
-        user_id: userId,
-        language_id: selectedLanguage.id,
-        tag,
-        post_text: post,
-      })
+      .post(
+        "http://localhost:5000/posts",
+        {
+          user_id: userId,
+          language_id: selectedLanguage.id,
+          tag,
+          post_text: post,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((response) => {
         console.info(response);
       })

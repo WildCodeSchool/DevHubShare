@@ -40,6 +40,8 @@ export default function PostCard({
   setNewAnswerSubmitted,
 }) {
   const [answerText, setAnswerText] = useState("");
+
+  const token = localStorage.getItem("token");
   const localId = localStorage.getItem("userId");
   const isMobile = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
@@ -47,11 +49,17 @@ export default function PostCard({
   const handleAnswerSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/answers", {
-        user_id: localId,
-        post_id: postId,
-        answer_text: answerText,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/answers",
+        {
+          user_id: localId,
+          post_id: postId,
+          answer_text: answerText,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.info(response.data);
       setAnswerText("");
       setNewAnswerSubmitted(!newAnswerSubmitted);
