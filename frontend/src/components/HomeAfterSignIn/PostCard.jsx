@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/system";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Grid,
   Typography,
@@ -16,6 +17,7 @@ import {
   AccordionDetails,
   useMediaQuery,
   Button,
+  IconButton,
 } from "@mui/material";
 
 const StyledButton = styled(Button)({
@@ -36,8 +38,11 @@ export default function PostCard({
   postDate,
   postText,
   postAnswers,
+  postUserId,
   newAnswerSubmitted,
   setNewAnswerSubmitted,
+  postDeleted,
+  setPostDeleted,
 }) {
   const [answerText, setAnswerText] = useState("");
 
@@ -69,6 +74,41 @@ export default function PostCard({
     }
   };
 
+  const handleDeletePost = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/posts/${postId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.info(response.data);
+      setPostDeleted(!postDeleted);
+      if (response.status === 204) {
+        navigate("/creer-post");
+      }
+    } catch (error) {
+      console.error(error);
+      navigate("/erreur404");
+    }
+  };
+
+  function renderDeleteButton() {
+    if (postUserId.toString() === localId.toString()) {
+      return (
+        <IconButton
+          aria-label="delete"
+          size="small"
+          fontSize="inherit"
+          onClick={() => handleDeletePost(postId)}
+        >
+          <DeleteIcon sx={{ color: "#82BE00" }} />
+        </IconButton>
+      );
+    }
+    return null;
+  }
+
   return (
     <Container
       sx={{
@@ -89,7 +129,7 @@ export default function PostCard({
             <Avatar
               key={user.id}
               alt={user.pseudo}
-              src="/broken-image.jpg"
+              // src="/broken-image.jpg"
               sx={{
                 width: 60,
                 height: 60,
@@ -130,7 +170,7 @@ export default function PostCard({
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Post de {user.pseudo}</Typography>
             </AccordionSummary>
-            <AccordionDetails key={user.id}>
+            <AccordionDetails key={postId}>
               <TextField
                 value={postText}
                 multiline
@@ -145,6 +185,7 @@ export default function PostCard({
                   backgroundColor: "#FFFFFF",
                 }}
               />
+              {renderDeleteButton()}
             </AccordionDetails>
           </Accordion>
         ))}
@@ -170,14 +211,14 @@ export default function PostCard({
           <StyledButton type="submit">Poster</StyledButton>
         </Grid>
       ) : (
-        <Grid item mb={1}>
+        <Grid item>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Réponse(s) au post</Typography>
             </AccordionSummary>
             {postAnswers?.map((answer) => (
-              <AccordionDetails key={answer.id}>
-                <Grid container direction="column" spacing={1}>
+              <AccordionDetails key={answer.id} sx={{ p: 0, mb: 1 }}>
+                <Grid container direction="column">
                   <Grid item component="form" onSubmit={handleAnswerSubmit}>
                     <TextField
                       label={format(
@@ -231,6 +272,7 @@ PostCard.propTypes = {
   postTag: PropTypes.string.isRequired,
   postText: PropTypes.string.isRequired,
   postDate: PropTypes.string.isRequired,
+  postUserId: PropTypes.number.isRequired,
   postAnswers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -246,4 +288,6 @@ PostCard.propTypes = {
   ).isRequired,
   newAnswerSubmitted: PropTypes.bool.isRequired,
   setNewAnswerSubmitted: PropTypes.func.isRequired,
+  postDeleted: PropTypes.bool.isRequired,
+  setPostDeleted: PropTypes.func.isRequired,
 };

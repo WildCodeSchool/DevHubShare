@@ -10,6 +10,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
   const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
   const [newAnswerSubmitted, setNewAnswerSubmitted] = useState(false);
+  const [postDeleted, setPostDeleted] = useState(false);
 
   const token = localStorage.getItem("token");
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -52,7 +53,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
       }
     };
     getPosts();
-  }, [answers, newAnswerSubmitted]);
+  }, [answers, newAnswerSubmitted, postDeleted]);
 
   const filteredPosts =
     languageSelected.length > 0
@@ -60,6 +61,8 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
           (post) => post?.language_id === languageSelected[0]?.id
         )
       : postsWithAnswers;
+
+  console.info("filteredPosts : ", filteredPosts);
 
   return (
     <Container
@@ -96,15 +99,17 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
       >
         {filteredPosts?.map((post) => (
           <PostCard
-            key={post.id}
             postId={post.id}
             postUsers={post.users}
             postTag={post.tag}
             postDate={post.creation_date}
             postText={post.post_text}
             postAnswers={post.answers}
+            postUserId={post.user_id}
             newAnswerSubmitted={newAnswerSubmitted}
             setNewAnswerSubmitted={setNewAnswerSubmitted}
+            postDeleted={postDeleted}
+            setPostDeleted={setPostDeleted}
           />
         ))}
       </Stack>
