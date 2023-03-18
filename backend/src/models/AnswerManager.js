@@ -21,7 +21,7 @@ class AnswerManager extends AbstractManager {
 
   findAnswersByPostId(answer) {
     return this.database.query(
-      `select * from ${this.table} where post_id = ?`,
+      `SELECT a.*, u.pseudo FROM ${this.table} AS a JOIN user AS u ON a.user_id = u.id WHERE a.post_id = ?`,
       [answer.post_id]
     );
   }

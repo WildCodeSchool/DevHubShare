@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import PostSent from "./PostSent";
 import Conversation from "./Conversation";
 import MyAnswer from "./MyAnswer";
+import LinkButton from "./LinkButton";
 import UserImage from "../UserImage";
 
 export default function MyPosts() {
@@ -65,6 +66,17 @@ export default function MyPosts() {
           post={sendAnswer}
           onNewAnswerSubmitted={handleNewAnswerSubmitted}
         />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            marginTop: "4rem",
+            marginBottom: "0.5rem",
+          }}
+        >
+          <LinkButton />
+        </div>
       </Stack>
     </Stack>
   );

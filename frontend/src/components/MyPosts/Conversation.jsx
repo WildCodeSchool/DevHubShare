@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { Container, Stack, TextField } from "@mui/material";
+import { Avatar, Container, Stack, TextField } from "@mui/material";
 import { format } from "date-fns";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
@@ -148,6 +148,20 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                       padding: "0.5rem",
                     }}
                   >
+                    {answer.user_id !== answer.localId && (
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <Avatar
+                          sx={{
+                            bgcolor: "#82BE00",
+                            marginRight: "0.5rem",
+                            marginBottom: "0.6rem",
+                          }}
+                        >
+                          {answer.pseudo.charAt(0).toUpperCase()}
+                        </Avatar>
+                        <span>{answer.pseudo}</span>
+                      </div>
+                    )}
                     {editingAnswer === answer ? (
                       <TextField
                         id="post-content"
@@ -186,13 +200,15 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                       <p>
                         {format(new Date(answer.creation_date), "dd/MM/yyyy")}
                       </p>
-                      <IconButton
-                        aria-label="delete"
-                        size="large"
-                        onClick={() => handleEditAnswer(answer, answer.id)}
-                      >
-                        <EditIcon sx={{ color: "#82BE00" }} />
-                      </IconButton>
+                      {answer.user_id === parseInt(localId, 10) && (
+                        <IconButton
+                          aria-label="delete"
+                          size="large"
+                          onClick={() => handleEditAnswer(answer, answer.id)}
+                        >
+                          <EditIcon sx={{ color: "#82BE00" }} />
+                        </IconButton>
+                      )}
                     </div>
                   </div>
                 ))}
