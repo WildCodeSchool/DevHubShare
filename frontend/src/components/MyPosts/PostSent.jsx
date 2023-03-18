@@ -14,7 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function PostSent({ onPostSelected, onSendAnswer }) {
   const [myPosts, setMyPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState("");
+  const [selectedPost, setSelectedPost] = useState();
 
   // localStorage.setItem("user.id", "1");
   const id = localStorage.getItem("userId");

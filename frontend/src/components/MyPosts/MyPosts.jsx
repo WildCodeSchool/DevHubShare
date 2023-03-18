@@ -10,8 +10,8 @@ import UserImage from "../UserImage";
 export default function MyPosts() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [selectedPost, setSelectedPost] = useState("");
-  const [sendAnswer, setSendAnswer] = useState("");
+  const [selectedPost, setSelectedPost] = useState([]);
+  const [sendAnswer, setSendAnswer] = useState([]);
   const [isNewAnswerSubmitted, setIsNewAnswerSubmitted] = useState(false);
 
   function handleSelectedPost(post) {
@@ -22,8 +22,8 @@ export default function MyPosts() {
     setSendAnswer(post);
   }
 
-  function handleNewAnswerSubmitted(newAnswer) {
-    setIsNewAnswerSubmitted(newAnswer);
+  function handleNewAnswerSubmitted() {
+    setIsNewAnswerSubmitted(!isNewAnswerSubmitted);
   }
 
   return (

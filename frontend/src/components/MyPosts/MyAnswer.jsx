@@ -43,7 +43,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
       console.info("Réponse envoyée à l'API:", response.data);
       // Réinitialise le champ de texte après envoie de la réponse
       setAnswerText("");
-      onNewAnswerSubmitted(true);
+      onNewAnswerSubmitted();
     } catch (error) {
       console.error("Erreur lors de l'envoi de la réponse:", error);
       navigate("/erreur400");
