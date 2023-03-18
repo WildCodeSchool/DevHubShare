@@ -20,7 +20,6 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
 
   const answerSent = (e) => setAnswerText(e.target.value);
 
-  // localStorage.setItem("user.id", "1");
   const localId = localStorage.getItem("userId");
 
   const handleAnswerSubmit = async () => {
@@ -29,7 +28,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
     }
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:5000/answers",
         {
           answer_text: answerText,
@@ -40,7 +39,6 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.info("Réponse envoyée à l'API:", response.data);
       // Réinitialise le champ de texte après envoie de la réponse
       setAnswerText("");
       onNewAnswerSubmitted();

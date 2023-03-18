@@ -12,11 +12,14 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function PostSent({ onPostSelected, onSendAnswer }) {
+export default function PostSent({
+  onPostSelected,
+  onSendAnswer,
+  onPostDeleted,
+}) {
   const [myPosts, setMyPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState();
 
-  // localStorage.setItem("user.id", "1");
   const id = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
@@ -36,6 +39,7 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
     setSelectedPost({ tag: post.tag, postText: post.post_text });
     onPostSelected({ id: post.id, tag: post.tag, postText: post.post_text });
     onSendAnswer({ id: post.id, tag: post.tag, postText: post.post_text });
+    onPostDeleted(false);
   };
 
   useEffect(() => {
@@ -54,6 +58,7 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
           })
           .then(() => {
             getMyPosts();
+            onPostDeleted(true);
           })
           .catch((error) => {
             console.info(error);
@@ -105,7 +110,6 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
                 backgroundColor: "#fff",
                 marginBottom: "1rem",
                 borderRadius: 2,
-                padding: "0.5rem",
               }}
             >
               <AccordionSummary

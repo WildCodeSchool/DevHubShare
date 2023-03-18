@@ -13,6 +13,7 @@ export default function MyPosts() {
   const [selectedPost, setSelectedPost] = useState([]);
   const [sendAnswer, setSendAnswer] = useState([]);
   const [isNewAnswerSubmitted, setIsNewAnswerSubmitted] = useState(false);
+  const [postIsDeleted, setPostIsDeleted] = useState(false);
 
   function handleSelectedPost(post) {
     setSelectedPost(post);
@@ -42,6 +43,7 @@ export default function MyPosts() {
         <PostSent
           onPostSelected={handleSelectedPost}
           onSendAnswer={handleAnswer}
+          onPostDeleted={setPostIsDeleted}
         />
       </Stack>
       {isSmallScreen ? (
@@ -54,7 +56,11 @@ export default function MyPosts() {
         spacing={2}
         sx={{ minWidth: isSmallScreen ? "96vw" : "50%" }}
       >
-        <Conversation post={selectedPost} newAnswer={isNewAnswerSubmitted} />
+        <Conversation
+          post={selectedPost}
+          newAnswer={isNewAnswerSubmitted}
+          postIsDeleted={postIsDeleted}
+        />
         <MyAnswer
           post={sendAnswer}
           onNewAnswerSubmitted={handleNewAnswerSubmitted}

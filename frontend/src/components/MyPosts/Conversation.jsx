@@ -12,12 +12,14 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 
-export default function Conversation({ post, newAnswer }) {
+export default function Conversation({ post, newAnswer, postIsDeleted }) {
   const [myAnswers, setMyAnswers] = useState([]);
   const [editingAnswer, setEditingAnswer] = useState([]);
   const [editedAnswerText, setEditedAnswerText] = useState([]);
   const navigate = useNavigate();
+  console.info(postIsDeleted, "alors deleted ou pas?");
   const token = localStorage.getItem("token");
+  const localId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (!post && !newAnswer) return;
@@ -30,7 +32,6 @@ export default function Conversation({ post, newAnswer }) {
           }
         );
         setMyAnswers(response.data);
-        console.info("les réponses à mon poste", response.data);
       } catch (error) {
         console.error(error);
         navigate("/erreur400");
@@ -43,8 +44,6 @@ export default function Conversation({ post, newAnswer }) {
     setEditingAnswer(answer);
     setEditedAnswerText(answer.answer_text);
   };
-
-  const localId = localStorage.getItem("userId");
 
   async function updateAnswer(answerId) {
     try {
@@ -105,21 +104,28 @@ export default function Conversation({ post, newAnswer }) {
             <h2 style={{ margin: "0.5rem", color: "#82BE00" }}>
               Les réponses ici:
             </h2>
-            {post && (
-              <Accordion sx={{ margin: "0.5rem" }}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <h3>{post.tag}</h3>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <p>{post.postText}</p>
-                  {/* <p>{post.id}</p> */}
-                </AccordionDetails>
-              </Accordion>
-            )}
+            {postIsDeleted
+              ? null
+              : post && (
+                  <Accordion sx={{ margin: "0.5rem" }}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                      sx={{
+                        "& .MuiAccordionSummary-content": {
+                          margin: 0,
+                        },
+                      }}
+                    >
+                      <h3>{post.tag}</h3>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <p>{post.postText}</p>
+                      {/* <p>{post.id}</p> */}
+                    </AccordionDetails>
+                  </Accordion>
+                )}
           </div>
 
           <div
@@ -130,59 +136,66 @@ export default function Conversation({ post, newAnswer }) {
               marginLeft: "15%",
             }}
           >
-            {myAnswers.map((answer) => (
-              <div
-                key={answer.id}
-                style={{
-                  backgroundColor: "#fff",
-                  marginBottom: "1rem",
-                  borderRadius: 2,
-                  padding: "0.5rem",
-                }}
-              >
-                {editingAnswer === answer ? (
-                  <TextField
-                    id="post-content"
-                    label="Mon nouveau texte ici..."
-                    value={editedAnswerText}
-                    onChange={(e) => setEditedAnswerText(e.target.value)}
-                    multiline
-                    rows={4}
-                    InputProps={{
-                      endAdornment: (
-                        <IconButton
-                          position="end"
-                          onClick={() => updateAnswer(answer.id)}
-                        >
-                          <SaveIcon sx={{ color: "#82BE00" }} />
-                        </IconButton>
-                      ),
+            {postIsDeleted
+              ? null
+              : myAnswers.map((answer) => (
+                  <div
+                    key={answer.id}
+                    style={{
+                      backgroundColor: "#fff",
+                      marginBottom: "1rem",
+                      borderRadius: 2,
+                      padding: "0.5rem",
                     }}
-                    sx={{
-                      backgroundColor: "#FFFFFF",
-                      borderRadius: 1,
-                      fontSize: "sm",
-                      width: "100%",
-                    }}
-                  />
-                ) : (
-                  <p>{answer.answer_text}</p>
-                )}
-                <div
-                  className="editAnswer"
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <p>{format(new Date(answer.creation_date), "dd/MM/yyyy")}</p>
-                  <IconButton
-                    aria-label="delete"
-                    size="large"
-                    onClick={() => handleEditAnswer(answer, answer.id)}
                   >
-                    <EditIcon sx={{ color: "#82BE00" }} />
-                  </IconButton>
-                </div>
-              </div>
-            ))}
+                    {editingAnswer === answer ? (
+                      <TextField
+                        id="post-content"
+                        label="Mon nouveau texte ici..."
+                        value={editedAnswerText}
+                        onChange={(e) => setEditedAnswerText(e.target.value)}
+                        multiline
+                        rows={4}
+                        InputProps={{
+                          endAdornment: (
+                            <IconButton
+                              position="end"
+                              onClick={() => updateAnswer(answer.id)}
+                            >
+                              <SaveIcon sx={{ color: "#82BE00" }} />
+                            </IconButton>
+                          ),
+                        }}
+                        sx={{
+                          backgroundColor: "#FFFFFF",
+                          borderRadius: 1,
+                          fontSize: "sm",
+                          width: "100%",
+                        }}
+                      />
+                    ) : (
+                      <p>{answer.answer_text}</p>
+                    )}
+                    <div
+                      className="editAnswer"
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <p>
+                        {format(new Date(answer.creation_date), "dd/MM/yyyy")}
+                      </p>
+                      <IconButton
+                        aria-label="delete"
+                        size="large"
+                        onClick={() => handleEditAnswer(answer, answer.id)}
+                      >
+                        <EditIcon sx={{ color: "#82BE00" }} />
+                      </IconButton>
+                    </div>
+                  </div>
+                ))}
           </div>
         </div>
       </Stack>
@@ -197,5 +210,6 @@ Conversation.propTypes = {
     postText: PropTypes.string.isRequired,
   }),
   newAnswer: PropTypes.bool.isRequired,
+  postIsDeleted: PropTypes.bool.isRequired,
 };
 Conversation.defaultProps = { post: {} };
