@@ -50,7 +50,11 @@ export default function MyPosts() {
       {isSmallScreen ? (
         <Divider orientation="horizontal" flexItem sx={{ marginTop: "1rem" }} />
       ) : (
-        <Divider orientation="vertical" flexItem />
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{ marginLeft: "1rem", marginRight: "1rem" }}
+        />
       )}
       <Stack
         direction="column"
