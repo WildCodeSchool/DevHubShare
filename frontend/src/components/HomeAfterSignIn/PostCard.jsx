@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import {
   Grid,
   Typography,
@@ -18,6 +19,7 @@ import {
   useMediaQuery,
   Button,
   IconButton,
+  InputAdornment,
 } from "@mui/material";
 
 const StyledButton = styled(Button)({
@@ -93,21 +95,22 @@ export default function PostCard({
     }
   };
 
-  function renderDeleteButton() {
+  const renderDeleteButton = () => {
     if (postUserId.toString() === localId.toString()) {
       return (
-        <IconButton
-          aria-label="delete"
-          size="small"
-          fontSize="inherit"
-          onClick={() => handleDeletePost(postId)}
-        >
-          <DeleteIcon sx={{ color: "#82BE00" }} />
-        </IconButton>
+        <InputAdornment position="end">
+          <IconButton
+            aria-label="delete"
+            size="small"
+            onClick={() => handleDeletePost(postId)}
+          >
+            <DeleteIcon sx={{ color: "#82BE00" }} />
+          </IconButton>
+        </InputAdornment>
       );
     }
     return null;
-  }
+  };
 
   return (
     <Container
@@ -129,10 +132,11 @@ export default function PostCard({
             <Avatar
               key={user.id}
               alt={user.pseudo}
-              // src="/broken-image.jpg"
+              src="/broken-image.jpg"
               sx={{
                 width: 60,
                 height: 60,
+                bgcolor: "#82BE00",
                 mr: isMobile ? 0 : 2,
                 mt: 1,
                 alignSelf: "center",
@@ -164,7 +168,7 @@ export default function PostCard({
           </Grid>
         </Grid>
       </Grid>
-      <Grid item mb={1}>
+      <Grid container mb={1} direction="column">
         {postUsers.map((user) => (
           <Accordion defaultExpanded>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -182,7 +186,7 @@ export default function PostCard({
                   width: "100%",
                   borderRadius: 1,
                   border: "solid 1px #82BE00",
-                  backgroundColor: "#FFFFFF",
+                  bgColor: "#FFFFFF",
                 }}
               />
               {renderDeleteButton()}
@@ -221,6 +225,7 @@ export default function PostCard({
                 <Grid container direction="column">
                   <Grid item component="form" onSubmit={handleAnswerSubmit}>
                     <TextField
+                      InputLabelProps={{ shrink: true }}
                       label={format(
                         new Date(answer.creation_date),
                         "dd-MM-yyyy"
@@ -234,6 +239,20 @@ export default function PostCard({
                         border: "dotted 1px #82BE00",
                         backgroundColor: "#FFFFFF",
                       }}
+                      InputProps={{
+                        endAdornment: answer.user_id.toString() ===
+                          localId.toString() && (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="edit"
+                              size="small"
+                              // onClick={() => handleUpdateAnswer()}
+                            >
+                              <ModeEditIcon sx={{ color: "#82BE00" }} />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                 </Grid>
@@ -243,6 +262,7 @@ export default function PostCard({
           {postUsers?.map((user) => (
             <Grid item mb={1} component="form" onSubmit={handleAnswerSubmit}>
               <TextField
+                key={user.id}
                 InputLabelProps={{ shrink: true }}
                 label={`Souhaitez-vous apporter votre aide à ${user.pseudo}`}
                 value={answerText}

@@ -99,6 +99,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
       >
         {filteredPosts?.map((post) => (
           <PostCard
+            key={post.id}
             postId={post.id}
             postUsers={post.users}
             postTag={post.tag}
