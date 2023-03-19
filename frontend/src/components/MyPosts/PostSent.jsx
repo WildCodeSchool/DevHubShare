@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Stack } from "@mui/material";
+import { TextField, Typography, Container, Stack } from "@mui/material";
 import { format } from "date-fns";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -92,8 +92,9 @@ export default function PostSent({
           width: "100%",
         }}
       >
-        <div style={{ padding: "1rem", width: "100%" }}>
-          <h2
+        <div style={{ padding: "1rem", width: "93%" }}>
+          <Typography
+            variant="h5"
             style={{
               color: "#009AA6",
               backgroundColor: "#ffff",
@@ -102,7 +103,7 @@ export default function PostSent({
             }}
           >
             Mes posts ici:
-          </h2>
+          </Typography>
           {myPosts.map((post) => (
             <Accordion
               key={post.id}
@@ -122,21 +123,29 @@ export default function PostSent({
                   },
                 }}
               >
-                <h3
+                <Typography
+                  variant="body1"
+                  fontWeight="bold"
                   style={{ cursor: "pointer" }}
                   onClick={(e) => handlePostClick(e, post)}
                   value={selectedPost}
                 >
                   {post.tag}
-                </h3>
+                </Typography>
               </AccordionSummary>
-              <AccordionDetails>
-                <p>{post.post_text}</p>
+              <AccordionDetails key={post.id}>
+                <TextField
+                  value={post.post_text}
+                  multiline
+                  fullWidth
+                  rows={20}
+                />
                 <div
                   className="MyPostDelete"
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
+                    scrollbarColor: "yellow",
                   }}
                 >
                   <p> {format(new Date(post.creation_date), "dd/MM/yyyy")}</p>
