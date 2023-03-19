@@ -6,7 +6,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
-// import LogoSNCF from "./images/logo_sncf.png";
 import LogoSNCF from "./images/DevHubSHARE_logo.png";
 import NotificationImg from "./images/bellNotification.png";
 
@@ -39,7 +38,7 @@ export default function NavBar() {
   const isTablet = useMediaQuery("(max-width: 900px)");
   const token = localStorage.getItem("token");
   const localId = localStorage.getItem("userId");
-  const postId = 1;
+  const postId = localId;
 
   const filteredPosts = posts.filter((post) => post.user_id === localId);
 
@@ -83,6 +82,7 @@ export default function NavBar() {
     );
   }, [filteredAnswers, filteredPosts]);
 
+  console.info("set:", newResponsesCount);
   return (
     <Container
       position="fixed"
