@@ -136,5 +136,4 @@ module.exports = {
   add,
   destroy,
   getUserByEmailWithPasswordAndPassToNext,
-  // deleteUserByEmail,
 };
