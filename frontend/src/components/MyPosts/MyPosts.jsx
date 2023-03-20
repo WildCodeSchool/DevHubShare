@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import Divider from "@mui/material/Divider";
-import { Stack, useTheme, useMediaQuery } from "@mui/material";
+import { Stack, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
 import PostSent from "./PostSent";
 import Conversation from "./Conversation";
@@ -9,8 +9,8 @@ import LinkButton from "./LinkButton";
 import UserImage from "../UserImage";
 
 export default function MyPosts() {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMediumScreen = useMediaQuery("(max-width: 800px)");
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
   const [selectedPost, setSelectedPost] = useState([]);
   const [sendAnswer, setSendAnswer] = useState([]);
   const [isNewAnswerSubmitted, setIsNewAnswerSubmitted] = useState(false);
@@ -28,16 +28,28 @@ export default function MyPosts() {
     setIsNewAnswerSubmitted(!isNewAnswerSubmitted);
   }
 
+  function determineMinWidth() {
+    if (isMediumScreen) {
+      return "60vw";
+    }
+    if (isSmallScreen) {
+      return "96vw";
+    }
+    return "50%";
+  }
+
   return (
     <Stack
-      direction={isSmallScreen ? "column" : "row"}
+      direction={isMediumScreen ? "column" : "row"}
       justifyContent="space-around"
       alignItems="flex-start"
       paddingTop="1rem"
     >
       <Stack
         direction="column"
-        sx={{ minWidth: isSmallScreen ? "96vw" : "50%" }}
+        sx={{
+          minWidth: determineMinWidth(isMediumScreen, isSmallScreen),
+        }}
       >
         <UserImage size="5rem" backgroundColor="grey" />
 
@@ -47,7 +59,7 @@ export default function MyPosts() {
           onPostDeleted={setPostIsDeleted}
         />
       </Stack>
-      {isSmallScreen ? (
+      {isMediumScreen ? (
         <Divider orientation="horizontal" flexItem sx={{ marginTop: "1rem" }} />
       ) : (
         <Divider
@@ -59,7 +71,9 @@ export default function MyPosts() {
       <Stack
         direction="column"
         spacing={2}
-        sx={{ minWidth: isSmallScreen ? "96vw" : "50%" }}
+        sx={{
+          minWidth: determineMinWidth(isMediumScreen, isSmallScreen),
+        }}
       >
         <Conversation
           post={selectedPost}

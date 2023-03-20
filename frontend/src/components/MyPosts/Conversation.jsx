@@ -72,14 +72,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
   }
 
   return (
-    // <Container
-    //   sx={{
-    //     mt: 2,
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     alignItems: "center",
-    //   }}
-    // >
     <Stack
       direction="row"
       justifyContent="center"
@@ -258,7 +250,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
         </div>
       </div>
     </Stack>
-    // </Container>
   );
 }
 

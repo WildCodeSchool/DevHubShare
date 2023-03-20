@@ -70,17 +70,6 @@ export default function PostSent({
   };
 
   return (
-    // <Container
-    //   sx={{
-    //     mt: 2,
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     alignItems: "center",
-    //     gap: 1,
-    //     maxWidth: "sm",
-    //     maxHeight: "sm",
-    //   }}
-    // >
     <Stack
       direction="row"
       justifyContent="center"
@@ -160,6 +149,5 @@ export default function PostSent({
         ))}
       </div>
     </Stack>
-    // </Container>
   );
 }
