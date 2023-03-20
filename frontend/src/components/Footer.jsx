@@ -47,7 +47,7 @@ export default function Footer() {
           src={LogoSNCF}
           alt="logo"
           sx={{
-            ml: isMobile ? "0rem" : "1.6rem",
+            ml: isMobile ? "0rem" : "0.8rem",
           }}
         />
       </Grid>
