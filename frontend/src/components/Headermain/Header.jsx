@@ -73,6 +73,7 @@ export default function NavBar() {
         <Toolbar sx={{ padding: 0 }}>
           <Grid
             container
+            item
             sx={{
               display: "flex",
               alignItems: "center",
@@ -110,6 +111,7 @@ export default function NavBar() {
             </Grid>
             <Grid
               container
+              item
               xl={2}
               lg={2}
               md={2}
