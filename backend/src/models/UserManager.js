@@ -46,6 +46,21 @@ class UserManager extends AbstractManager {
       email,
     ]);
   }
+
+  //   async findOneAndDelete(criteria) {
+  //     const userToDelete = await this.database.query(
+  //       `select * from ${this.table} where email = ?`,
+  //       [criteria.email]
+  //     );
+
+  //     if (!userToDelete) {
+  //       return null;
+  //     }
+
+  //     await this.delete(userToDelete.id);
+
+  //     return userToDelete;
+  //   }
 }
 
 module.exports = UserManager;
