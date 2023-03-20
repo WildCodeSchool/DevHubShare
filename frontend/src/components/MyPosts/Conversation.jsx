@@ -18,12 +18,10 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
   const [editedAnswerText, setEditedAnswerText] = useState([]);
   const navigate = useNavigate();
 
-  // On récupère les infos de la personne connectée
   const token = localStorage.getItem("token");
   const localId = localStorage.getItem("userId");
 
   useEffect(() => {
-    // Si pas de nouveaux posts ou pas de nouvelles réponses, rien ne se passe.
     if (!post && !newAnswer) return;
     async function getMyAnswers() {
       try {
@@ -39,17 +37,14 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
         navigate("/erreur400");
       }
     }
-    // UseEffect écoute les nouveaux posts ou les nouvelles réponses pour les réafficher
     getMyAnswers();
   }, [post, newAnswer]);
 
-  // Fonction qui gère la modification des réponses
   const handleEditAnswer = (answer) => {
     setEditingAnswer(answer);
     setEditedAnswerText(answer.answer_text);
   };
 
-  // Mise à jour des réponses modifiées
   async function updateAnswer(answerId) {
     try {
       await axios.put(
@@ -63,7 +58,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // Update myAnswers pour réafficher les réponses
       setMyAnswers((prevAnswers) =>
         prevAnswers.map((answer) =>
           answer.id === answerId
@@ -112,7 +106,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
           >
             Les réponses ici:
           </Typography>
-          {/* Si post is deleted, on affiche pas de post */}
           {postIsDeleted
             ? null
             : post && (
@@ -150,11 +143,9 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
             marginLeft: "6%",
           }}
         >
-          {/* Si post is deleted on affiche pas de réponse non plus. Sinon on MAP les réponses pour les afficher */}
           {postIsDeleted
             ? null
             : myAnswers
-                // On trie les réponses en fonction de leur date et de l'heure car sinon elles sont affichées par user_id
                 .sort(
                   (a, b) =>
                     new Date(a.creation_date) - new Date(b.creation_date)
@@ -185,7 +176,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                             marginRight: "0.5rem",
                           }}
                         >
-                          {/*  On récupère la 1ere lettre du pseudo qui répond pour l'afficher dans l'avatar + on affiche le pseudo */}
                           {answer.pseudo.charAt(0).toUpperCase()}
                         </Avatar>
                         <Typography variant="body1" fontWeight="bold">
@@ -200,7 +190,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                             borderRadius: 2,
                           }}
                         >
-                          {/* Vérification si le user_id de la réponse est différente du user id récupéré dans le local storage. Si différent, le bouton editIcon ne s'affiche pas. */}
                           {editingAnswer === answer ? (
                             <TextField
                               id="post-content"
@@ -213,7 +202,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                               rows={7}
                               InputProps={{
                                 endAdornment: (
-                                  // Bouton qui permet de rentrer la nouvelle réponse modifiée en dur.
                                   <IconButton
                                     position="end"
                                     onClick={() => updateAnswer(answer.id)}
@@ -241,17 +229,15 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                             className="editAnswer"
                             style={{
                               display: "flex",
-                              justifyContent: "flex-end",
+                              justifyContent: "space-between",
                             }}
                           >
-                            <Typography>
-                              {/* On affiche la date de création du poste et l'heure. */}
+                            <Typography variant="subtitle1">
                               {format(
                                 new Date(answer.creation_date),
-                                "dd/MM/yyyy HH:mm"
+                                "dd/MM/yyyy - HH:mm"
                               )}
                             </Typography>
-                            {/* Si l'ID de la personne qui répond est la même que la personne connecté, le bouton édit s'affiche et on peut modifier la réponse, sinon ce n'est pas possible. */}
                             {answer.user_id === parseInt(localId, 10) && (
                               <IconButton
                                 aria-label="delete"

@@ -20,11 +20,9 @@ export default function PostSent({
   const [myPosts, setMyPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState();
 
-  //  Récupération des informations de l'utilisateur connecté
   const id = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
-  // Fonction pour récupérer les post de l'utilisateur connecté
   const getMyPosts = () => {
     axios
       .get(`http://localhost:5000/posts/user/${id}`, {
@@ -36,7 +34,6 @@ export default function PostSent({
       });
   };
 
-  // Gestion du clic sur un post
   const handlePostClick = (e, post) => {
     e.preventDefault();
     setSelectedPost({ tag: post.tag, postText: post.post_text });
@@ -45,12 +42,10 @@ export default function PostSent({
     onPostDeleted(false);
   };
 
-  // Récupération des posts à l'initialisation du composant
   useEffect(() => {
     getMyPosts();
   }, []);
 
-  // Fonction pour supprimer un post, qui commence par en supprimer les réponses
   const handleDeletePost = (postId) => {
     axios
       .delete(`http://localhost:5000/answers/post/${postId}`, {
@@ -109,7 +104,6 @@ export default function PostSent({
         >
           Mes posts ici:
         </Typography>
-        {/*  MAP des posts pour les afficher */}
         {myPosts.map((post) => (
           <Accordion
             key={post.id}
@@ -129,7 +123,6 @@ export default function PostSent({
                 },
               }}
             >
-              {/* Gestion de la sélection du post au click */}
               <Typography
                 variant="body1"
                 fontWeight="bold"
@@ -150,9 +143,10 @@ export default function PostSent({
                   scrollbarColor: "yellow",
                 }}
               >
-                {/* Gestion de la date de création du post */}
-                <p> {format(new Date(post.creation_date), "dd/MM/yyyy")}</p>
-                {/* Bouton de suppression d'un post, qui appelle la fonction handleDeletePost en fonction de l'Id du post */}
+                <Typography variant="subtitle1">
+                  {" "}
+                  {format(new Date(post.creation_date), "dd/MM/yyyy")}
+                </Typography>
                 <IconButton
                   aria-label="delete"
                   size="large"

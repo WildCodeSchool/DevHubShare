@@ -13,25 +13,20 @@ import { useNavigate } from "react-router-dom";
 import flecheSend from "./images/flecheSend.png";
 
 export default function MyAnswer({ post, onNewAnswerSubmitted }) {
-  // Icone SNCF qui sert de bouton valider
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
   const navigate = useNavigate();
-  // On récupère la valeur de la réponse tapée
   const answerSent = (e) => setAnswerText(e.target.value);
 
-  // Infos de la personne connectée
   const token = localStorage.getItem("token");
   const localId = localStorage.getItem("userId");
 
-  // Fonction qui gère la création d'une réponse
   const handleAnswerSubmit = async () => {
     if (!answerText) {
       return; // Sort de la fonction si le champ de texte est vide
     }
 
     try {
-      // On poste la réponse dans la base de données
       await axios.post(
         "http://localhost:5000/answers",
         {
@@ -43,9 +38,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // Réinitialise le champ de texte après envoie de la réponse
       setAnswerText("");
-      // Fonction passée comme props par le parent
       onNewAnswerSubmitted();
     } catch (error) {
       console.error("Erreur lors de l'envoi de la réponse:", error);
@@ -73,7 +66,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
           borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#009AA6",
-          width: "90%",
+          width: "95%",
         }}
       >
         <FormControl sx={{ width: "100%", m: 2, gap: 1 }}>
@@ -83,11 +76,10 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
             value={answerText}
             onChange={answerSent}
             multiline
-            rows={4}
+            rows={7}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  {/* Au click sur le bouton, on alimente la base de données. */}
                   <Button onClick={handleAnswerSubmit}>
                     <img
                       className="flecheSend"
