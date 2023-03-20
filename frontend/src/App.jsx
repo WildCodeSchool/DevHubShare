@@ -1,9 +1,8 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
+/* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import BadRequestPage from "@pages/BadRequestPage";
+import BadRequestPage from "./pages/BadRequestPage";
 import SelectedLanguageContext from "./services/context/SelectedLanguageContext";
 import Home from "./pages/Home";
 import SignUpPage from "./pages/SignUpPage";
@@ -26,7 +25,6 @@ function App() {
   return (
     <div className="App">
       <SelectedLanguageContext.Provider
-        // eslint-disable-next-line react/jsx-no-constructed-context-values
         value={{
           selectedLanguage,
           setSelectedLanguage,

@@ -19,7 +19,6 @@ export default function HomeAfterSignInContent() {
       const selectLanguage = languages.filter(
         (language) => language.language_name === languageName
       );
-      console.info("home :", response);
       setLanguageSelected(selectLanguage);
     };
     handleLanguage();
