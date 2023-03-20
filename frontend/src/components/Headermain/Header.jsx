@@ -30,7 +30,7 @@ const Icon = styled("img")({
   position: "absolute",
 });
 
-export default function NavBar() {
+export default function Header() {
   const [answers, setAnswers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [newResponsesCount, setNewResponsesCount] = useState();
