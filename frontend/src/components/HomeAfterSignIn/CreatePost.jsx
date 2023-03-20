@@ -86,9 +86,6 @@ export default function CreatePost({
           headers: { Authorization: `Bearer ${token}` },
         }
       )
-      .then((response) => {
-        console.info(response);
-      })
       .catch((error) => {
         console.error(error);
         navigate("/erreur400");

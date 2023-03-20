@@ -62,8 +62,6 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         )
       : postsWithAnswers;
 
-  console.info("filteredPosts : ", filteredPosts);
-
   return (
     <Container
       sx={{
