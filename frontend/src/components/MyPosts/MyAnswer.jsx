@@ -22,8 +22,8 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const token = localStorage.getItem("token");
 
   const handleAnswerSubmit = async () => {
-    if (!answerText) {
-      return; // Sort de la fonction si le champ de texte est vide
+    if (!answerText || post.id == null) {
+      return; // Sort de la fonction si le champ de texte est vide ou si pas de post selectionné
     }
 
     try {
