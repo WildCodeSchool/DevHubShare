@@ -11,8 +11,8 @@ import UserImage from "../UserImage";
 export default function MyPosts() {
   const isMediumScreen = useMediaQuery("(max-width: 800px)");
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
-  const [selectedPost, setSelectedPost] = useState([]);
-  const [sendAnswer, setSendAnswer] = useState([]);
+  const [selectedPost, setSelectedPost] = useState({});
+  const [sendAnswer, setSendAnswer] = useState({});
   const [isNewAnswerSubmitted, setIsNewAnswerSubmitted] = useState(false);
   const [postIsDeleted, setPostIsDeleted] = useState(false);
 
@@ -60,7 +60,11 @@ export default function MyPosts() {
         />
       </Stack>
       {isMediumScreen ? (
-        <Divider orientation="horizontal" flexItem sx={{ marginTop: "1rem" }} />
+        <Divider
+          orientation="horizontal"
+          flexItem
+          sx={{ marginTop: "1rem", marginBottom: "1rem" }}
+        />
       ) : (
         <Divider
           orientation="vertical"

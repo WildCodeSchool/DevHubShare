@@ -16,7 +16,6 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
   const navigate = useNavigate();
-
   const answerSent = (e) => setAnswerText(e.target.value);
 
   const localId = localStorage.getItem("userId");
@@ -31,12 +30,12 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
       await axios.post(
         "http://localhost:5000/answers",
         {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-        {
           answer_text: answerText,
           post_id: post.id,
           user_id: localId,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       setAnswerText("");
@@ -107,9 +106,9 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
 
 MyAnswer.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    tag: PropTypes.string.isRequired,
-    postText: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    tag: PropTypes.string,
+    postText: PropTypes.string,
   }),
   onNewAnswerSubmitted: PropTypes.func.isRequired,
 };

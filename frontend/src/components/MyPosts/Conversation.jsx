@@ -143,9 +143,8 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                     new Date(a.creation_date) - new Date(b.creation_date)
                 )
                 .map((answer) => (
-                  <div className="reponsesAvecEdit">
+                  <div key={answer.id} className="reponsesAvecEdit">
                     <Accordion
-                      key={answer.id}
                       style={{
                         backgroundColor: "#fff",
                         marginBottom: "1rem",
@@ -164,7 +163,7 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                       >
                         <Avatar
                           sx={{
-                            backgroundColor: "#82BE00",
+                            bgColor: "#82BE00",
                             marginRight: "0.5rem",
                           }}
                         >
@@ -255,9 +254,9 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
 
 Conversation.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    tag: PropTypes.string.isRequired,
-    postText: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    tag: PropTypes.string,
+    postText: PropTypes.string,
   }),
   newAnswer: PropTypes.bool.isRequired,
   postIsDeleted: PropTypes.bool.isRequired,
