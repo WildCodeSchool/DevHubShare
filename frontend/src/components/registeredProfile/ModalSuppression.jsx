@@ -43,9 +43,6 @@ export default function FormDialog() {
       .delete(`http://localhost:5000/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      // console.info("token:", token);
-      // console
-      //   .info("email", email)
       .then((response) => {
         setDeletedUser(response.data);
         setErrorMessage("");
