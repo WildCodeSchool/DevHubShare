@@ -92,13 +92,13 @@ CREATE TABLE IF NOT EXISTS `answer` (
   CONSTRAINT `fk_answer_post1`
     FOREIGN KEY (`post_id`)
     REFERENCES `post` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_answer_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE  CASCADE)
 ENGINE = InnoDB;
 
 

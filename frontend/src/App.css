@@ -4,6 +4,24 @@ body {
   font-family: Avenir, sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #82be00;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #5b8e00;
+}
+
 :root {
   --heightFooter: 67px;
   --heightHeader: 96px;

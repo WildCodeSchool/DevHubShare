@@ -20,7 +20,13 @@ router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", verifyToken, userControllers.edit);
 router.post("/users", hashPassword, userControllers.add);
-router.delete("/users/:id", verifyPassword, userControllers.destroy);
+router.delete("/users/:id", verifyToken, userControllers.destroy);
+// router.delete(
+//   "/users/:email",
+//   verifyToken,
+//   verifyEmail,
+//   userControllers.deleteUserByEmail
+// );
 
 router.get("/languages", languageControllers.browse);
 router.get("/languages/:id", languageControllers.read);

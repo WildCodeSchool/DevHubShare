@@ -45,7 +45,7 @@ export default function FeedSelected() {
     };
     getAnswerList();
     getUserList();
-  }, [newAnswerSubmitted]);
+  });
 
   useEffect(() => {
     const getLanguageList = async () => {
