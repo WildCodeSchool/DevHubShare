@@ -56,7 +56,7 @@ export default function PostCard({
   const handleAnswerSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:5000/answers",
         {
           user_id: localId,
@@ -67,7 +67,6 @@ export default function PostCard({
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.info(response.data);
       setAnswerText("");
       setNewAnswerSubmitted(!newAnswerSubmitted);
     } catch (error) {
@@ -84,7 +83,6 @@ export default function PostCard({
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.info(response.data);
       setPostDeleted(!postDeleted);
       if (response.status === 204) {
         navigate("/creer-post");
@@ -98,15 +96,13 @@ export default function PostCard({
   const renderDeleteButton = () => {
     if (postUserId.toString() === localId.toString()) {
       return (
-        <InputAdornment position="end">
-          <IconButton
-            aria-label="delete"
-            size="small"
-            onClick={() => handleDeletePost(postId)}
-          >
-            <DeleteIcon sx={{ color: "#82BE00" }} />
-          </IconButton>
-        </InputAdornment>
+        <IconButton
+          aria-label="delete"
+          size="small"
+          onClick={() => handleDeletePost(postId)}
+        >
+          <DeleteIcon sx={{ color: "#82BE00" }} />
+        </IconButton>
       );
     }
     return null;
@@ -153,9 +149,9 @@ export default function PostCard({
             </Grid>
             <Grid item sx={{ m: 0 }}>
               <TextField
+                value={postTag}
                 multiline
                 rows={1}
-                value={postTag}
                 size="small"
                 sx={{
                   backgroundColor: "#FFFFFF",
@@ -170,32 +166,40 @@ export default function PostCard({
       </Grid>
       <Grid container mb={1} direction="column">
         {postUsers.map((user) => (
-          <Accordion defaultExpanded>
+          <Accordion defaultExpanded key={user.id}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Post de {user.pseudo}</Typography>
             </AccordionSummary>
-            <AccordionDetails key={postId}>
-              <TextField
-                value={postText}
-                multiline
-                rows={5}
-                size="small"
-                InputLabelProps={{ shrink: true }}
-                label={format(new Date(postDate), "dd-MM-yyyy")}
-                sx={{
-                  width: "100%",
-                  borderRadius: 1,
-                  border: "solid 1px #82BE00",
-                  bgColor: "#FFFFFF",
-                }}
-              />
-              {renderDeleteButton()}
+            <AccordionDetails>
+              <Grid item>
+                <TextField
+                  value={postText}
+                  multiline
+                  rows={5}
+                  size="small"
+                  InputLabelProps={{ shrink: true }}
+                  label={format(new Date(postDate), "dd-MM-yyyy")}
+                  sx={{
+                    width: "100%",
+                    borderRadius: 1,
+                    border: "solid 1px #82BE00",
+                    bgColor: "#FFFFFF",
+                  }}
+                />
+              </Grid>
+              <Grid item>{renderDeleteButton()}</Grid>
             </AccordionDetails>
           </Accordion>
         ))}
       </Grid>
       {postAnswers?.length === 0 ? (
-        <Grid item mb={1} component="form" onSubmit={handleAnswerSubmit}>
+        <Grid
+          container
+          direction="column"
+          mb={1}
+          component="form"
+          onSubmit={handleAnswerSubmit}
+        >
           <TextField
             InputLabelProps={{ shrink: true }}
             label="Il n'y a pas encore de réponse pour ce post ! Pourquoi pas vous ?"
@@ -260,7 +264,13 @@ export default function PostCard({
             ))}
           </Accordion>
           {postUsers?.map((user) => (
-            <Grid item mb={1} component="form" onSubmit={handleAnswerSubmit}>
+            <Grid
+              container
+              mb={1}
+              component="form"
+              onSubmit={handleAnswerSubmit}
+              key={user.id}
+            >
               <TextField
                 key={user.id}
                 InputLabelProps={{ shrink: true }}
@@ -302,7 +312,7 @@ PostCard.propTypes = {
   postUsers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      picture: PropTypes.instanceOf(Blob).isRequired,
+      picture: PropTypes.instanceOf(Blob),
       pseudo: PropTypes.string.isRequired,
     })
   ).isRequired,
