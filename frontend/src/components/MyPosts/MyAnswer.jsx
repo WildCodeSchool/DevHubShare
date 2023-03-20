@@ -16,12 +16,12 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const answerSent = (e) => setAnswerText(e.target.value);
 
   // localStorage.setItem("user.id", "1");
   const localId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
   const handleAnswerSubmit = async () => {
     if (!answerText) {
@@ -32,12 +32,12 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
       const response = await axios.post(
         "http://localhost:5000/answers",
         {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+        {
           answer_text: answerText,
           post_id: post.id,
           user_id: localId,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
         }
       );
       console.info("Réponse envoyée à l'API:", response.data);

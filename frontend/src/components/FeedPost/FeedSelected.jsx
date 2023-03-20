@@ -20,21 +20,28 @@ export default function FeedSelected() {
   const [answerList, setAnswerList] = useState([]);
   const [languageList, setLanguageList] = useState([]);
   const [userList, setUserList] = useState([]);
+  const token = localStorage.getItem("token");
 
   const getPostList = async () => {
-    const response = await axios.get("http://localhost:5000/posts");
+    const response = await axios.get("http://localhost:5000/posts", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     setPostList(response.data);
   };
   console.info("posts:", postList);
 
   const getAnswerList = async () => {
-    const response = await axios.get("http://localhost:5000/answers");
+    const response = await axios.get("http://localhost:5000/answers", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     setAnswerList(response.data);
   };
   console.info("answers1:", answerList);
 
   const getUserList = async () => {
-    const response = await axios.get("http://localhost:5000/users");
+    const response = await axios.get("http://localhost:5000/users", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     setUserList(response.data);
   };
   console.info("users:", userList);
