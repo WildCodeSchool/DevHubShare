@@ -140,6 +140,7 @@ export default function NavBar() {
             </Grid>
             <Grid
               container
+              item
               xl={2}
               lg={2}
               md={2}
