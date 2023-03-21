@@ -71,7 +71,7 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Pseudo"
-              value={currentUser.pseudo}
+              value={`${currentUser.pseudo ? ` ${currentUser.pseudo}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -86,7 +86,9 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Prénom"
-              value={currentUser.firstname}
+              value={`${
+                currentUser.firstname ? ` ${currentUser.firstname}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -101,7 +103,9 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Nom"
-              value={currentUser.lastname}
+              value={`${
+                currentUser.lastname ? ` ${currentUser.lastname}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -116,7 +120,7 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Email"
-              value={currentUser.email}
+              value={`${currentUser.email ? ` ${currentUser.email}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -131,7 +135,9 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Poste Actuel"
-              value={currentUser.workplace}
+              value={`${
+                currentUser.workplace ? ` ${currentUser.workplace}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -146,7 +152,7 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Git-Hub Page"
-              value={currentUser.github}
+              value={`${currentUser.github ? ` ${currentUser.github}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -161,7 +167,9 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Linkedin"
-              value={currentUser.linkedin}
+              value={`${
+                currentUser.linkedin ? ` ${currentUser.linkedin}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
