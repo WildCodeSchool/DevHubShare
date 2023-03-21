@@ -38,11 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const [userData, setUserData] = useState([]);
-  // const [pseudo, setPseudo] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const [languageId, setLanguageId] = useState([]);
-  // const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [sideLanguages, setSideLanguages] = useState([]);
   const navigate = useNavigate();
   const classes = useStyles();
