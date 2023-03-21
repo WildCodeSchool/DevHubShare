@@ -6,11 +6,11 @@ import { PropTypes } from "prop-types";
 import { styled } from "@mui/system";
 import {
   Grid,
-  Typography,
   Container,
   TextField,
   Avatar,
   useMediaQuery,
+  InputLabel,
   Button,
 } from "@mui/material";
 
@@ -30,7 +30,7 @@ export default function Post({
   tag,
   post,
   answers,
-  date,
+  postDate,
   postId,
   newAnswerSubmitted,
   setNewAnswerSubmitted,
@@ -44,7 +44,7 @@ export default function Post({
   const handleAnswerSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:5000/answers",
         {
           user_id: localId,
@@ -55,7 +55,6 @@ export default function Post({
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.info(response.data);
       setAnswerText("");
       setNewAnswerSubmitted(!newAnswerSubmitted);
     } catch (error) {
@@ -69,7 +68,7 @@ export default function Post({
       maxheight="100%"
       sx={{
         backgroundColor: "#FFFFFF",
-        borderRadius: 1,
+        borderRadius: 2,
         padding: "0%",
         mb: "4%",
         display: "flex",
@@ -103,7 +102,6 @@ export default function Post({
             sx={{
               width: 60,
               height: 60,
-              // mr: isMobile ? 0 : 2,
               mt: 1,
               alignSelf: "center",
             }}
@@ -121,10 +119,18 @@ export default function Post({
             }}
           >
             <Grid item>
+              <InputLabel
+                htmlFor="pseudo-input"
+                sx={{
+                  color: "#0088CE",
+                  fontWeight: "bold",
+                }}
+              >
+                Pseudo
+              </InputLabel>
               <TextField
                 value={pseudo}
                 variant="standard"
-                size="small"
                 sx={{
                   width: "100%",
                 }}
@@ -132,97 +138,102 @@ export default function Post({
             </Grid>
 
             <Grid item>
+              <InputLabel
+                htmlFor="tag-input"
+                sx={{
+                  color: "#0088CE",
+                  fontWeight: "bold",
+                }}
+              >
+                Titre
+              </InputLabel>
               <TextField
                 value={tag}
                 variant="standard"
-                size="small"
                 sx={{
                   width: "100%",
                 }}
               />
             </Grid>
             <Grid item color="#82BE00">
+              <InputLabel
+                htmlFor="post-input"
+                sx={{
+                  color: "#0088CE",
+                  fontSize: "smaller",
+                  fontWeight: "bold",
+                }}
+              >
+                Post publié le {format(new Date(postDate), "dd-MM-yyyy")}
+              </InputLabel>
               <TextField
-                label={format(new Date(date), "dd-MM-yyyy")}
                 value={post}
                 multiline
                 rows={1}
                 sx={{
                   width: "100%",
-                  borderRadius: 1,
+                  borderRadius: 2,
                   border: "solid 2px #82BE00",
                   backgroundColor: "#FFFFFF",
-                  boxSizing: "border-box",
-                  "& label": {
-                    color: "#0088CE",
-                    fontWeight: "bold",
-                    position: "absolute",
-                    top: "-10px",
-                    left: "-14px",
-                    backgroundColor: "white",
-                    // padding: "0 5px",
-                  },
+                  // boxSizing: "border-box",
                 }}
               />
             </Grid>
-            {answers ? (
-              answers.map((answer) => (
-                <Grid item key={answer.id}>
+
+            {answers.map((answer) => (
+              <Grid item component="form" key={answer.id}>
+                <InputLabel
+                  htmlFor="post-input"
+                  sx={{
+                    color: "#0088CE",
+                    fontSize: "smaller",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Réponse
+                </InputLabel>
+                {answer && (
                   <TextField
-                    label={format(new Date(date), "dd-MM-yyyy")}
                     value={answer}
                     multiline
                     rows={1}
                     sx={{
                       width: "100%",
-                      borderRadius: 1,
+                      borderRadius: 2,
                       border: "solid 2px #82BE00",
                       backgroundColor: "white",
                       boxSizing: "border-box",
-                      "& label": {
-                        color: "#0088CE",
-                        fontWeight: "bold",
-                        position: "absolute",
-                        top: "-10px",
-                        left: "-14px",
-                        backgroundColor: "white",
-                        // padding: "0 5px",
-                        // borderColor: "#82BE00",
-                      },
                     }}
                   />
-                </Grid>
-              ))
-            ) : (
-              <Grid item>
-                <TextField
-                  label={format(new Date(date), "dd-MM-yyyy")}
-                  value={answers[0]}
-                  multiline
-                  rows={1}
-                  sx={{
-                    width: "100%",
-                    borderRadius: 1,
-                    border: "solid 2px #82BE00",
-                    backgroundColor: "white",
-                    boxSizing: "border-box",
-                  }}
-                />
+                )}
               </Grid>
-            )}
-            <Grid item onSubmit={handleAnswerSubmit}>
-              <Typography color="#0088CE" fontWeight="bold">
-                <span>REPONDRE</span>
-              </Typography>
+            ))}
+            <Grid
+              item
+              component="form"
+              onSubmit={handleAnswerSubmit}
+              display="flex"
+              direction="column"
+              justifyContent="center"
+            >
+              <InputLabel
+                htmlFor="post-input"
+                sx={{
+                  color: "#0088CE",
+                  fontSize: "smaller",
+                  fontWeight: "bold",
+                }}
+              >
+                Répondre à {pseudo}
+              </InputLabel>
               <TextField
-                label="Votre réponse"
                 value={answerText}
                 onChange={(e) => setAnswerText(e.target.value)}
                 multiline
                 rows={2}
                 sx={{
                   width: "100%",
-                  borderRadius: 1,
+                  borderRadius: 2,
                   border: "solid 2px #82BE00",
                   backgroundColor: "white",
                   boxSizing: "border-box",
@@ -241,7 +252,7 @@ Post.propTypes = {
   tag: PropTypes.string.isRequired,
   post: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(PropTypes.string),
-  date: PropTypes.string.isRequired,
+  postDate: PropTypes.string.isRequired,
   users: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

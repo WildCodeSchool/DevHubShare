@@ -22,13 +22,6 @@ export default function FeedSelected() {
   const [newAnswerSubmitted, setNewAnswerSubmitted] = useState(false);
   const token = localStorage.getItem("token");
 
-  const getPostList = async () => {
-    const response = await axios.get("http://localhost:5000/posts", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setPostList(response.data);
-  };
-
   useEffect(() => {
     const getAnswerList = async () => {
       const response = await axios.get("http://localhost:5000/answers", {
@@ -45,7 +38,7 @@ export default function FeedSelected() {
     };
     getAnswerList();
     getUserList();
-  });
+  }, [newAnswerSubmitted]);
 
   useEffect(() => {
     const getLanguageList = async () => {
@@ -55,9 +48,15 @@ export default function FeedSelected() {
     getLanguageList();
   }, []);
 
+  const getPostList = async () => {
+    const response = await axios.get("http://localhost:5000/posts", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setPostList(response.data);
+  };
   useEffect(() => {
     getPostList();
-  }, []);
+  }, [newAnswerSubmitted, answerList]);
 
   const languageFiltered = languageList.filter(
     (language) => language.language_name === selectedLanguage
@@ -67,10 +66,10 @@ export default function FeedSelected() {
     (post) => post.language_id === languageFiltered[0]?.id
   );
 
-  const users = userList
-    .filter((user) => user[0]?.id === postList.user_id)
-    .map((user) => ({ id: user.id, pseudo: user.pseudo }));
-  console.info("pseudo:", users);
+  // const usersPseudo = userList
+  //   .filter((user) => user[0]?.id === postList.user_id)
+  //   .map((user) => ({ id: user.id, pseudo: user.pseudo }));
+  // console.info("usersPseudo:", usersPseudo);
 
   return (
     <Container
@@ -117,7 +116,7 @@ export default function FeedSelected() {
                     pseudo={user.pseudo}
                     tag={postMap?.tag}
                     post={postMap?.post_text}
-                    date={postMap?.creation_date}
+                    postDate={postMap?.creation_date}
                     answers={answerList
                       .filter((answer) => answer.post_id === postMap?.id)
                       .map((answerMap) => answerMap.answer_text)}
@@ -133,10 +132,11 @@ export default function FeedSelected() {
                 return (
                   <Post
                     key={postMap?.id}
+                    postId={postMap?.id}
                     pseudo={user.pseudo}
                     tag={postMap?.tag}
                     post={postMap?.post_text}
-                    date={postMap?.creation_date}
+                    postDate={postMap?.creation_date}
                     answers={answerList
                       .filter((answer) => answer.post_id === postMap?.id)
                       .map((answerMap) => answerMap.answer_text)}
