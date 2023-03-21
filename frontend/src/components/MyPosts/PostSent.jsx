@@ -103,6 +103,7 @@ export default function PostSent({
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
+              onClick={(e) => handlePostClick(e, post)}
               id="panel1a-header"
               sx={{
                 "& .MuiAccordionSummary-content": {
@@ -114,7 +115,6 @@ export default function PostSent({
                 variant="body1"
                 fontWeight="bold"
                 style={{ cursor: "pointer" }}
-                onClick={(e) => handlePostClick(e, post)}
                 value={selectedPost}
               >
                 {post.tag}
