@@ -95,6 +95,18 @@ export default function Sidebar() {
           }}
         >
           <NavLink
+            to="/"
+            className="link"
+            style={{
+              display: "flex",
+              color: "#ffff",
+              padding: "1rem 2rem",
+              textDecoration: "none",
+            }}
+          >
+            <div className="link_text">Accueil</div>
+          </NavLink>
+          <NavLink
             to="/creer-post"
             className="link"
             style={{
@@ -104,7 +116,7 @@ export default function Sidebar() {
               textDecoration: "none",
             }}
           >
-            <div className="link_text">Accueil</div>
+            <div className="link_text">Créer un post</div>
           </NavLink>
           <div
             className="sideFil"
