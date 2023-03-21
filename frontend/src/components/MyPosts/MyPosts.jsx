@@ -41,9 +41,9 @@ export default function MyPosts() {
   return (
     <Stack
       direction={isMediumScreen ? "column" : "row"}
-      justifyContent="space-around"
       alignItems="flex-start"
       paddingTop="1rem"
+      paddingLeft="10%"
     >
       <Stack
         direction="column"
@@ -51,8 +51,9 @@ export default function MyPosts() {
           minWidth: determineMinWidth(isMediumScreen, isSmallScreen),
         }}
       >
-        <UserImage size="5rem" backgroundColor="grey" />
-
+        <div className="imageAvatarPost" style={{ paddingBottom: "1rem" }}>
+          <UserImage size="5rem" backgroundColor="grey" />
+        </div>
         <PostSent
           onPostSelected={handleSelectedPost}
           onSendAnswer={handleAnswer}

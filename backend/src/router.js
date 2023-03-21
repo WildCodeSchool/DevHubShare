@@ -32,7 +32,7 @@ router.put("/languages/:id", languageControllers.edit);
 router.post("/languages", languageControllers.add);
 router.delete("/languages/:id", languageControllers.destroy);
 
-router.get("/posts", postControllers.browse);
+router.get("/posts", verifyToken, postControllers.browse);
 router.get("/posts/:id", verifyToken, postControllers.read);
 router.put("/posts/:id", verifyToken, postControllers.edit);
 router.post("/posts", verifyToken, postControllers.add);

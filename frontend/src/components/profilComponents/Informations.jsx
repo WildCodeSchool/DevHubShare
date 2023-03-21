@@ -31,11 +31,14 @@ function Informations() {
   const classes = useStyles();
 
   const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const { userIdSelected } = useParams();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/${userIdSelected}`)
+      .get(`http://localhost:5000/users/${userIdSelected}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         setCurrentUser(response.data);
       });
@@ -43,7 +46,9 @@ function Informations() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/user_has_language/${userIdSelected}`)
+      .get(`http://localhost:5000/user_has_language/${userIdSelected}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((data) => {
         const userLanguageObjects = data.map((lang) => ({
@@ -56,7 +61,10 @@ function Informations() {
   useEffect(() => {
     const getUserClicked = async () => {
       const response = await axios.get(
-        `http://localhost:5000/users/${userIdSelected}`
+        `http://localhost:5000/users/${userIdSelected}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
       setCurrentUser(response.data);
     };
@@ -77,7 +85,7 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Pseudo"
-              value={currentUser.pseudo}
+              value={`${currentUser.pseudo ? ` ${currentUser.pseudo}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -90,7 +98,9 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Prénom"
-              value={currentUser.firstname}
+              value={`${
+                currentUser.firstname ? ` ${currentUser.firstname}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -103,7 +113,9 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Nom"
-              value={currentUser.lastname}
+              value={`${
+                currentUser.lastname ? ` ${currentUser.lastname}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -116,7 +128,7 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Email"
-              value={currentUser.email}
+              value={`${currentUser.email ? ` ${currentUser.email}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -129,7 +141,9 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Poste Actuel"
-              value={currentUser.workplace}
+              value={`${
+                currentUser.workplace ? ` ${currentUser.workplace}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -142,7 +156,7 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Git-Hub Page"
-              value={currentUser.github}
+              value={`${currentUser.github ? ` ${currentUser.github}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -155,7 +169,9 @@ function Informations() {
             <TextField
               className={classes.field}
               label="Linkedin"
-              value={currentUser.linkedin}
+              value={`${
+                currentUser.linkedin ? ` ${currentUser.linkedin}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
