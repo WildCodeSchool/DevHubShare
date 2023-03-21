@@ -377,7 +377,7 @@ function RegisteredInformations() {
                     label="Votre texte ici"
                     value={userText}
                     multiline
-                    rows={8}
+                    minRows={8}
                     fullWidth
                     type="text"
                     id="texte libre"

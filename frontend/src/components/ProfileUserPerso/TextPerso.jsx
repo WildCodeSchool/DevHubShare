@@ -37,7 +37,7 @@ function TextPerso() {
             className={classes.field}
             value={textArea.user_text}
             multiline
-            rows={8}
+            minRows={8}
             fullWidth
             disabled
             type="text"
