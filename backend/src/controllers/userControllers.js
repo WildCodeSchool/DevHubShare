@@ -1,6 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable camelcase */
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable camelcase */
 const models = require("../models");
 

@@ -38,15 +38,12 @@ router.put("/posts/:id", verifyToken, postControllers.edit);
 router.post("/posts", verifyToken, postControllers.add);
 router.delete("/posts/:id", verifyToken, postControllers.destroy);
 
-// Filtre des posts par utilisateur
 router.get(
   "/posts/user/:userId",
   verifyToken,
   postControllers.getPostsByUserId
 );
-// Filtre des posts par langage
 router.get("/posts/language/:languageId", postControllers.getPostsByLanguageId);
-// Filtre les réponses par post
 router.get(
   "/answers/post/:postId",
   verifyToken,
