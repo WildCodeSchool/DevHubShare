@@ -15,36 +15,30 @@ const Links = styled(Link)({
 
 export default function FeedSelected() {
   const { selectedLanguage } = useContext(SelectedLanguageContext);
-
   const [postList, setPostList] = useState([]);
   const [answerList, setAnswerList] = useState([]);
   const [languageList, setLanguageList] = useState([]);
   const [userList, setUserList] = useState([]);
+  const [newAnswerSubmitted, setNewAnswerSubmitted] = useState(false);
   const token = localStorage.getItem("token");
 
-  const getPostList = async () => {
-    const response = await axios.get("http://localhost:5000/posts", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setPostList(response.data);
-  };
-  console.info("posts:", postList);
+  useEffect(() => {
+    const getAnswerList = async () => {
+      const response = await axios.get("http://localhost:5000/answers", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setAnswerList(response.data);
+    };
 
-  const getAnswerList = async () => {
-    const response = await axios.get("http://localhost:5000/answers", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setAnswerList(response.data);
-  };
-  console.info("answers1:", answerList);
-
-  const getUserList = async () => {
-    const response = await axios.get("http://localhost:5000/users", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setUserList(response.data);
-  };
-  console.info("users:", userList);
+    const getUserList = async () => {
+      const response = await axios.get("http://localhost:5000/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserList(response.data);
+    };
+    getAnswerList();
+    getUserList();
+  }, [newAnswerSubmitted]);
 
   useEffect(() => {
     const getLanguageList = async () => {
@@ -56,11 +50,15 @@ export default function FeedSelected() {
     getLanguageList();
   }, []);
 
+  const getPostList = async () => {
+    const response = await axios.get("http://localhost:5000/posts", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setPostList(response.data);
+  };
   useEffect(() => {
     getPostList();
-    getAnswerList();
-    getUserList();
-  }, []);
+  }, [newAnswerSubmitted, answerList]);
 
   const languageFiltered = languageList.filter(
     (language) => language.language_name === selectedLanguage
@@ -69,6 +67,11 @@ export default function FeedSelected() {
   const postFiltered = postList.filter(
     (post) => post.language_id === languageFiltered[0]?.id
   );
+
+  // const usersPseudo = userList
+  //   .filter((user) => user[0]?.id === postList.user_id)
+  //   .map((user) => ({ id: user.id, pseudo: user.pseudo }));
+  // console.info("usersPseudo:", usersPseudo);
 
   return (
     <Container
@@ -105,34 +108,45 @@ export default function FeedSelected() {
 
         <Stack sx={{ width: "80%" }}>
           {selectedLanguage
-            ? postFiltered.map((postMap) => (
-                <Post
-                  users={userList
-                    .filter((user) => user.id === postMap?.user_id)
-                    .map((userMap) => userMap.picture)}
-                  key={postMap?.id}
-                  tag={postMap?.tag}
-                  post={postMap?.post_text}
-                  date={postMap?.creation_date}
-                  answers={answerList
-                    .filter((answer) => answer.post_id === postMap?.id)
-                    .map((answerMap) => answerMap.answer_text)}
-                />
-              ))
-            : postList.map((postMap) => (
-                <Post
-                  users={userList
-                    .filter((user) => user.id === postMap?.user_id)
-                    .map((userMap) => userMap.picture)}
-                  key={postMap?.id}
-                  tag={postMap?.tag}
-                  post={postMap?.post_text}
-                  date={postMap?.creation_date}
-                  answers={answerList
-                    .filter((answer) => answer.post_id === postMap?.id)
-                    .map((answerMap) => answerMap.answer_text)}
-                />
-              ))}
+            ? postFiltered.map((postMap) => {
+                const user = userList.find(
+                  (userFind) => userFind.id === postMap.user_id
+                );
+                return (
+                  <Post
+                    key={postMap?.id}
+                    pseudo={user.pseudo}
+                    tag={postMap?.tag}
+                    post={postMap?.post_text}
+                    postDate={postMap?.creation_date}
+                    answers={answerList
+                      .filter((answer) => answer.post_id === postMap?.id)
+                      .map((answerMap) => answerMap.answer_text)}
+                    newAnswerSubmitted={newAnswerSubmitted}
+                    setNewAnswerSubmitted={setNewAnswerSubmitted}
+                  />
+                );
+              })
+            : postList.map((postMap) => {
+                const user = userList.find(
+                  (userFind) => userFind.id === postMap.user_id
+                );
+                return (
+                  <Post
+                    key={postMap?.id}
+                    postId={postMap?.id}
+                    pseudo={user.pseudo}
+                    tag={postMap?.tag}
+                    post={postMap?.post_text}
+                    postDate={postMap?.creation_date}
+                    answers={answerList
+                      .filter((answer) => answer.post_id === postMap?.id)
+                      .map((answerMap) => answerMap.answer_text)}
+                    newAnswerSubmitted={newAnswerSubmitted}
+                    setNewAnswerSubmitted={setNewAnswerSubmitted}
+                  />
+                );
+              })}
         </Stack>
       </Stack>
       <Stack alignSelf="flex-end" marginTop="2%">
