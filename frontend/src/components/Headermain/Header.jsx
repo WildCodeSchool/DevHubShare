@@ -53,7 +53,6 @@ export default function Header() {
     );
   }, [filteredAnswers, filteredPosts]);
 
-  console.info("set:", newResponsesCount);
   return (
     <Container
       position="fixed"

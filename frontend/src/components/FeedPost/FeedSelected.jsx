@@ -68,11 +68,6 @@ export default function FeedSelected() {
     (post) => post.language_id === languageFiltered[0]?.id
   );
 
-  // const usersPseudo = userList
-  //   .filter((user) => user[0]?.id === postList.user_id)
-  //   .map((user) => ({ id: user.id, pseudo: user.pseudo }));
-  // console.info("usersPseudo:", usersPseudo);
-
   return (
     <Container
       sx={{
