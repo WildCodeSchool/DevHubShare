@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import PropTypes from "prop-types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -138,5 +137,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
 ProfileCard.propTypes = {
   pseudo: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  userText: PropTypes.string,
   onClickUser: PropTypes.func.isRequired,
 };
+ProfileCard.defaultProps = { userText: "" };

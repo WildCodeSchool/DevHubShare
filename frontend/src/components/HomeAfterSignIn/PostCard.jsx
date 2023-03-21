@@ -6,7 +6,6 @@ import { format } from "date-fns";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import {
   Grid,
   Typography,
@@ -19,8 +18,8 @@ import {
   useMediaQuery,
   Button,
   IconButton,
-  InputAdornment,
 } from "@mui/material";
+import EditAnswer from "./EditAnswer";
 
 const StyledButton = styled(Button)({
   backgroundColor: "#82BE00",
@@ -45,6 +44,7 @@ export default function PostCard({
   setNewAnswerSubmitted,
   postDeleted,
   setPostDeleted,
+  handleUpdateAnswer,
 }) {
   const [answerText, setAnswerText] = useState("");
 
@@ -225,42 +225,13 @@ export default function PostCard({
               <Typography>Réponse(s) au post</Typography>
             </AccordionSummary>
             {postAnswers?.map((answer) => (
-              <AccordionDetails key={answer.id} sx={{ p: 0, mb: 1 }}>
-                <Grid container direction="column">
-                  <Grid item component="form" onSubmit={handleAnswerSubmit}>
-                    <TextField
-                      InputLabelProps={{ shrink: true }}
-                      label={format(
-                        new Date(answer.creation_date),
-                        "dd-MM-yyyy"
-                      )}
-                      value={answer.answer_text}
-                      multiline
-                      rows={2}
-                      sx={{
-                        width: "100%",
-                        borderRadius: 1,
-                        border: "dotted 1px #82BE00",
-                        backgroundColor: "#FFFFFF",
-                      }}
-                      InputProps={{
-                        endAdornment: answer.user_id.toString() ===
-                          localId.toString() && (
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="edit"
-                              size="small"
-                              // onClick={() => handleUpdateAnswer()}
-                            >
-                              <ModeEditIcon sx={{ color: "#82BE00" }} />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-              </AccordionDetails>
+              <EditAnswer
+                key={answer.id}
+                postId={postId}
+                answer={answer}
+                handleAnswerSubmit={handleAnswerSubmit}
+                handleUpdateAnswer={handleUpdateAnswer}
+              />
             ))}
           </Accordion>
           {postUsers?.map((user) => (
@@ -320,4 +291,5 @@ PostCard.propTypes = {
   setNewAnswerSubmitted: PropTypes.func.isRequired,
   postDeleted: PropTypes.bool.isRequired,
   setPostDeleted: PropTypes.func.isRequired,
+  handleUpdateAnswer: PropTypes.func.isRequired,
 };

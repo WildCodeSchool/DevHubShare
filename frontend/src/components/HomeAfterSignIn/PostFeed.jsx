@@ -6,61 +6,87 @@ import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 
 export default function PostFeed({ languageNameSelected, languageSelected }) {
-  const [answers, setAnswers] = useState([]);
-  const [users, setUsers] = useState([]);
   const [postsWithAnswers, setPostsWithAnswers] = useState([]);
   const [newAnswerSubmitted, setNewAnswerSubmitted] = useState(false);
   const [postDeleted, setPostDeleted] = useState(false);
 
+  const localId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const isMobile = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getAnswers = async () => {
-      const response = await axios.get("http://localhost:5000/answers", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setAnswers(response.data);
-    };
-    const getUsers = async () => {
-      const response = await axios.get("http://localhost:5000/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUsers(response.data);
-    };
-    getAnswers();
-    getUsers();
-  }, [newAnswerSubmitted]);
-
-  useEffect(() => {
-    const getPosts = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/posts", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const postsAnswers = response.data.map((post) => {
-          const postAnswers = answers.filter(
+        const [answers, users, posts] = await Promise.all([
+          axios.get("http://localhost:5000/answers", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          axios.get("http://localhost:5000/users", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          axios.get("http://localhost:5000/posts", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
+
+        const postsAnswers = posts.data.map((post) => {
+          const postAnswers = answers.data.filter(
             (answer) => answer.post_id === post.id
           );
-          const postUsers = users.filter((user) => user.id === post.user_id);
+          const postUsers = users.data.filter(
+            (user) => user.id === post.user_id
+          );
           return { ...post, answers: postAnswers, users: postUsers };
         });
+
         setPostsWithAnswers(postsAnswers);
       } catch (error) {
         console.error(error);
         navigate("/erreur404");
       }
     };
-    getPosts();
-  }, [answers, newAnswerSubmitted, postDeleted]);
+
+    fetchData();
+  }, [newAnswerSubmitted, postDeleted, token, navigate]);
 
   const filteredPosts =
     languageSelected.length > 0
       ? postsWithAnswers.filter(
-          (post) => post?.language_id === languageSelected[0]?.id
+          (post) => post.language_id === languageSelected[0]?.id
         )
       : postsWithAnswers;
+
+  const handleUpdateAnswer = async (postId, answerId, updatedAnswerText) => {
+    try {
+      await axios.put(
+        `http://localhost:5000/answers/${answerId}`,
+        {
+          user_id: localId,
+          post_id: postId,
+          answer_text: updatedAnswerText,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const updatedPostsWithAnswers = postsWithAnswers.map((post) => {
+        if (post.id === postId) {
+          const updatedAnswers = post.answers.map((answer) => {
+            if (answer.id === answerId) {
+              return { ...answer, answer_text: updatedAnswerText };
+            }
+            return answer;
+          });
+          return { ...post, answers: updatedAnswers };
+        }
+        return post;
+      });
+      setPostsWithAnswers(updatedPostsWithAnswers);
+    } catch (error) {
+      console.error(error);
+      navigate("/erreur404");
+    }
+  };
 
   return (
     <Container
@@ -109,6 +135,7 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
             setNewAnswerSubmitted={setNewAnswerSubmitted}
             postDeleted={postDeleted}
             setPostDeleted={setPostDeleted}
+            handleUpdateAnswer={handleUpdateAnswer}
           />
         ))}
       </Stack>
