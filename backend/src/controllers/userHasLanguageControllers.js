@@ -34,8 +34,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const user_has_language = req.body;
 
-  // TODO validations (length, format...)
-
   user_has_language.id = parseInt(req.params.id, 10);
   models.user_has_language
     .update(user_has_language)
@@ -54,8 +52,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const user_has_language = req.body;
-
-  // TODO validations (length, format...)
 
   models.user_has_language
     .insert(user_has_language)
