@@ -23,17 +23,14 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
       });
       setAnswers(response.data);
     };
+
     const getUsers = async () => {
       const response = await axios.get("http://localhost:5000/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(response.data);
     };
-    getAnswers();
-    getUsers();
-  }, [newAnswerSubmitted]);
 
-  useEffect(() => {
     const getPosts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/posts", {
@@ -52,6 +49,8 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
         navigate("/erreur404");
       }
     };
+    getAnswers();
+    getUsers();
     getPosts();
   }, [answers, newAnswerSubmitted, postDeleted]);
 
