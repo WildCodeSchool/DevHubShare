@@ -21,7 +21,7 @@ import "./App.css";
 
 function App() {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  console.info("appstate", selectedLanguage);
+
   return (
     <div className="App">
       <SelectedLanguageContext.Provider

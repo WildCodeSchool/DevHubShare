@@ -26,7 +26,7 @@ const StyledButton = styled(Button)({
 });
 export default function Post({
   pseudo,
-  users,
+  user,
   tag,
   post,
   answers,
@@ -62,6 +62,7 @@ export default function Post({
       navigate("/erreur404");
     }
   };
+
   return (
     <Container
       maxWidth="100%"
@@ -96,7 +97,7 @@ export default function Post({
           justifyContent="center"
         >
           <Avatar
-            key={users?.id}
+            key={user.id}
             alt={pseudo}
             src="/broken-image.jpg"
             sx={{
@@ -111,7 +112,7 @@ export default function Post({
         <Grid item xs={10}>
           <Grid
             container
-            direction="column"
+            flexDirection="column"
             spacing={4}
             padding={1}
             sx={{
@@ -175,7 +176,6 @@ export default function Post({
                   borderRadius: 2,
                   border: "solid 2px #82BE00",
                   backgroundColor: "#FFFFFF",
-                  // boxSizing: "border-box",
                 }}
               />
             </Grid>
@@ -190,11 +190,12 @@ export default function Post({
                     fontWeight: "bold",
                   }}
                 >
-                  Réponse
+                  Réponse de {answer.userAnswer.pseudo} du{" "}
+                  {format(new Date(answer.dateAnswer), "dd-MM-yyyy")}
                 </InputLabel>
                 {answer && (
                   <TextField
-                    value={answer}
+                    value={answer.textAnswer}
                     multiline
                     rows={1}
                     sx={{
@@ -253,7 +254,7 @@ Post.propTypes = {
   post: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(PropTypes.string),
   postDate: PropTypes.string.isRequired,
-  users: PropTypes.arrayOf(
+  user: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       picture: PropTypes.instanceOf(Blob).isRequired,
@@ -266,5 +267,5 @@ Post.propTypes = {
 
 Post.defaultProps = {
   answers: [],
-  users: [],
+  user: [],
 };

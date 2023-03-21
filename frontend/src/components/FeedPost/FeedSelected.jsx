@@ -68,11 +68,13 @@ export default function FeedSelected() {
     (post) => post.language_id === languageFiltered[0]?.id
   );
 
-  // const usersPseudo = userList
-  //   .filter((user) => user[0]?.id === postList.user_id)
-  //   .map((user) => ({ id: user.id, pseudo: user.pseudo }));
-  // console.info("usersPseudo:", usersPseudo);
+  const sortedPostList = postList.sort(
+    (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
+  );
 
+  const sortedPostFiltered = postFiltered.sort(
+    (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
+  );
   return (
     <Container
       sx={{
@@ -108,7 +110,7 @@ export default function FeedSelected() {
 
         <Stack sx={{ width: "80%" }}>
           {selectedLanguage
-            ? postFiltered.map((postMap) => {
+            ? sortedPostFiltered.map((postMap) => {
                 const user = userList.find(
                   (userFind) => userFind.id === postMap.user_id
                 );
@@ -121,13 +123,19 @@ export default function FeedSelected() {
                     postDate={postMap?.creation_date}
                     answers={answerList
                       .filter((answer) => answer.post_id === postMap?.id)
-                      .map((answerMap) => answerMap.answer_text)}
+                      .map((answerMap) => ({
+                        textAnswer: answerMap.answer_text,
+                        dateAnswer: answerMap.creation_date,
+                        userAnswer: userList.find(
+                          (userFind) => userFind.id === answerMap.user_id
+                        ),
+                      }))}
                     newAnswerSubmitted={newAnswerSubmitted}
                     setNewAnswerSubmitted={setNewAnswerSubmitted}
                   />
                 );
               })
-            : postList.map((postMap) => {
+            : sortedPostList.map((postMap) => {
                 const user = userList.find(
                   (userFind) => userFind.id === postMap.user_id
                 );
@@ -141,7 +149,13 @@ export default function FeedSelected() {
                     postDate={postMap?.creation_date}
                     answers={answerList
                       .filter((answer) => answer.post_id === postMap?.id)
-                      .map((answerMap) => answerMap.answer_text)}
+                      .map((answerMap) => ({
+                        textAnswer: answerMap.answer_text,
+                        dateAnswer: answerMap.creation_date,
+                        userAnswer: userList.find(
+                          (userFind) => userFind.id === answerMap.user_id
+                        ),
+                      }))}
                     newAnswerSubmitted={newAnswerSubmitted}
                     setNewAnswerSubmitted={setNewAnswerSubmitted}
                   />
