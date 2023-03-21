@@ -31,11 +31,14 @@ function Informations() {
   const classes = useStyles();
 
   const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const { userIdSelected } = useParams();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/${userIdSelected}`)
+      .get(`http://localhost:5000/users/${userIdSelected}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         setCurrentUser(response.data);
       });
@@ -43,7 +46,9 @@ function Informations() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/user_has_language/${userIdSelected}`)
+      .get(`http://localhost:5000/user_has_language/${userIdSelected}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((data) => {
         const userLanguageObjects = data.map((lang) => ({
@@ -56,7 +61,10 @@ function Informations() {
   useEffect(() => {
     const getUserClicked = async () => {
       const response = await axios.get(
-        `http://localhost:5000/users/${userIdSelected}`
+        `http://localhost:5000/users/${userIdSelected}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
       setCurrentUser(response.data);
     };
