@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from "react";
 import axios from "axios";

@@ -3,7 +3,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-// eslint-disable-next-line
 import PersonIcon from "@material-ui/icons/Person";
 
 const useStyles = makeStyles((theme) => ({
