@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
@@ -145,17 +144,19 @@ export default function SignUp() {
                   control={
                     <Checkbox
                       checked={languageId.includes(language.id)}
-                      onChange={() =>
-                        setLanguageId((prev) =>
-                          prev.includes(language.id) &&
-                          typeof language.id === "number"
-                            ? prev.filter((id) => id !== language.id)
-                            : typeof language.id === "number"
-                            ? [...prev, language.id]
-                            : prev
-                        )
-                      }
-                      name={language.language_name}
+                      onChange={() => {
+                        if (typeof language.id === "number") {
+                          if (languageId.includes(language.id)) {
+                            setLanguageId((prev) =>
+                              prev.filter((id) => id !== language.id)
+                            );
+                          } else {
+                            setLanguageId((prev) => [...prev, language.id]);
+                          }
+                        } else {
+                          setLanguageId((prev) => prev);
+                        }
+                      }}
                     />
                   }
                   label={language.language_name}

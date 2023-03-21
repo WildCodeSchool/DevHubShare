@@ -30,7 +30,7 @@ const Icon = styled("img")({
   position: "absolute",
 });
 
-export default function NavBar() {
+export default function Header() {
   const [answers, setAnswers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [newResponsesCount, setNewResponsesCount] = useState();
@@ -73,6 +73,7 @@ export default function NavBar() {
         <Toolbar sx={{ padding: 0 }}>
           <Grid
             container
+            item
             sx={{
               display: "flex",
               alignItems: "center",
@@ -110,6 +111,7 @@ export default function NavBar() {
             </Grid>
             <Grid
               container
+              item
               xl={2}
               lg={2}
               md={2}
