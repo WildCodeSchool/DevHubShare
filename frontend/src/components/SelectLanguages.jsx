@@ -8,6 +8,7 @@ import Select from "@mui/material/Select";
 export default function SelectLanguage() {
   const [selectOpen, setSelectOpen] = useState(false);
   const [sideLanguages, setSideLanguages] = useState([]);
+  const token = localStorage.getItem("token");
 
   const handleClose = () => {
     setSelectOpen(false);
@@ -19,7 +20,9 @@ export default function SelectLanguage() {
 
   const getLanguages = () => {
     axios
-      .get("http://localhost:5000/languages")
+      .get("http://localhost:5000/languages", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((data) => {
         setSideLanguages(data);

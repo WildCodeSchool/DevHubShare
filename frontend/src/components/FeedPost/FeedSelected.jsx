@@ -48,7 +48,9 @@ export default function FeedSelected() {
 
   useEffect(() => {
     const getLanguageList = async () => {
-      const response = await axios.get("http://localhost:5000/languages");
+      const response = await axios.get("http://localhost:5000/languages", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setLanguageList(response.data);
     };
     getLanguageList();
