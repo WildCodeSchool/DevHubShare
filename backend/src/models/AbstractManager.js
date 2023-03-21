@@ -17,12 +17,6 @@ class AbstractManager {
     return this.database.query(`delete from ${this.table} where id = ?`, [id]);
   }
 
-  // deleteUserByEmail(email) {
-  //   return this.database.query(`delete from ${this.table} where email = ?`, [
-  //     email,
-  //   ]);
-  // }
-
   setDatabase(database) {
     this.database = database;
   }
