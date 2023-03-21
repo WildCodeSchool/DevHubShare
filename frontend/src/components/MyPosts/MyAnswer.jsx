@@ -23,7 +23,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
 
   const handleAnswerSubmit = async () => {
     if (!answerText || post.id == null) {
-      return; // Sort de la fonction si le champ de texte est vide ou si pas de post selectionné
+      return;
     }
 
     try {
