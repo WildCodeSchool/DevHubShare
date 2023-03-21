@@ -21,7 +21,6 @@ export default function Sidebar() {
   function useLoggedIn() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // localStorage.setItem("user.id", "1");
     useEffect(() => {
       const token = localStorage.getItem("token");
       setIsLoggedIn(!!token);
@@ -36,7 +35,6 @@ export default function Sidebar() {
     try {
       const { data } = await axios.get("http://localhost:5000/languages");
       setSideLanguages(data);
-      // console.info("langages api", data);
     } catch (error) {
       console.error(error);
       navigate("/erreur400");
@@ -65,7 +63,6 @@ export default function Sidebar() {
     navigate("/fil-de-discussion");
   };
   setSelectedLanguage(selectedLanguage);
-  // console.info(selectedLanguage, "langage sélectionné");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -98,6 +95,18 @@ export default function Sidebar() {
           }}
         >
           <NavLink
+            to="/"
+            className="link"
+            style={{
+              display: "flex",
+              color: "#ffff",
+              padding: "1rem 2rem",
+              textDecoration: "none",
+            }}
+          >
+            <div className="link_text">Accueil</div>
+          </NavLink>
+          <NavLink
             to="/creer-post"
             className="link"
             style={{
@@ -107,7 +116,7 @@ export default function Sidebar() {
               textDecoration: "none",
             }}
           >
-            <div className="link_text">Accueil</div>
+            <div className="link_text">Créer un post</div>
           </NavLink>
           <div
             className="sideFil"

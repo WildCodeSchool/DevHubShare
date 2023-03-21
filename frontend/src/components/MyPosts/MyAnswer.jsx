@@ -16,34 +16,30 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
   const navigate = useNavigate();
-
   const answerSent = (e) => setAnswerText(e.target.value);
 
-  // localStorage.setItem("user.id", "1");
   const localId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
   const handleAnswerSubmit = async () => {
-    if (!answerText) {
-      return; // Sort de la fonction si le champ de texte est vide
+    if (!answerText || post.id == null) {
+      return;
     }
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:5000/answers",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
         {
           answer_text: answerText,
           post_id: post.id,
           user_id: localId,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.info("Réponse envoyée à l'API:", response.data);
-      // Réinitialise le champ de texte après envoie de la réponse
       setAnswerText("");
-      onNewAnswerSubmitted(true);
+      onNewAnswerSubmitted();
     } catch (error) {
       console.error("Erreur lors de l'envoi de la réponse:", error);
       navigate("/erreur400");
@@ -70,7 +66,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
           borderRadius: 1,
           boxShadow: "10px 10px 15px 2px #D7D7D7",
           backgroundColor: "#009AA6",
-          width: "75%",
+          width: "95%",
         }}
       >
         <FormControl sx={{ width: "100%", m: 2, gap: 1 }}>
@@ -80,7 +76,7 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
             value={answerText}
             onChange={answerSent}
             multiline
-            rows={4}
+            rows={7}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -110,9 +106,9 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
 
 MyAnswer.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    tag: PropTypes.string.isRequired,
-    postText: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    tag: PropTypes.string,
+    postText: PropTypes.string,
   }),
   onNewAnswerSubmitted: PropTypes.func.isRequired,
 };

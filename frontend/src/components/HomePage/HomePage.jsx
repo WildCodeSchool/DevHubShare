@@ -80,7 +80,7 @@ export default function HomePage() {
       </Typography>
 
       <Typography sx={{ color: "#0088CE", marginBottom: 2 }}>
-        <Links to="/connexion" sx={{ color: "#0088CE" }}>
+        <Links to="/inscription" sx={{ color: "#0088CE" }}>
           Je m'inscris
         </Links>
       </Typography>

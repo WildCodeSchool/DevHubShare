@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function SignIn() {
+  const token = localStorage.getItem("token");
   const schema = Yup.object({
     email: Yup.string().email("Email non valide").required("Email requis"),
     password: Yup.string()
@@ -54,10 +55,16 @@ export default function SignIn() {
     },
     onSubmit: async (values, helpers) => {
       try {
-        const response = await axios.post("http://localhost:5000/login", {
-          email: values.email,
-          password: values.password,
-        });
+        const response = await axios.post(
+          "http://localhost:5000/login",
+          {
+            email: values.email,
+            password: values.password,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.userId.toString());
         navigate("/creer-post");

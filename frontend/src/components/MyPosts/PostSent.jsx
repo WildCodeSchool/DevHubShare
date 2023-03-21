@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Stack } from "@mui/material";
+import { TextField, Typography, Stack } from "@mui/material";
 import { format } from "date-fns";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -12,11 +10,14 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function PostSent({ onPostSelected, onSendAnswer }) {
+export default function PostSent({
+  onPostSelected,
+  onSendAnswer,
+  onPostDeleted,
+}) {
   const [myPosts, setMyPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState("");
+  const [selectedPost, setSelectedPost] = useState();
 
-  // localStorage.setItem("user.id", "1");
   const id = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
@@ -36,6 +37,7 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
     setSelectedPost({ tag: post.tag, postText: post.post_text });
     onPostSelected({ id: post.id, tag: post.tag, postText: post.post_text });
     onSendAnswer({ id: post.id, tag: post.tag, postText: post.post_text });
+    onPostDeleted(false);
   };
 
   useEffect(() => {
@@ -54,6 +56,7 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
           })
           .then(() => {
             getMyPosts();
+            onPostDeleted(true);
           })
           .catch((error) => {
             console.info(error);
@@ -65,90 +68,84 @@ export default function PostSent({ onPostSelected, onSendAnswer }) {
   };
 
   return (
-    <Container
+    <Stack
+      direction="row"
+      justifyContent="center"
+      spacing={4}
       sx={{
-        mt: 2,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 1,
-        maxWidth: "sm",
-        maxHeight: "sm",
+        borderRadius: 1,
+        boxShadow: "10px 10px 15px 2px #D7D7D7",
+        backgroundColor: "#009AA6",
+        width: "100%",
       }}
     >
-      <Stack
-        direction="row"
-        justifyContent="center"
-        spacing={4}
-        sx={{
-          borderRadius: 1,
-          boxShadow: "10px 10px 15px 2px #D7D7D7",
-          backgroundColor: "#009AA6",
-          width: "100%",
-        }}
-      >
-        <div style={{ padding: "1rem", width: "100%" }}>
-          <h2
+      <div style={{ padding: "1rem", width: "100%" }}>
+        <Typography
+          variant="h5"
+          style={{
+            color: "#009AA6",
+            backgroundColor: "#ffff",
+            borderRadius: 2,
+            padding: "0.5rem",
+          }}
+        >
+          Mes posts ici:
+        </Typography>
+        {myPosts.map((post) => (
+          <Accordion
+            key={post.id}
             style={{
-              color: "#009AA6",
-              backgroundColor: "#ffff",
+              backgroundColor: "#fff",
+              marginBottom: "1rem",
               borderRadius: 2,
-              padding: "0.5rem",
             }}
           >
-            Mes posts ici:
-          </h2>
-          {myPosts.map((post) => (
-            <Accordion
-              key={post.id}
-              style={{
-                backgroundColor: "#fff",
-                marginBottom: "1rem",
-                borderRadius: 2,
-                padding: "0.5rem",
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              onClick={(e) => handlePostClick(e, post)}
+              id="panel1a-header"
+              sx={{
+                "& .MuiAccordionSummary-content": {
+                  margin: 0,
+                },
               }}
             >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-                sx={{
-                  "& .MuiAccordionSummary-content": {
-                    margin: 0,
-                  },
+              <Typography
+                variant="body1"
+                fontWeight="bold"
+                style={{ cursor: "pointer" }}
+                value={selectedPost}
+              >
+                {post.tag}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails key={post.id}>
+              <TextField value={post.post_text} multiline fullWidth rows={20} />
+              <div
+                className="MyPostDelete"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  scrollbarColor: "yellow",
                 }}
               >
-                <h3
-                  style={{ cursor: "pointer" }}
-                  onClick={(e) => handlePostClick(e, post)}
-                  value={selectedPost}
+                <Typography variant="subtitle1">
+                  {" "}
+                  {format(new Date(post.creation_date), "dd/MM/yyyy")}
+                </Typography>
+                <IconButton
+                  aria-label="delete"
+                  size="large"
+                  onClick={() => handleDeletePost(post.id)}
                 >
-                  {post.tag}
-                </h3>
-              </AccordionSummary>
-              <AccordionDetails>
-                <p>{post.post_text}</p>
-                <div
-                  className="MyPostDelete"
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <p> {format(new Date(post.creation_date), "dd/MM/yyyy")}</p>
-                  <IconButton
-                    aria-label="delete"
-                    size="large"
-                    onClick={() => handleDeletePost(post.id)}
-                  >
-                    <DeleteIcon sx={{ color: "#009AA6" }} />
-                  </IconButton>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </div>
-      </Stack>
-    </Container>
+                  <DeleteIcon sx={{ color: "#009AA6" }} />
+                </IconButton>
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </div>
+    </Stack>
   );
 }

@@ -8,6 +8,7 @@ import Select from "@mui/material/Select";
 export default function SelectLanguage() {
   const [selectOpen, setSelectOpen] = useState(false);
   const [sideLanguages, setSideLanguages] = useState([]);
+  const token = localStorage.getItem("token");
 
   const handleClose = () => {
     setSelectOpen(false);
@@ -19,7 +20,9 @@ export default function SelectLanguage() {
 
   const getLanguages = () => {
     axios
-      .get("http://localhost:5000/languages")
+      .get("http://localhost:5000/languages", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((data) => {
         setSideLanguages(data);
@@ -31,16 +34,6 @@ export default function SelectLanguage() {
   }, []);
 
   return (
-    // <Autocomplete
-    //   disablePortal
-    //   id="combo-box-demo"
-    //   // eslint-disable-next-line no-use-before-define
-    //   options={sideLanguages}
-    //   sx={{ backgroundColor: "#FFF", borderRadius: 1 }}
-    //   fullWidth
-    //   // eslint-disable-next-line react/jsx-props-no-spreading
-    //   renderInput={(params) => <TextField {...params} label="Language" />}
-    // />
     <FormControl
       sx={{
         m: 1,
@@ -61,7 +54,6 @@ export default function SelectLanguage() {
         onClose={handleClose}
         onOpen={handleOpen}
         displayEmpty
-        // eslint-disable-next-line prettier/prettier
         renderValue={(value) => value || "Sélection du langage"}
       >
         {sideLanguages.map((langage) => (
@@ -79,10 +71,3 @@ export default function SelectLanguage() {
     </FormControl>
   );
 }
-
-// const languages = [
-//   { label: "HTML" },
-//   { label: "CSS" },
-//   { label: "JAVASCRIPT" },
-//   { label: "PYTHON" },
-// ];

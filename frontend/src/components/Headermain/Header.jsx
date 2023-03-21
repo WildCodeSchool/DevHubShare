@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import { Container, Grid, useMediaQuery } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
@@ -30,15 +30,13 @@ const Icon = styled("img")({
   position: "absolute",
 });
 
-export default function NavBar() {
+export default function Header() {
   const [answers, setAnswers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [newResponsesCount, setNewResponsesCount] = useState();
   const isMobile = useMediaQuery("(max-width: 600px)");
   const isTablet = useMediaQuery("(max-width: 900px)");
-  const token = localStorage.getItem("token");
   const localId = localStorage.getItem("userId");
-  const postId = localId;
 
   const filteredPosts = posts.filter((post) => post.user_id === localId);
 
@@ -46,33 +44,6 @@ export default function NavBar() {
     (answer) =>
       answer.user_id !== localId && answer.post_id === filteredPosts[0]?.id
   );
-
-  const getPosts = async () => {
-    const response = await axios.get(
-      `http://localhost:5000/posts/user/${localId}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    setPosts(response.data);
-    console.info("posts2:", response.data);
-  };
-
-  const getAnswers = async () => {
-    const response = await axios.get(
-      `http://localhost:5000/answers/post/${postId}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    setAnswers(response.data);
-    console.info("answers2:", response.data);
-  };
-
-  useEffect(() => {
-    getAnswers();
-    getPosts();
-  }, []);
 
   useEffect(() => {
     setNewResponsesCount(
@@ -103,6 +74,7 @@ export default function NavBar() {
         <Toolbar sx={{ padding: 0 }}>
           <Grid
             container
+            item
             sx={{
               display: "flex",
               alignItems: "center",
@@ -140,6 +112,7 @@ export default function NavBar() {
             </Grid>
             <Grid
               container
+              item
               xl={2}
               lg={2}
               md={2}

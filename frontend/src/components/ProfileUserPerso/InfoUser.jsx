@@ -29,17 +29,24 @@ function InfoUser() {
   const classes = useStyles();
 
   const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/users/${userId}`).then((response) => {
-      setCurrentUser(response.data);
-    });
+    axios
+      .get(`http://localhost:5000/users/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setCurrentUser(response.data);
+      });
   }, []);
 
   useEffect(() => {
     if (currentUser && currentUser.id) {
       axios
-        .get(`http://localhost:5000/user_has_language/${userId}`)
+        .get(`http://localhost:5000/user_has_language/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then((response) => response.data)
         .then((data) => {
           const userLanguageObjects = data.map((lang) => ({
@@ -64,7 +71,7 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Pseudo"
-              value={currentUser.pseudo}
+              value={`${currentUser.pseudo ? ` ${currentUser.pseudo}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -79,7 +86,9 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Prénom"
-              value={currentUser.firstname}
+              value={`${
+                currentUser.firstname ? ` ${currentUser.firstname}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -94,7 +103,9 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Nom"
-              value={currentUser.lastname}
+              value={`${
+                currentUser.lastname ? ` ${currentUser.lastname}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -109,7 +120,7 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Email"
-              value={currentUser.email}
+              value={`${currentUser.email ? ` ${currentUser.email}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -124,7 +135,9 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Poste Actuel"
-              value={currentUser.workplace}
+              value={`${
+                currentUser.workplace ? ` ${currentUser.workplace}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -139,7 +152,7 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Git-Hub Page"
-              value={currentUser.github}
+              value={`${currentUser.github ? ` ${currentUser.github}` : ""}`}
               fullWidth
               InputLabelProps={{
                 shrink: true,
@@ -154,7 +167,9 @@ function InfoUser() {
             <TextField
               className={classes.field}
               label="Linkedin"
-              value={currentUser.linkedin}
+              value={`${
+                currentUser.linkedin ? ` ${currentUser.linkedin}` : ""
+              }`}
               fullWidth
               InputLabelProps={{
                 shrink: true,

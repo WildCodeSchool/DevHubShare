@@ -16,10 +16,13 @@ function TexteLibre() {
   const [textArea, setTextArea] = useState("");
   const classes = useStyles();
   const { userIdSelected } = useParams();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/${userIdSelected}`)
+      .get(`http://localhost:5000/users/${userIdSelected}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         setTextArea(response.data);
       });

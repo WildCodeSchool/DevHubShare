@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  TableFooter,
-  TableRow,
+  Container,
+  Grid,
   Link,
   Typography,
   useMediaQuery,
@@ -23,13 +23,14 @@ const FooterLink = styled(Link)({
   },
 });
 
-const FooterContainer = styled(TableFooter)({
+const FooterContainer = styled(Container)({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
   backgroundColor: "#333333",
   color: "#FFFFFF",
+  minWidth: "100vw",
   position: "fixed",
   bottom: 0,
   left: 0,
@@ -41,16 +42,16 @@ export default function Footer() {
 
   return (
     <FooterContainer>
-      <TableRow sx={{ alignSelf: "center" }}>
+      <Grid sx={{ alignSelf: "center" }}>
         <Logo
           src={LogoSNCF}
           alt="logo"
           sx={{
-            ml: isMobile ? "0rem" : "1.6rem",
+            ml: isMobile ? "0rem" : "0.8rem",
           }}
         />
-      </TableRow>
-      <TableRow
+      </Grid>
+      <Grid
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -59,8 +60,8 @@ export default function Footer() {
       >
         <FooterLink href="#">DevHub Connect {">"}</FooterLink>
         <FooterLink href="#">DevHub Project {">"}</FooterLink>
-      </TableRow>
-      <TableRow
+      </Grid>
+      <Grid
         sx={{
           alignSelf: isMobile ? "center" : "flex-end",
         }}
@@ -74,7 +75,7 @@ export default function Footer() {
         >
           <em>WCS Marseille 2023_Créé par Nelly, Karine, Sandra et Geoffroy</em>
         </Typography>
-      </TableRow>
+      </Grid>
     </FooterContainer>
   );
 }

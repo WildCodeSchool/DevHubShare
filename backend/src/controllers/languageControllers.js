@@ -53,8 +53,6 @@ const edit = (req, res) => {
 const add = (req, res) => {
   const language = req.body;
 
-  // TODO validations (length, format...)
-
   models.language
     .insert(language)
     .then(([result]) => {

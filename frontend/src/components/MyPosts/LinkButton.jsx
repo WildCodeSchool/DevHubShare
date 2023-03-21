@@ -3,29 +3,27 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
-export default function SignOutButton() {
+export default function LinkButton() {
   const navigate = useNavigate();
 
-  const handleSignOut = (event) => {
+  const handleClick = (event) => {
     event.preventDefault();
-    navigate("/connexion");
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    navigate("/creer-post");
   };
   return (
     <Stack spacing={2} direction="row">
       <Button
-        onClick={handleSignOut}
+        onClick={handleClick}
         variant="contained"
         sx={{
-          backgroundColor: "#009AA6",
-          color: "#ffff",
+          backgroundColor: "#ffff",
+          color: "#333333",
           "&:hover": {
-            backgroundColor: "#5dacb2",
+            backgroundColor: "#d7d7d7",
           },
         }}
       >
-        Déconnexion
+        Créer un post
       </Button>
     </Stack>
   );

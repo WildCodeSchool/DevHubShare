@@ -13,20 +13,18 @@ router.post(
   "/login",
   userControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
-  // verifyToken
 );
 
 router.get("/users", userControllers.browse);
-router.get("/users/:id", userControllers.read);
+router.get("/users/:id", verifyToken, userControllers.read);
 router.put("/users/:id", verifyToken, userControllers.edit);
 router.post("/users", hashPassword, userControllers.add);
-router.delete("/users/:id", verifyToken, userControllers.destroy);
-// router.delete(
-//   "/users/:email",
-//   verifyToken,
-//   verifyEmail,
-//   userControllers.deleteUserByEmail
-// );
+router.delete(
+  "/users/:id",
+  verifyToken,
+  verifyPassword,
+  userControllers.destroy
+);
 
 router.get("/languages", languageControllers.browse);
 router.get("/languages/:id", languageControllers.read);
@@ -40,23 +38,20 @@ router.put("/posts/:id", verifyToken, postControllers.edit);
 router.post("/posts", verifyToken, postControllers.add);
 router.delete("/posts/:id", verifyToken, postControllers.destroy);
 
-// Filtre des posts par utilisateur
 router.get(
   "/posts/user/:userId",
   verifyToken,
   postControllers.getPostsByUserId
 );
-// Filtre des posts par langage
 router.get("/posts/language/:languageId", postControllers.getPostsByLanguageId);
-// Filtre les réponses par post
 router.get(
   "/answers/post/:postId",
   verifyToken,
   answerControllers.getAnswersByPostId
 );
 
-router.get("/answers", answerControllers.browse);
-router.get("/answers/:id", answerControllers.read);
+router.get("/answers", verifyToken, answerControllers.browse);
+router.get("/answers/:id", verifyToken, answerControllers.read);
 router.put("/answers/:id", verifyToken, answerControllers.edit);
 router.post("/answers", verifyToken, answerControllers.add);
 router.delete("/answers/:id", verifyToken, answerControllers.destroy);
