@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from "react";
@@ -383,7 +384,9 @@ function RegisteredInformations() {
                   <TextField
                     className={classes.field}
                     label="Votre texte ici"
-                    value={userText}
+                    value={`${
+                      currentUser.userText ? ` ${currentUser.userText}` : ""
+                    }`}
                     multiline
                     minRows={8}
                     fullWidth
