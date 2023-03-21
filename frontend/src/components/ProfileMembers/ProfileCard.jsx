@@ -137,6 +137,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
 ProfileCard.propTypes = {
   pseudo: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  userText: PropTypes.string.isRequired,
+  userText: PropTypes.string,
   onClickUser: PropTypes.func.isRequired,
 };
+ProfileCard.defaultProps = { userText: "" };
