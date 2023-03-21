@@ -16,27 +16,26 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const flecheStyle = { height: "2rem", width: "2rem" };
   const [answerText, setAnswerText] = useState("");
   const navigate = useNavigate();
-
   const answerSent = (e) => setAnswerText(e.target.value);
 
   const localId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
   const handleAnswerSubmit = async () => {
-    if (!answerText) {
-      return; // Sort de la fonction si le champ de texte est vide
+    if (!answerText || post.id == null) {
+      return; // Sort de la fonction si le champ de texte est vide ou si pas de post selectionné
     }
 
     try {
       await axios.post(
         "http://localhost:5000/answers",
         {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-        {
           answer_text: answerText,
           post_id: post.id,
           user_id: localId,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       setAnswerText("");
@@ -107,9 +106,9 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
 
 MyAnswer.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    tag: PropTypes.string.isRequired,
-    postText: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    tag: PropTypes.string,
+    postText: PropTypes.string,
   }),
   onNewAnswerSubmitted: PropTypes.func.isRequired,
 };
