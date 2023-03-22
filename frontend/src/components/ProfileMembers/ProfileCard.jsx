@@ -41,7 +41,6 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
           <Avatar
             onClick={onClickUser}
             alt={pseudo}
-            src="/broken-image.jpg"
             sx={{
               width: isMobile ? 60 : 70,
               height: isMobile ? 60 : 70,
@@ -49,7 +48,9 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
               "&:hover": { boxShadow: "0px 8px 15px -2px #D7D7D7" },
               mt: isMobile && 1,
             }}
-          />
+          >
+            {pseudo.charAt(0).toUpperCase()}
+          </Avatar>
         </Grid>
         <Grid item sm={10} xs={12}>
           <Grid container direction="column" spacing={0.6} sx={{ m: 0 }}>
