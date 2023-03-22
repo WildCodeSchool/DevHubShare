@@ -384,9 +384,7 @@ function RegisteredInformations() {
                   <TextField
                     className={classes.field}
                     label="Votre texte ici"
-                    value={`${
-                      currentUser.userText ? ` ${currentUser.userText}` : ""
-                    }`}
+                    value={currentUser.userText}
                     multiline
                     minRows={8}
                     fullWidth

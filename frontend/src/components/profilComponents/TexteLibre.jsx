@@ -35,7 +35,7 @@ function TexteLibre() {
         <Grid item xs={12}>
           <TextField
             className={classes.field}
-            value={textArea.user_text}
+            value={`${textArea.user_text ? ` ${textArea.user_text}` : ""}`}
             multiline
             minRows={8}
             fullWidth
