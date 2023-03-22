@@ -170,7 +170,7 @@ export default function PostCard({
         {postUsers.map((user) => (
           <Accordion defaultExpanded key={user.id}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Post de {user.pseudo}</Typography>
+              <Typography>Post de : {user.pseudo}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Grid item>
