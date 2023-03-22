@@ -129,7 +129,13 @@ export default function PostFeed({ languageNameSelected, languageSelected }) {
             postTag={post.tag}
             postDate={post.creation_date}
             postText={post.post_text}
-            postAnswers={post.answers}
+            postAnswers={post.answers.map((answer) => {
+              const answerUser = post.users.find(
+                (user) => user.id === answer.user_id
+              );
+              const answerUserPseudo = answerUser ? answerUser.pseudo : "";
+              return { ...answer, user_pseudo: answerUserPseudo };
+            })}
             postUserId={post.user_id}
             newAnswerSubmitted={newAnswerSubmitted}
             setNewAnswerSubmitted={setNewAnswerSubmitted}

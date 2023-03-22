@@ -8,6 +8,7 @@ import {
   InputAdornment,
   IconButton,
   AccordionDetails,
+  Typography,
 } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import SaveIcon from "@mui/icons-material/Save";
@@ -84,6 +85,19 @@ export default function EditAnswer({
             }}
           />
         </Grid>
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="flex-end"
+          sx={{ color: "#82BE00" }}
+        >
+          <Typography variant="caption" sx={{ color: "#82BE00", mr: 1 }}>
+            {answer.user_id === parseInt(localStorage.getItem("userId"), 10)
+              ? "Vous"
+              : `Réponse de : ${answer.user_pseudo}`}
+          </Typography>
+        </Grid>
       </Grid>
     </AccordionDetails>
   );
@@ -96,6 +110,7 @@ EditAnswer.propTypes = {
     answer_text: PropTypes.string.isRequired,
     creation_date: PropTypes.string.isRequired,
     user_id: PropTypes.number.isRequired,
+    user_pseudo: PropTypes.string.isRequired,
   }).isRequired,
   handleAnswerSubmit: PropTypes.func.isRequired,
   handleUpdateAnswer: PropTypes.func.isRequired,

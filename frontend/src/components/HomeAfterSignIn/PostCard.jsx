@@ -128,7 +128,6 @@ export default function PostCard({
             <Avatar
               key={user.id}
               alt={user.pseudo}
-              src="/broken-image.jpg"
               sx={{
                 width: 60,
                 height: 60,
@@ -137,7 +136,9 @@ export default function PostCard({
                 mt: 1,
                 alignSelf: "center",
               }}
-            />
+            >
+              {user.pseudo.charAt(0).toUpperCase()}
+            </Avatar>
           ))}
         </Grid>
         <Grid item sm={10} xs={12}>
@@ -149,6 +150,7 @@ export default function PostCard({
             </Grid>
             <Grid item sx={{ m: 0 }}>
               <TextField
+                aria-label="tag"
                 value={postTag}
                 multiline
                 rows={1}
@@ -168,7 +170,7 @@ export default function PostCard({
         {postUsers.map((user) => (
           <Accordion defaultExpanded key={user.id}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Post de {user.pseudo}</Typography>
+              <Typography>Post de : {user.pseudo}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Grid item>
