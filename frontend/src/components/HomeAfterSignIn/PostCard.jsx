@@ -28,7 +28,7 @@ const StyledButton = styled(Button)({
   fontSize: 9,
   fontWeight: "bold",
   width: "10%",
-  marginLeft: "84%",
+  marginRight: "6%",
   marginTop: "1%",
 });
 
@@ -201,6 +201,7 @@ export default function PostCard({
           mb={1}
           component="form"
           onSubmit={handleAnswerSubmit}
+          sx={{ alignItems: "flex-end" }}
         >
           <TextField
             InputLabelProps={{ shrink: true }}
@@ -240,9 +241,11 @@ export default function PostCard({
             <Grid
               container
               mb={1}
+              direction="column"
               component="form"
               onSubmit={handleAnswerSubmit}
               key={user.id}
+              sx={{ alignItems: "flex-end" }}
             >
               <TextField
                 key={user.id}
