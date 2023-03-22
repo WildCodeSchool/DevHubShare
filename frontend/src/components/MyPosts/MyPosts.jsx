@@ -41,9 +41,9 @@ export default function MyPosts() {
   return (
     <Stack
       direction={isMediumScreen ? "column" : "row"}
-      alignItems="flex-start"
+      justifyContent="center"
       paddingTop="1rem"
-      paddingLeft="10%"
+      paddingLeft="5%"
     >
       <Stack
         direction="column"
