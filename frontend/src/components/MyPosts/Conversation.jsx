@@ -87,7 +87,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
         <div
           style={{
             backgroundColor: "#fff",
-            marginBottom: "1rem",
             borderRadius: 3,
             padding: "0.2rem",
           }}
@@ -97,38 +96,6 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
           </Typography>
         </div>
         <Stack direction="column" justifyContent="flex-end">
-          {postIsDeleted
-            ? null
-            : post && (
-                <Accordion key={post.id} sx={{ borderRadius: 1 }}>
-                  <AccordionSummary
-                    expandIcon={
-                      <ExpandMoreIcon aria-label="Développer la réponse" />
-                    }
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    sx={{
-                      "& .MuiAccordionSummary-content": {
-                        margin: 0,
-                      },
-                    }}
-                  >
-                    <Typography variant="body1" fontWeight="bold">
-                      {post.tag}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <TextField
-                      aria-label="Texte du post"
-                      value={post.postText}
-                      multiline
-                      fullWidth
-                      rows={20}
-                    />
-                  </AccordionDetails>
-                </Accordion>
-              )}
-
           <div
             className="TexteReponse"
             style={{
