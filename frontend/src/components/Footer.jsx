@@ -58,8 +58,12 @@ export default function Footer() {
           flexWrap: "wrap",
         }}
       >
-        <FooterLink href="#">DevHub Connect {">"}</FooterLink>
-        <FooterLink href="#">DevHub Project {">"}</FooterLink>
+        <FooterLink href="https://github.com/WildCodeSchool/DevHubConnect">
+          DevHub Connect {">"}
+        </FooterLink>
+        <FooterLink href="https://github.com/WildCodeSchool/DevHubProject">
+          DevHub Project {">"}
+        </FooterLink>
       </Grid>
       <Grid
         sx={{
