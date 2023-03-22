@@ -18,15 +18,14 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const navigate = useNavigate();
   const answerSent = (e) => setAnswerText(e.target.value);
 
-  const localId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
-
   const handleAnswerSubmit = async () => {
     if (!answerText || post.id == null) {
       return;
     }
 
     try {
+      const localId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
       await axios.post(
         "http://localhost:5000/answers",
         {

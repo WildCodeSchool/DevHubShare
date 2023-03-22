@@ -46,21 +46,12 @@ export default function PostSent({
 
   const handleDeletePost = (postId) => {
     axios
-      .delete(`http://localhost:5000/answers/post/${postId}`, {
+      .delete(`http://localhost:5000/posts/${postId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
-        axios
-          .delete(`http://localhost:5000/posts/${postId}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then(() => {
-            getMyPosts();
-            onPostDeleted(true);
-          })
-          .catch((error) => {
-            console.info(error);
-          });
+        getMyPosts();
+        onPostDeleted(true);
       })
       .catch((error) => {
         console.info(error);
