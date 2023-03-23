@@ -160,7 +160,6 @@ PUT /users/3
 ## Error management
 
 For error handling, the API should return as much information as possible for the developer to understand the error and make a fix, but also enough information for the developer to use in their program to return functional issues.
-
 For example in a Rest API, it is important that the different error cases are explained:
 
 ```
