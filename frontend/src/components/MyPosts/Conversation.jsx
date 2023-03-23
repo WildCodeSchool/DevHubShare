@@ -34,7 +34,7 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
         setMyAnswers(response.data);
       } catch (error) {
         console.error(error);
-        navigate("/erreur400");
+        navigate("/erreur404");
       }
     }
     getMyAnswers();

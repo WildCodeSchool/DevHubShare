@@ -30,9 +30,7 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const answer = req.body;
-
   answer.id = parseInt(req.params.id, 10);
-
   models.answer
     .update(answer)
     .then(([result]) => {
@@ -50,9 +48,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const answer = req.body;
-
-  // TODO validations (length, format...)
-
   models.answer
     .insert(answer)
     .then(([result]) => {
