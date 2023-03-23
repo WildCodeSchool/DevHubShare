@@ -21,9 +21,10 @@ const StyledButton = styled(Button)({
   fontSize: 9,
   fontWeight: "bold",
   width: "10%",
-  marginLeft: "84%",
-  marginTop: "1%",
+  marginTop: "2%",
+  alignSelf: "flex-end",
 });
+
 export default function Post({
   pseudo,
   user,
@@ -65,8 +66,6 @@ export default function Post({
 
   return (
     <Container
-      maxWidth="100%"
-      maxheight="100%"
       sx={{
         backgroundColor: "#FFFFFF",
         borderRadius: 2,
@@ -82,10 +81,10 @@ export default function Post({
       <Grid
         container
         mb="1%"
-        width="100%"
+        mr="5%"
         sx={{
           flexDirection: isMobile && "column",
-          alignContent: isMobile && "stretch",
+          alignContent: isMobile && "center",
           alignItems: isMobile && "center",
         }}
       >
@@ -98,27 +97,20 @@ export default function Post({
         >
           <Avatar
             key={user.id}
-            alt={pseudo}
-            src="/broken-image.jpg"
+            alt="pseudo"
             sx={{
               width: 60,
               height: 60,
               mt: 1,
               alignSelf: "center",
             }}
-          />
+          >
+            {pseudo.charAt(0).toUpperCase()}
+          </Avatar>
         </Grid>
 
         <Grid item xs={10}>
-          <Grid
-            container
-            flexDirection="column"
-            spacing={4}
-            padding={1}
-            sx={{
-              width: "100%",
-            }}
-          >
+          <Grid container flexDirection="column" spacing={4} padding={1}>
             <Grid item>
               <InputLabel
                 htmlFor="pseudo-input"
@@ -215,7 +207,6 @@ export default function Post({
               onSubmit={handleAnswerSubmit}
               display="flex"
               direction="column"
-              justifyContent="center"
             >
               <InputLabel
                 htmlFor="post-input"
@@ -223,6 +214,7 @@ export default function Post({
                   color: "#0088CE",
                   fontSize: "smaller",
                   fontWeight: "bold",
+                  paddingBottom: "3%",
                 }}
               >
                 Répondre à {pseudo}
@@ -236,7 +228,7 @@ export default function Post({
                   width: "100%",
                   borderRadius: 2,
                   border: "solid 2px #82BE00",
-                  backgroundColor: "white",
+                  backgroundColor: "#FFFFFF",
                   boxSizing: "border-box",
                 }}
               />
