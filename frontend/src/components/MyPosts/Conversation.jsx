@@ -119,6 +119,7 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
                           backgroundColor: "#fff",
                           marginBottom: "1rem",
                           borderRadius: 1,
+                          marginTop: "1rem",
                         }}
                       >
                         <AccordionSummary
