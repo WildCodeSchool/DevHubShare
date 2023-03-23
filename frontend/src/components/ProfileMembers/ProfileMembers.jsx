@@ -54,6 +54,7 @@ export default function ProfileMembers() {
   const handleLanguageChange = (event) => {
     setLanguageNameSelected(event.target.value);
   };
+
   const usersFiltered = () => {
     if (languageSelected.length > 0) {
       const languageId = languageSelected[0].id;

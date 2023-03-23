@@ -30,9 +30,6 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const language = req.body;
-
-  // TODO validations (length, format...)
-
   language.id = parseInt(req.params.id, 10);
 
   models.language
