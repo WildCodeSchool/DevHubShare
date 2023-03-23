@@ -96,6 +96,7 @@ export default function Post({
           justifyContent="center"
         >
           <Avatar
+            arial-label="Initiales de l'utilisateur"
             key={user.id}
             alt="pseudo"
             sx={{
@@ -122,6 +123,8 @@ export default function Post({
                 Pseudo
               </InputLabel>
               <TextField
+                id="pseudo-input"
+                aria-label="Pseudo de l'utilisateur qui a posté"
                 value={pseudo}
                 variant="standard"
                 sx={{
@@ -141,6 +144,8 @@ export default function Post({
                 Titre
               </InputLabel>
               <TextField
+                id="tag-input"
+                aria-label="Titre du post"
                 value={tag}
                 variant="standard"
                 sx={{
@@ -160,6 +165,8 @@ export default function Post({
                 Post publié le {format(new Date(postDate), "dd-MM-yyyy")}
               </InputLabel>
               <TextField
+                id="post-input"
+                aria-label="Texte du post"
                 value={post}
                 multiline
                 rows={1}
@@ -175,7 +182,7 @@ export default function Post({
             {answers.map((answer) => (
               <Grid item component="form" key={answer.id}>
                 <InputLabel
-                  htmlFor="post-input"
+                  htmlFor="answer-input"
                   sx={{
                     color: "#0088CE",
                     fontSize: "smaller",
@@ -187,6 +194,8 @@ export default function Post({
                 </InputLabel>
                 {answer && (
                   <TextField
+                    id="answer-input"
+                    aria-label="Réponse au post"
                     value={answer.textAnswer}
                     multiline
                     rows={1}
@@ -209,7 +218,7 @@ export default function Post({
               direction="column"
             >
               <InputLabel
-                htmlFor="post-input"
+                htmlFor="answer-input"
                 sx={{
                   color: "#0088CE",
                   fontSize: "smaller",
@@ -220,6 +229,8 @@ export default function Post({
                 Répondre à {pseudo}
               </InputLabel>
               <TextField
+                id="answer-input"
+                aria-label="réponse de l'utilisateur au post"
                 value={answerText}
                 onChange={(e) => setAnswerText(e.target.value)}
                 multiline
@@ -232,7 +243,9 @@ export default function Post({
                   boxSizing: "border-box",
                 }}
               />
-              <StyledButton type="submit">Poster</StyledButton>
+              <StyledButton type="submit" aria-label="Soumettre une réponse">
+                Poster
+              </StyledButton>
             </Grid>
           </Grid>
         </Grid>

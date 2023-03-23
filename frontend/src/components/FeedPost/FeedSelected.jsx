@@ -94,6 +94,7 @@ export default function FeedSelected() {
     >
       <Stack marginTop="2%" alignItems="flex-end">
         <Button
+          aria-label="Lien vers la page créer un post"
           sx={{
             width: isMobile ? "50%" : "15%",
             fontSize: isMobile && "smaller",
