@@ -118,7 +118,7 @@ Response :
     "workplace": "Workplace",
     "github": "github.com/user1",
     "linkedin": "linkedin.com/user1",
-    "user_text": "Passionné de technologie et d'innovation, j'aime explorer de nouveaux domaines et apprendre de nouvelles compétences.     J'ai une forte expérience en développement de logiciels et en gestion de projets, et je suis toujours à la recherche de nouveaux défis excitants.",
+    "user_text": "Passionné de technologie et d'innovation, j'aime explorer de nouveaux domaines et apprendre de nouvelles compétences. J'ai une forte expérience en développement de logiciels et en gestion de projets, et je suis toujours à la recherche de nouveaux défis excitants.",
     "hashedPassword": "hashed_password"
 },
 ```
