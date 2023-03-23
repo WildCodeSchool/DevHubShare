@@ -9,7 +9,7 @@ It is built using `REST` standards and is accessible via `standard HTTP` request
 Below are the different API features and routes in the application of the CRUD method.
 
 
-## Endpoints :
+## Endpoints
 
 **Users :**
 
@@ -52,9 +52,9 @@ Below are the different API features and routes in the application of the CRUD m
 - Delete a language from a user: `DELETE /user_has_language/:id`
 
 
-## Exemple users
+## Example users
 
-### Récupérer tous les utilisateurs
+### Retrieve all users
 
 Request :
 
@@ -94,15 +94,15 @@ Response :
             "hashedPassword": "hashed_password
         }
     ]
-}
+},
 ```
 
-### Retrieve a user by his ID
+### Retrieve a user by his id
 
 Request :
 
 ```
-GET /users/:id
+GET /users/1
 ```
 
 Response :
@@ -118,7 +118,7 @@ Response :
     "workplace": "Workplace",
     "github": "github.com/user1",
     "linkedin": "linkedin.com/user1",
-    "user_text": "Passionné de technologie et d'innovation, j'aime explorer de nouveaux domaines et apprendre de nouvelles compétences. J'ai une forte expérience en développement de logiciels et en gestion de projets, et je suis toujours à la recherche de nouveaux défis excitants.",
+    "user_text": "Passionné de technologie et d'innovation, j'aime explorer de nouveaux domaines et apprendre de nouvelles compétences.     J'ai une forte expérience en développement de logiciels et en gestion de projets, et je suis toujours à la recherche de nouveaux défis excitants.",
     "hashedPassword": "hashed_password"
 },
 ```
@@ -145,7 +145,7 @@ With a request body :
     "linkedin": "John.Doe",
     "user_text": "I offer my help",
     "hashedPassword": "hashed_password"
-}
+},
 ```
 
 ### Update user
