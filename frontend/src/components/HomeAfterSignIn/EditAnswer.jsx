@@ -8,7 +8,6 @@ import {
   InputAdornment,
   IconButton,
   AccordionDetails,
-  Typography,
 } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import SaveIcon from "@mui/icons-material/Save";
@@ -34,13 +33,18 @@ export default function EditAnswer({
   };
 
   return (
-    <AccordionDetails key={answer.id} sx={{ p: 0, mb: 1 }}>
+    <AccordionDetails key={answer.id} sx={{ pb: 1 }}>
       <Grid container direction="column">
         <Grid item component="form" onSubmit={handleAnswerSubmit}>
           <TextField
+            aria-label="answer"
             aria-readonly
             InputLabelProps={{ shrink: true }}
-            label={format(new Date(answer.creation_date), "dd-MM-yyyy")}
+            label={`${format(new Date(answer.creation_date), "dd-MM-yyyy")} - ${
+              answer.user_id === parseInt(localStorage.getItem("userId"), 10)
+                ? `Vous`
+                : `${answer.user_pseudo}`
+            }`}
             value={
               editingAnswerId === answer.id
                 ? editingAnswerText
@@ -49,6 +53,7 @@ export default function EditAnswer({
             onChange={(e) => setEditingAnswerText(e.target.value)}
             multiline
             rows={2}
+            size="small"
             sx={{
               width: "100%",
               borderRadius: 1,
@@ -84,19 +89,6 @@ export default function EditAnswer({
               ),
             }}
           />
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-          sx={{ color: "#82BE00" }}
-        >
-          <Typography variant="caption" sx={{ color: "#82BE00", mr: 1 }}>
-            {answer.user_id === parseInt(localStorage.getItem("userId"), 10)
-              ? "Vous"
-              : `Réponse de : ${answer.user_pseudo}`}
-          </Typography>
         </Grid>
       </Grid>
     </AccordionDetails>

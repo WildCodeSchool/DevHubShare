@@ -40,7 +40,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
         >
           <Avatar
             onClick={onClickUser}
-            alt={pseudo}
+            alt="pseudo"
             sx={{
               width: isMobile ? 60 : 70,
               height: isMobile ? 60 : 70,
@@ -61,6 +61,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
             </Grid>
             <Grid item>
               <TextField
+                aria-label="pseudo"
                 readOnly
                 value={pseudo}
                 size="small"
@@ -79,6 +80,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
             </Grid>
             <Grid item>
               <TextField
+                aria-label="email"
                 readOnly
                 value={email}
                 size="small"
@@ -97,10 +99,13 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
           {userText ? (
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>Texte libre de {pseudo}</Typography>
+                <Typography sx={{ color: "#009AA6" }}>
+                  Texte libre de {pseudo}
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <TextField
+                  aria-label="user-text"
                   readOnly
                   value={userText}
                   multiline
@@ -117,6 +122,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
             </Accordion>
           ) : (
             <TextField
+              aria-label="no-user-text"
               disabled
               value={`Il n'y a pas  de texte libre pour ${pseudo} !`}
               size="small"

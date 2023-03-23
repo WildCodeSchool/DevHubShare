@@ -127,7 +127,7 @@ export default function PostCard({
           {postUsers?.map((user) => (
             <Avatar
               key={user.id}
-              alt={user.pseudo}
+              alt="pseudo"
               sx={{
                 width: 60,
                 height: 60,
@@ -170,11 +170,12 @@ export default function PostCard({
         {postUsers.map((user) => (
           <Accordion defaultExpanded key={user.id}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Post de : {user.pseudo}</Typography>
+              <Typography>Post de {user.pseudo}</Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails sx={{ pb: 1 }}>
               <Grid item>
                 <TextField
+                  aria-label="post content"
                   value={postText}
                   multiline
                   rows={5}
@@ -204,6 +205,7 @@ export default function PostCard({
           sx={{ alignItems: "flex-end" }}
         >
           <TextField
+            aria-label="write an answer"
             InputLabelProps={{ shrink: true }}
             label="Il n'y a pas encore de réponse pour ce post ! Pourquoi pas vous ?"
             value={answerText}
@@ -249,6 +251,7 @@ export default function PostCard({
             >
               <TextField
                 key={user.id}
+                aria-label="write an answer"
                 InputLabelProps={{ shrink: true }}
                 label={`Souhaitez-vous apporter votre aide à ${user.pseudo}`}
                 value={answerText}

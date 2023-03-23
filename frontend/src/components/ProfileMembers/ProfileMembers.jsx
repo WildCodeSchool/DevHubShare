@@ -45,7 +45,7 @@ export default function ProfileMembers() {
       const selectLanguage = allLanguages.filter(
         (language) => language.language_name === languageName
       );
-      setLanguages(response.data);
+      setLanguages(allLanguages);
       setLanguageSelected(selectLanguage);
     };
     handleLanguage();
@@ -106,7 +106,8 @@ export default function ProfileMembers() {
         }}
       >
         <Select
-          id="language"
+          aria-label="select-language"
+          value={languageNameSelected}
           onChange={handleLanguageChange}
           displayEmpty
           renderValue={(value) => value || "Sélectionner un langage"}
@@ -116,7 +117,7 @@ export default function ProfileMembers() {
             color: "#009AA6",
             borderRadius: 1,
             alignSelf: "flex-end",
-            width: isMobile ? "100%" : "40%",
+            width: isMobile ? "100%" : "50%",
             mt: 1,
             mb: 1,
           }}
