@@ -74,8 +74,9 @@ export default function Sidebar() {
       className="containerSide"
       style={{ display: "flex", height: "100%", margin: 0, padding: 0 }}
     >
-      <div
+      <nav
         className="sidebar"
+        role="navigation"
         style={{
           display: showSidebar ? "flex" : "none",
           backgroundColor: "#009aa6",
@@ -214,7 +215,7 @@ export default function Sidebar() {
             <div className="link_text">Déconnexion</div>
           </NavLink>
         </div>
-      </div>
+      </nav>
       <div
         className="button-wrapper"
         style={{
@@ -223,12 +224,18 @@ export default function Sidebar() {
           top: "45%",
         }}
       >
-        <Icon
-          icon="eva:arrow-ios-forward-outline"
-          color="#333"
-          width="35"
+        <button
+          type="button"
           onClick={clickButton}
-        />
+          aria-label="Afficher la barre latérale"
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          <Icon icon="eva:arrow-ios-forward-outline" color="#333" width="35" />
+        </button>
       </div>
     </div>
   );
