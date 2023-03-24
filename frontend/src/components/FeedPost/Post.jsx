@@ -180,7 +180,7 @@ export default function Post({
             </Grid>
 
             {answers.map((answer) => (
-              <Grid item component="form" key={answer.id}>
+              <Grid item component="form" key={answer.answerId}>
                 <InputLabel
                   htmlFor="answer-input"
                   sx={{
@@ -215,7 +215,7 @@ export default function Post({
               component="form"
               onSubmit={handleAnswerSubmit}
               display="flex"
-              direction="column"
+              flexDirection="column"
             >
               <InputLabel
                 htmlFor="answer-input"
@@ -257,7 +257,7 @@ Post.propTypes = {
   pseudo: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   post: PropTypes.string.isRequired,
-  answers: PropTypes.arrayOf(PropTypes.string),
+  answers: PropTypes.string.isRequired,
   postDate: PropTypes.string.isRequired,
   user: PropTypes.arrayOf(
     PropTypes.shape({
@@ -271,6 +271,5 @@ Post.propTypes = {
 };
 
 Post.defaultProps = {
-  answers: [],
   user: [],
 };

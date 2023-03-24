@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { PropTypes } from "prop-types";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
 import {
@@ -178,6 +179,7 @@ export default function FeedSelected() {
                     answers={answerList
                       .filter((answer) => answer.post_id === postMap?.id)
                       .map((answerMap) => ({
+                        answerId: answerMap.id,
                         textAnswer: answerMap.answer_text,
                         dateAnswer: answerMap.creation_date,
                         userAnswer: userList.find(
@@ -194,3 +196,12 @@ export default function FeedSelected() {
     </Container>
   );
 }
+Post.propTypes = {
+  answerList: PropTypes.arrayOf(
+    PropTypes.shape({
+      textAnswer: PropTypes.string,
+      dateAnswer: PropTypes.string,
+      userAnswer: PropTypes.number,
+    })
+  ),
+};
