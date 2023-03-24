@@ -2,7 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
-import { Container, Typography, Stack, Button } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Stack,
+  Button,
+  useMediaQuery,
+} from "@mui/material";
 import Post from "./Post";
 import SelectedLanguageContext from "../../services/context/SelectedLanguageContext";
 
@@ -21,6 +27,7 @@ export default function FeedSelected() {
   const [userList, setUserList] = useState([]);
   const [newAnswerSubmitted, setNewAnswerSubmitted] = useState(false);
   const token = localStorage.getItem("token");
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   useEffect(() => {
     const getAnswerList = async () => {
@@ -68,18 +75,39 @@ export default function FeedSelected() {
     (post) => post.language_id === languageFiltered[0]?.id
   );
 
+  const sortedPostList = postList.sort(
+    (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
+  );
+
+  const sortedPostFiltered = postFiltered.sort(
+    (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
+  );
   return (
     <Container
+      direction="column"
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         maxWidth: "sm",
         maxHeight: "sm",
+        width: "100%",
+        margin: "1%",
       }}
     >
+      <Stack marginTop="2%" alignItems="flex-end">
+        <Button
+          aria-label="Lien vers la page créer un post"
+          sx={{
+            width: isMobile ? "50%" : "15%",
+            fontSize: isMobile && "smaller",
+            marginBottom: "1%",
+            padding: 0.5,
+            backgroundColor: "#0088CE",
+          }}
+        >
+          <Links to="/creer-post">CREER MON POST</Links>
+        </Button>
+      </Stack>
       <Stack
-        direction="column"
+        justifyContent="center"
         alignItems="center"
         spacing={2}
         sx={{
@@ -89,10 +117,16 @@ export default function FeedSelected() {
           borderRadius: 2,
         }}
       >
-        <Stack flexDirection="row">
+        <Stack
+          sx={{
+            flexDirection: isMobile && "row",
+            alignItems: isMobile && "center",
+            justifyContent: isMobile && "center",
+          }}
+        >
           <Typography
             variant="h5"
-            color="white"
+            color="#FFFFFF"
             fontWeight="bold"
             sx={{ mt: 2 }}
           >
@@ -101,28 +135,9 @@ export default function FeedSelected() {
           </Typography>
         </Stack>
 
-        <Stack sx={{ width: "80%" }}>
+        <Stack sx={{ width: "90%", paddingBottom: "4%" }}>
           {selectedLanguage
-            ? postFiltered.map((postMap) => {
-                const user = userList.find(
-                  (userFind) => userFind.id === postMap.user_id
-                );
-                return (
-                  <Post
-                    key={postMap?.id}
-                    pseudo={user.pseudo}
-                    tag={postMap?.tag}
-                    post={postMap?.post_text}
-                    postDate={postMap?.creation_date}
-                    answers={answerList
-                      .filter((answer) => answer.post_id === postMap?.id)
-                      .map((answerMap) => answerMap.answer_text)}
-                    newAnswerSubmitted={newAnswerSubmitted}
-                    setNewAnswerSubmitted={setNewAnswerSubmitted}
-                  />
-                );
-              })
-            : postList.map((postMap) => {
+            ? sortedPostFiltered.map((postMap) => {
                 const user = userList.find(
                   (userFind) => userFind.id === postMap.user_id
                 );
@@ -136,18 +151,45 @@ export default function FeedSelected() {
                     postDate={postMap?.creation_date}
                     answers={answerList
                       .filter((answer) => answer.post_id === postMap?.id)
-                      .map((answerMap) => answerMap.answer_text)}
+                      .map((answerMap) => ({
+                        textAnswer: answerMap.answer_text,
+                        dateAnswer: answerMap.creation_date,
+                        userAnswer: userList.find(
+                          (userFind) => userFind.id === answerMap.user_id
+                        ),
+                      }))}
+                    newAnswerSubmitted={newAnswerSubmitted}
+                    setNewAnswerSubmitted={setNewAnswerSubmitted}
+                  />
+                );
+              })
+            : sortedPostList.map((postMap) => {
+                const user = userList.find(
+                  (userFind) => userFind.id === postMap.user_id
+                );
+                return (
+                  <Post
+                    key={postMap?.id}
+                    postId={postMap?.id}
+                    pseudo={user.pseudo}
+                    tag={postMap?.tag}
+                    post={postMap?.post_text}
+                    postDate={postMap?.creation_date}
+                    answers={answerList
+                      .filter((answer) => answer.post_id === postMap?.id)
+                      .map((answerMap) => ({
+                        textAnswer: answerMap.answer_text,
+                        dateAnswer: answerMap.creation_date,
+                        userAnswer: userList.find(
+                          (userFind) => userFind.id === answerMap.user_id
+                        ),
+                      }))}
                     newAnswerSubmitted={newAnswerSubmitted}
                     setNewAnswerSubmitted={setNewAnswerSubmitted}
                   />
                 );
               })}
         </Stack>
-      </Stack>
-      <Stack alignSelf="flex-end" marginTop="2%">
-        <Button sx={{ padding: 1, backgroundColor: "#0088CE" }}>
-          <Links to="/creer-post">CREER MON POST</Links>
-        </Button>
       </Stack>
     </Container>
   );

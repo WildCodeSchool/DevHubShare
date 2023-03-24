@@ -21,12 +21,13 @@ const StyledButton = styled(Button)({
   fontSize: 9,
   fontWeight: "bold",
   width: "10%",
-  marginLeft: "84%",
-  marginTop: "1%",
+  marginTop: "2%",
+  alignSelf: "flex-end",
 });
+
 export default function Post({
   pseudo,
-  users,
+  user,
   tag,
   post,
   answers,
@@ -62,10 +63,9 @@ export default function Post({
       navigate("/erreur404");
     }
   };
+
   return (
     <Container
-      maxWidth="100%"
-      maxheight="100%"
       sx={{
         backgroundColor: "#FFFFFF",
         borderRadius: 2,
@@ -81,10 +81,10 @@ export default function Post({
       <Grid
         container
         mb="1%"
-        width="100%"
+        mr="5%"
         sx={{
           flexDirection: isMobile && "column",
-          alignContent: isMobile && "stretch",
+          alignContent: isMobile && "center",
           alignItems: isMobile && "center",
         }}
       >
@@ -96,28 +96,22 @@ export default function Post({
           justifyContent="center"
         >
           <Avatar
-            key={users?.id}
-            alt={pseudo}
-            src="/broken-image.jpg"
+            arial-label="Initiales de l'utilisateur"
+            key={user.id}
+            alt="pseudo"
             sx={{
               width: 60,
               height: 60,
               mt: 1,
               alignSelf: "center",
             }}
-          />
+          >
+            {pseudo.charAt(0).toUpperCase()}
+          </Avatar>
         </Grid>
 
         <Grid item xs={10}>
-          <Grid
-            container
-            direction="column"
-            spacing={4}
-            padding={1}
-            sx={{
-              width: "100%",
-            }}
-          >
+          <Grid container flexDirection="column" spacing={4} padding={1}>
             <Grid item>
               <InputLabel
                 htmlFor="pseudo-input"
@@ -129,6 +123,8 @@ export default function Post({
                 Pseudo
               </InputLabel>
               <TextField
+                id="pseudo-input"
+                aria-label="Pseudo de l'utilisateur qui a posté"
                 value={pseudo}
                 variant="standard"
                 sx={{
@@ -148,6 +144,8 @@ export default function Post({
                 Titre
               </InputLabel>
               <TextField
+                id="tag-input"
+                aria-label="Titre du post"
                 value={tag}
                 variant="standard"
                 sx={{
@@ -167,6 +165,8 @@ export default function Post({
                 Post publié le {format(new Date(postDate), "dd-MM-yyyy")}
               </InputLabel>
               <TextField
+                id="post-input"
+                aria-label="Texte du post"
                 value={post}
                 multiline
                 rows={1}
@@ -175,7 +175,6 @@ export default function Post({
                   borderRadius: 2,
                   border: "solid 2px #82BE00",
                   backgroundColor: "#FFFFFF",
-                  // boxSizing: "border-box",
                 }}
               />
             </Grid>
@@ -183,18 +182,21 @@ export default function Post({
             {answers.map((answer) => (
               <Grid item component="form" key={answer.id}>
                 <InputLabel
-                  htmlFor="post-input"
+                  htmlFor="answer-input"
                   sx={{
                     color: "#0088CE",
                     fontSize: "smaller",
                     fontWeight: "bold",
                   }}
                 >
-                  Réponse
+                  Réponse de {answer.userAnswer.pseudo} du{" "}
+                  {format(new Date(answer.dateAnswer), "dd-MM-yyyy")}
                 </InputLabel>
                 {answer && (
                   <TextField
-                    value={answer}
+                    id="answer-input"
+                    aria-label="Réponse au post"
+                    value={answer.textAnswer}
                     multiline
                     rows={1}
                     sx={{
@@ -214,19 +216,21 @@ export default function Post({
               onSubmit={handleAnswerSubmit}
               display="flex"
               direction="column"
-              justifyContent="center"
             >
               <InputLabel
-                htmlFor="post-input"
+                htmlFor="answer-input"
                 sx={{
                   color: "#0088CE",
                   fontSize: "smaller",
                   fontWeight: "bold",
+                  paddingBottom: "3%",
                 }}
               >
                 Répondre à {pseudo}
               </InputLabel>
               <TextField
+                id="answer-input"
+                aria-label="réponse de l'utilisateur au post"
                 value={answerText}
                 onChange={(e) => setAnswerText(e.target.value)}
                 multiline
@@ -235,11 +239,13 @@ export default function Post({
                   width: "100%",
                   borderRadius: 2,
                   border: "solid 2px #82BE00",
-                  backgroundColor: "white",
+                  backgroundColor: "#FFFFFF",
                   boxSizing: "border-box",
                 }}
               />
-              <StyledButton type="submit">Poster</StyledButton>
+              <StyledButton type="submit" aria-label="Soumettre une réponse">
+                Poster
+              </StyledButton>
             </Grid>
           </Grid>
         </Grid>
@@ -253,7 +259,7 @@ Post.propTypes = {
   post: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(PropTypes.string),
   postDate: PropTypes.string.isRequired,
-  users: PropTypes.arrayOf(
+  user: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       picture: PropTypes.instanceOf(Blob).isRequired,
@@ -266,5 +272,5 @@ Post.propTypes = {
 
 Post.defaultProps = {
   answers: [],
-  users: [],
+  user: [],
 };

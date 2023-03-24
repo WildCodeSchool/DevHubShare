@@ -52,7 +52,6 @@ export default function Header() {
       ).length
     );
   }, [filteredAnswers, filteredPosts]);
-
   return (
     <Container
       position="fixed"
