@@ -111,6 +111,7 @@ export default function CreatePost({
         <em>Créer un post</em>
       </Typography>
       <Stack
+        aria-label="form"
         component="form"
         onSubmit={handleSubmit}
         sx={{
@@ -128,7 +129,7 @@ export default function CreatePost({
         }}
       >
         <Select
-          id="language"
+          aria-label="select-language"
           value={languageNameSelected}
           onChange={handleLanguageChange}
           displayEmpty
@@ -163,9 +164,9 @@ export default function CreatePost({
           </Typography>
         )}
         <TextField
-          id="tag"
-          value={tag}
+          aria-label="tag"
           label="TAG"
+          value={tag}
           onChange={handleTagChange}
           required
           size="small"
@@ -177,7 +178,7 @@ export default function CreatePost({
           }}
         />
         <TextField
-          id="post-content"
+          aria-label="post-content"
           label="Votre Post"
           value={post}
           onChange={handlePostChange}

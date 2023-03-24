@@ -40,8 +40,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
         >
           <Avatar
             onClick={onClickUser}
-            alt={pseudo}
-            src="/broken-image.jpg"
+            alt="pseudo"
             sx={{
               width: isMobile ? 60 : 70,
               height: isMobile ? 60 : 70,
@@ -49,7 +48,9 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
               "&:hover": { boxShadow: "0px 8px 15px -2px #D7D7D7" },
               mt: isMobile && 1,
             }}
-          />
+          >
+            {pseudo.charAt(0).toUpperCase()}
+          </Avatar>
         </Grid>
         <Grid item sm={10} xs={12}>
           <Grid container direction="column" spacing={0.6} sx={{ m: 0 }}>
@@ -60,6 +61,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
             </Grid>
             <Grid item>
               <TextField
+                aria-label="pseudo"
                 readOnly
                 value={pseudo}
                 size="small"
@@ -78,6 +80,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
             </Grid>
             <Grid item>
               <TextField
+                aria-label="email"
                 readOnly
                 value={email}
                 size="small"
@@ -96,10 +99,13 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
           {userText ? (
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>Texte libre de {pseudo}</Typography>
+                <Typography sx={{ color: "#009AA6" }}>
+                  Texte libre de {pseudo}
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <TextField
+                  aria-label="user-text"
                   readOnly
                   value={userText}
                   multiline
@@ -116,6 +122,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
             </Accordion>
           ) : (
             <TextField
+              aria-label="no-user-text"
               disabled
               value={`Il n'y a pas  de texte libre pour ${pseudo} !`}
               size="small"
@@ -137,6 +144,7 @@ export default function ProfileCard({ pseudo, email, userText, onClickUser }) {
 ProfileCard.propTypes = {
   pseudo: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  userText: PropTypes.string.isRequired,
+  userText: PropTypes.string,
   onClickUser: PropTypes.func.isRequired,
 };
+ProfileCard.defaultProps = { userText: "" };

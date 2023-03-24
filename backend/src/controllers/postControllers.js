@@ -30,9 +30,7 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const post = req.body;
-
   post.id = parseInt(req.params.id, 10);
-
   models.post
     .update(post)
     .then(([result]) => {
@@ -50,7 +48,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const post = req.body;
-
   models.post
     .insert(post)
     .then(([result]) => {

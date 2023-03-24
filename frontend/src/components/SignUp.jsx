@@ -13,6 +13,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@mui/material/Container";
 import { FormControlLabel, Checkbox } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,14 +38,44 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const [userData, setUserData] = useState([]);
-  const [pseudo, setPseudo] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [languageId, setLanguageId] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [sideLanguages, setSideLanguages] = useState([]);
   const navigate = useNavigate();
   const classes = useStyles();
+
+  const schema = Yup.object({
+    pseudo: Yup.string().required("Le pseudo est requis"),
+    email: Yup.string()
+      .email("Adresse e-mail invalide")
+      .required("L'adresse e-mail est requise"),
+    password: Yup.string()
+      .min(8, "Le mot de passe doit contenir au moins 8 caractères")
+      .required("Le mot de passe est requis"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      pseudo: "",
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      const newUser = {
+        pseudo: values.pseudo,
+        email: values.email,
+        password: values.password,
+        language_id: languageId,
+      };
+
+      axios.post("http://localhost:5000/users", newUser).then((response) => {
+        setUserData([...userData, response.data]);
+        setLanguageId([]);
+        formik.handleReset();
+      });
+      navigate("/connexion");
+    },
+    validationSchema: schema,
+  });
 
   const getLanguages = () => {
     axios
@@ -64,25 +96,6 @@ export default function SignUp() {
     });
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate("/connexion");
-    const newUser = {
-      pseudo,
-      email,
-      password,
-      language_id: languageId,
-    };
-
-    axios.post("http://localhost:5000/users", newUser).then((response) => {
-      setUserData([...userData, response.data]);
-      setPseudo("");
-      setEmail("");
-      setPassword("");
-      setLanguageId([selectedLanguage]);
-      setSelectedLanguage("");
-    });
-  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -93,7 +106,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Inscription
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -103,8 +116,10 @@ export default function SignUp() {
                 name="pseudo"
                 label="Pseudo"
                 type="text"
-                value={pseudo}
-                onChange={(e) => setPseudo(e.target.value)}
+                value={formik.values.pseudo}
+                error={Boolean(formik.errors.pseudo)}
+                helperText={formik.errors.pseudo}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -116,8 +131,10 @@ export default function SignUp() {
                 label="Adresse mail"
                 name="email"
                 autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formik.values.email}
+                error={Boolean(formik.errors.email)}
+                helperText={formik.errors.email}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -130,8 +147,10 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formik.values.password}
+                error={Boolean(formik.errors.password)}
+                helperText={formik.errors.password}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12}>

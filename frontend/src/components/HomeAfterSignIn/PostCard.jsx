@@ -6,7 +6,6 @@ import { format } from "date-fns";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import {
   Grid,
   Typography,
@@ -19,8 +18,8 @@ import {
   useMediaQuery,
   Button,
   IconButton,
-  InputAdornment,
 } from "@mui/material";
+import EditAnswer from "./EditAnswer";
 
 const StyledButton = styled(Button)({
   backgroundColor: "#82BE00",
@@ -29,7 +28,7 @@ const StyledButton = styled(Button)({
   fontSize: 9,
   fontWeight: "bold",
   width: "10%",
-  marginLeft: "84%",
+  marginRight: "6%",
   marginTop: "1%",
 });
 
@@ -45,6 +44,7 @@ export default function PostCard({
   setNewAnswerSubmitted,
   postDeleted,
   setPostDeleted,
+  handleUpdateAnswer,
 }) {
   const [answerText, setAnswerText] = useState("");
 
@@ -127,8 +127,7 @@ export default function PostCard({
           {postUsers?.map((user) => (
             <Avatar
               key={user.id}
-              alt={user.pseudo}
-              src="/broken-image.jpg"
+              alt="pseudo"
               sx={{
                 width: 60,
                 height: 60,
@@ -137,7 +136,9 @@ export default function PostCard({
                 mt: 1,
                 alignSelf: "center",
               }}
-            />
+            >
+              {user.pseudo.charAt(0).toUpperCase()}
+            </Avatar>
           ))}
         </Grid>
         <Grid item sm={10} xs={12}>
@@ -149,6 +150,7 @@ export default function PostCard({
             </Grid>
             <Grid item sx={{ m: 0 }}>
               <TextField
+                aria-label="tag"
                 value={postTag}
                 multiline
                 rows={1}
@@ -170,9 +172,10 @@ export default function PostCard({
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Post de {user.pseudo}</Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails sx={{ pb: 1 }}>
               <Grid item>
                 <TextField
+                  aria-label="post content"
                   value={postText}
                   multiline
                   rows={5}
@@ -199,8 +202,10 @@ export default function PostCard({
           mb={1}
           component="form"
           onSubmit={handleAnswerSubmit}
+          sx={{ alignItems: "flex-end" }}
         >
           <TextField
+            aria-label="write an answer"
             InputLabelProps={{ shrink: true }}
             label="Il n'y a pas encore de réponse pour ce post ! Pourquoi pas vous ?"
             value={answerText}
@@ -225,54 +230,28 @@ export default function PostCard({
               <Typography>Réponse(s) au post</Typography>
             </AccordionSummary>
             {postAnswers?.map((answer) => (
-              <AccordionDetails key={answer.id} sx={{ p: 0, mb: 1 }}>
-                <Grid container direction="column">
-                  <Grid item component="form" onSubmit={handleAnswerSubmit}>
-                    <TextField
-                      InputLabelProps={{ shrink: true }}
-                      label={format(
-                        new Date(answer.creation_date),
-                        "dd-MM-yyyy"
-                      )}
-                      value={answer.answer_text}
-                      multiline
-                      rows={2}
-                      sx={{
-                        width: "100%",
-                        borderRadius: 1,
-                        border: "dotted 1px #82BE00",
-                        backgroundColor: "#FFFFFF",
-                      }}
-                      InputProps={{
-                        endAdornment: answer.user_id.toString() ===
-                          localId.toString() && (
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="edit"
-                              size="small"
-                              // onClick={() => handleUpdateAnswer()}
-                            >
-                              <ModeEditIcon sx={{ color: "#82BE00" }} />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-              </AccordionDetails>
+              <EditAnswer
+                key={answer.id}
+                postId={postId}
+                answer={answer}
+                handleAnswerSubmit={handleAnswerSubmit}
+                handleUpdateAnswer={handleUpdateAnswer}
+              />
             ))}
           </Accordion>
           {postUsers?.map((user) => (
             <Grid
               container
               mb={1}
+              direction="column"
               component="form"
               onSubmit={handleAnswerSubmit}
               key={user.id}
+              sx={{ alignItems: "flex-end" }}
             >
               <TextField
                 key={user.id}
+                aria-label="write an answer"
                 InputLabelProps={{ shrink: true }}
                 label={`Souhaitez-vous apporter votre aide à ${user.pseudo}`}
                 value={answerText}
@@ -320,4 +299,5 @@ PostCard.propTypes = {
   setNewAnswerSubmitted: PropTypes.func.isRequired,
   postDeleted: PropTypes.bool.isRequired,
   setPostDeleted: PropTypes.func.isRequired,
+  handleUpdateAnswer: PropTypes.func.isRequired,
 };

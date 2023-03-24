@@ -34,7 +34,7 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
         setMyAnswers(response.data);
       } catch (error) {
         console.error(error);
-        navigate("/erreur400");
+        navigate("/erreur404");
       }
     }
     getMyAnswers();
@@ -77,7 +77,7 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
       justifyContent="center"
       spacing={4}
       sx={{
-        borderRadius: 1,
+        borderRadius: 2,
         boxShadow: "10px 10px 15px 2px #D7D7D7",
         backgroundColor: "#82BE00",
         width: "100%",
@@ -87,166 +87,143 @@ export default function Conversation({ post, newAnswer, postIsDeleted }) {
         <div
           style={{
             backgroundColor: "#fff",
-            marginBottom: "1rem",
-            borderRadius: 2,
+            borderRadius: 3,
             padding: "0.2rem",
           }}
         >
-          <Typography
-            variant="h5"
-            style={{ margin: "0.5rem", color: "#82BE00" }}
-          >
+          <Typography variant="h5" sx={{ margin: "0.5rem", color: "#82BE00" }}>
             Les réponses ici:
           </Typography>
-          {postIsDeleted
-            ? null
-            : post && (
-                <Accordion key={post.id} sx={{ margin: "0.5rem" }}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    sx={{
-                      "& .MuiAccordionSummary-content": {
-                        margin: 0,
-                      },
-                    }}
-                  >
-                    <Typography variant="body1" fontWeight="bold">
-                      {post.tag}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <TextField
-                      value={post.postText}
-                      multiline
-                      fullWidth
-                      rows={20}
-                    />
-                  </AccordionDetails>
-                </Accordion>
-              )}
         </div>
-        <div
-          className="TexteReponse"
-          style={{
-            padding: "1rem",
-            width: "90%",
-            marginLeft: "6%",
-          }}
-        >
-          {postIsDeleted
-            ? null
-            : myAnswers
-                .sort(
-                  (a, b) =>
-                    new Date(a.creation_date) - new Date(b.creation_date)
-                )
-                .map((answer) => (
-                  <div key={answer.id} className="reponsesAvecEdit">
-                    <Accordion
-                      style={{
-                        backgroundColor: "#fff",
-                        marginBottom: "1rem",
-                        borderRadius: 2,
-                      }}
-                    >
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
+        <Stack direction="column" justifyContent="flex-end">
+          <div
+            className="TexteReponse"
+            style={{
+              padding: "1rem",
+              width: "90%",
+              marginLeft: "6%",
+            }}
+          >
+            {postIsDeleted
+              ? null
+              : myAnswers
+                  .sort(
+                    (a, b) =>
+                      new Date(a.creation_date) - new Date(b.creation_date)
+                  )
+                  .map((answer) => (
+                    <div key={answer.id} className="reponsesAvecEdit">
+                      <Accordion
+                        aria-label={`Réponse de ${answer.pseudo}`}
                         sx={{
-                          "& .MuiAccordionSummary-content": {
-                            margin: 0,
-                          },
+                          backgroundColor: "#fff",
+                          marginBottom: "1rem",
+                          borderRadius: 1,
+                          marginTop: "1rem",
                         }}
                       >
-                        <Avatar
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
                           sx={{
-                            bgColor: "#82BE00",
-                            marginRight: "0.5rem",
+                            "& .MuiAccordionSummary-content": {
+                              margin: 0,
+                            },
                           }}
                         >
-                          {answer.pseudo.charAt(0).toUpperCase()}
-                        </Avatar>
-                        <Typography variant="body1" fontWeight="bold">
-                          {answer.pseudo}
-                        </Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <div
-                          style={{
-                            backgroundColor: "#fff",
-                            marginBottom: "1rem",
-                            borderRadius: 2,
-                          }}
-                        >
-                          {editingAnswer === answer ? (
-                            <TextField
-                              id="post-content"
-                              label="Mon nouveau texte ici..."
-                              value={editedAnswerText}
-                              onChange={(e) =>
-                                setEditedAnswerText(e.target.value)
-                              }
-                              multiline
-                              rows={7}
-                              InputProps={{
-                                endAdornment: (
-                                  <IconButton
-                                    position="end"
-                                    onClick={() => updateAnswer(answer.id)}
-                                  >
-                                    <SaveIcon sx={{ color: "#82BE00" }} />
-                                  </IconButton>
-                                ),
-                              }}
+                          <Stack direction="row" alignItems="center">
+                            <Avatar
+                              aria-label={`Initiale de ${answer.pseudo}`}
                               sx={{
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 1,
-                                fontSize: "sm",
-                                width: "100%",
+                                bgcolor: "#82BE00",
+                                marginRight: "0.5rem",
                               }}
-                            />
-                          ) : (
-                            <TextField
-                              value={answer.answer_text}
-                              multiline
-                              fullWidth
-                              rows={10}
-                            />
-                          )}
+                            >
+                              {answer.pseudo.charAt(0).toUpperCase()}
+                            </Avatar>
+                            <Typography variant="body1" fontWeight="bold">
+                              {answer.pseudo}
+                            </Typography>
+                          </Stack>
+                        </AccordionSummary>
+                        <AccordionDetails>
                           <div
-                            className="editAnswer"
                             style={{
-                              display: "flex",
-                              justifyContent: "space-between",
+                              backgroundColor: "#fff",
+                              marginBottom: "1rem",
+                              borderRadius: 2,
                             }}
                           >
-                            <Typography variant="subtitle1">
-                              {format(
-                                new Date(answer.creation_date),
-                                "dd/MM/yyyy - HH:mm"
-                              )}
-                            </Typography>
-                            {answer.user_id === parseInt(localId, 10) && (
-                              <IconButton
-                                aria-label="delete"
-                                size="large"
-                                onClick={() =>
-                                  handleEditAnswer(answer, answer.id)
+                            {editingAnswer === answer ? (
+                              <TextField
+                                id="post-content"
+                                label="Mon nouveau texte ici..."
+                                value={editedAnswerText}
+                                onChange={(e) =>
+                                  setEditedAnswerText(e.target.value)
                                 }
-                              >
-                                <EditIcon sx={{ color: "#82BE00" }} />
-                              </IconButton>
+                                multiline
+                                rows={7}
+                                InputProps={{
+                                  endAdornment: (
+                                    <IconButton
+                                      aria-label="Enregistrer la réponse modifiée"
+                                      position="end"
+                                      onClick={() => updateAnswer(answer.id)}
+                                    >
+                                      <SaveIcon sx={{ color: "#82BE00" }} />
+                                    </IconButton>
+                                  ),
+                                }}
+                                sx={{
+                                  backgroundColor: "#FFFFFF",
+                                  borderRadius: 1,
+                                  fontSize: "sm",
+                                  width: "100%",
+                                }}
+                              />
+                            ) : (
+                              <TextField
+                                aria-label="Texte de la réponse"
+                                value={answer.answer_text}
+                                multiline
+                                fullWidth
+                                rows={10}
+                              />
                             )}
+                            <div
+                              className="editAnswer"
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Typography variant="subtitle1">
+                                {format(
+                                  new Date(answer.creation_date),
+                                  "dd/MM/yyyy - HH:mm"
+                                )}
+                              </Typography>
+                              {answer.user_id === parseInt(localId, 10) && (
+                                <IconButton
+                                  aria-label="Modifier la réponse"
+                                  size="large"
+                                  onClick={() =>
+                                    handleEditAnswer(answer, answer.id)
+                                  }
+                                >
+                                  <EditIcon sx={{ color: "#82BE00" }} />
+                                </IconButton>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </AccordionDetails>
-                    </Accordion>
-                  </div>
-                ))}
-        </div>
+                        </AccordionDetails>
+                      </Accordion>
+                    </div>
+                  ))}
+          </div>
+        </Stack>
       </div>
     </Stack>
   );

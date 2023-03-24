@@ -46,21 +46,12 @@ export default function PostSent({
 
   const handleDeletePost = (postId) => {
     axios
-      .delete(`http://localhost:5000/answers/post/${postId}`, {
+      .delete(`http://localhost:5000/posts/${postId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
-        axios
-          .delete(`http://localhost:5000/posts/${postId}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then(() => {
-            getMyPosts();
-            onPostDeleted(true);
-          })
-          .catch((error) => {
-            console.info(error);
-          });
+        getMyPosts();
+        onPostDeleted(true);
       })
       .catch((error) => {
         console.info(error);
@@ -79,14 +70,16 @@ export default function PostSent({
         width: "100%",
       }}
     >
-      <div style={{ padding: "1rem", width: "100%" }}>
+      <main style={{ padding: "1rem", width: "100%" }}>
         <Typography
+          component="h2"
           variant="h5"
-          style={{
+          sx={{
             color: "#009AA6",
             backgroundColor: "#ffff",
-            borderRadius: 2,
-            padding: "0.5rem",
+            borderRadius: 1,
+            padding: "0.6rem",
+            marginBottom: "1rem",
           }}
         >
           Mes posts ici:
@@ -94,10 +87,10 @@ export default function PostSent({
         {myPosts.map((post) => (
           <Accordion
             key={post.id}
-            style={{
+            sx={{
               backgroundColor: "#fff",
               marginBottom: "1rem",
-              borderRadius: 2,
+              borderRadius: 1,
             }}
           >
             <AccordionSummary
@@ -121,8 +114,14 @@ export default function PostSent({
               </Typography>
             </AccordionSummary>
             <AccordionDetails key={post.id}>
-              <TextField value={post.post_text} multiline fullWidth rows={20} />
-              <div
+              <TextField
+                aria-label="Post Text"
+                value={post.post_text}
+                multiline
+                fullWidth
+                rows={20}
+              />
+              <section
                 className="MyPostDelete"
                 style={{
                   display: "flex",
@@ -141,11 +140,11 @@ export default function PostSent({
                 >
                   <DeleteIcon sx={{ color: "#009AA6" }} />
                 </IconButton>
-              </div>
+              </section>
             </AccordionDetails>
           </Accordion>
         ))}
-      </div>
+      </main>
     </Stack>
   );
 }

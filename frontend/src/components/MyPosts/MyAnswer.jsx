@@ -7,7 +7,7 @@ import {
   FormControl,
   TextField,
   InputAdornment,
-  Button,
+  IconButton,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import flecheSend from "./images/flecheSend.png";
@@ -18,15 +18,14 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
   const navigate = useNavigate();
   const answerSent = (e) => setAnswerText(e.target.value);
 
-  const localId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
-
   const handleAnswerSubmit = async () => {
     if (!answerText || post.id == null) {
       return;
     }
 
     try {
+      const localId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
       await axios.post(
         "http://localhost:5000/answers",
         {
@@ -48,6 +47,8 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
 
   return (
     <Container
+      role="region"
+      aria-labelledby="answer-section"
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -80,14 +81,17 @@ export default function MyAnswer({ post, onNewAnswerSubmitted }) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Button onClick={handleAnswerSubmit}>
+                  <IconButton
+                    aria-label="Envoyer la réponse"
+                    onClick={handleAnswerSubmit}
+                  >
                     <img
                       className="flecheSend"
                       src={flecheSend}
-                      alt="fleche envoyer"
+                      alt="fleche envoyer la réponse"
                       style={flecheStyle}
                     />
-                  </Button>
+                  </IconButton>
                 </InputAdornment>
               ),
             }}

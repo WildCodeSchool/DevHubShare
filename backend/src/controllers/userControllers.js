@@ -30,7 +30,6 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const user = req.body;
-
   user.id = parseInt(req.params.id, 10);
   const language = user.language_id;
   models.user
@@ -66,9 +65,7 @@ const add = (req, res) => {
     .insert(user)
     .then(([result]) => {
       const user_id = result.insertId;
-
       const language = user.language_id;
-
       Promise.all(
         language.map((language_id) => {
           return models.user_has_language.insert({ user_id, language_id });
@@ -107,6 +104,7 @@ const destroy = (req, res) => {
       res.status(500).send("Status: Internal Server Error");
     });
 };
+
 const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
   const { email } = req.body;
   models.user
