@@ -1,84 +1,79 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.item
+  models.language
     .findAll()
     .then(([rows]) => {
       res.send(rows);
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
 const read = (req, res) => {
-  models.item
+  models.language
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
-        res.sendStatus(404);
+        res.status(404).send("Status: Not Found");
       } else {
         res.send(rows[0]);
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
 const edit = (req, res) => {
-  const item = req.body;
+  const language = req.body;
+  language.id = parseInt(req.params.id, 10);
 
-  // TODO validations (length, format...)
-
-  item.id = parseInt(req.params.id, 10);
-
-  models.item
-    .update(item)
+  models.language
+    .update(language)
     .then(([result]) => {
       if (result.affectedRows === 0) {
-        res.sendStatus(404);
+        res.status(404).send("Status: Not Found");
       } else {
-        res.sendStatus(204);
+        res.status(204).send("Status: No Content");
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
 const add = (req, res) => {
-  const item = req.body;
+  const language = req.body;
 
-  // TODO validations (length, format...)
-
-  models.item
-    .insert(item)
+  models.language
+    .insert(language)
     .then(([result]) => {
-      res.location(`/items/${result.insertId}`).sendStatus(201);
+      res.location(`/languages/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 
 const destroy = (req, res) => {
-  models.item
+  models.language
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
-        res.sendStatus(404);
+        res.status(404).send("Status: Not Found");
       } else {
-        res.sendStatus(204);
+        res.status(204).send("Status: No Content");
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("Status: Internal Server Error");
     });
 };
 

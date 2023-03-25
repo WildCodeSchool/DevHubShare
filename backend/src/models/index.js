@@ -2,8 +2,6 @@ require("dotenv").config();
 
 const mysql = require("mysql2/promise");
 
-// create a connection pool to the database
-
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
 const pool = mysql.createPool({
@@ -14,8 +12,6 @@ const pool = mysql.createPool({
   database: DB_NAME,
 });
 
-// try a connection
-
 pool.getConnection().catch(() => {
   console.warn(
     "Warning:",
@@ -25,18 +21,32 @@ pool.getConnection().catch(() => {
   );
 });
 
-// declare and fill models: that's where you should register your own managers
-
 const models = {};
 
-const ItemManager = require("./ItemManager");
+const UserManager = require("./UserManager");
 
-models.item = new ItemManager();
-models.item.setDatabase(pool);
+models.user = new UserManager();
+models.user.setDatabase(pool);
 
-// bonus: use a proxy to personalize error message,
-// when asking for a non existing model
+const AnswerManager = require("./AnswerManager");
 
+models.answer = new AnswerManager();
+models.answer.setDatabase(pool);
+
+const PostManager = require("./PostManager");
+
+models.post = new PostManager();
+models.post.setDatabase(pool);
+
+const LanguageManager = require("./LanguageManager");
+
+models.language = new LanguageManager();
+models.language.setDatabase(pool);
+
+const UserHasLanguageManager = require("./UserHasLanguageManager");
+
+models.user_has_language = new UserHasLanguageManager();
+models.user_has_language.setDatabase(pool);
 const handler = {
   get(obj, prop) {
     if (prop in obj) {

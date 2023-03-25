@@ -1,36 +1,27 @@
-import Counter from "../components/Counter";
-import logo from "../assets/logo.svg";
+import React from "react";
+import Footer from "../components/Footer";
+import Header from "../components/Headermain/Header";
+import HomePage from "../components/HomePage/HomePage";
+import Sidebar from "../components/Sidebar/Sidebar";
+import "../App.css";
 
 export default function Home() {
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>Hello Vite + React !</p>
-
-      <Counter />
-
-      <p>
-        Edit <code>App.jsx</code> and save to test HMR updates.
-      </p>
-      <p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {" | "}
-        <a
-          className="App-link"
-          href="https://vitejs.dev/guide/features.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Vite Docs
-        </a>
-      </p>
-    </header>
+    <div className="parent">
+      <div className="header">
+        <Header />
+      </div>
+      <div className="middle">
+        <div className="side">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <HomePage />
+        </div>
+      </div>
+      <div className="footer">
+        <Footer />
+      </div>
+    </div>
   );
 }
