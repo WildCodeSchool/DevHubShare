@@ -257,7 +257,7 @@ Post.propTypes = {
   pseudo: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   post: PropTypes.string.isRequired,
-  answers: PropTypes.string.isRequired,
+  answers: PropTypes.arrayOf(PropTypes.string).isRequired,
   postDate: PropTypes.string.isRequired,
   user: PropTypes.arrayOf(
     PropTypes.shape({
