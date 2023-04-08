@@ -1,5 +1,10 @@
 const express = require("express");
-const { hashPassword, verifyPassword, verifyToken } = require("../auth");
+const {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+  verifyId,
+} = require("../auth");
 
 const router = express.Router();
 
@@ -27,8 +32,8 @@ router.use(verifyToken);
 
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
-router.put("/users/:id", userControllers.edit);
-router.delete("/users/:id", userControllers.destroy);
+router.put("/users/:id", verifyId, userControllers.edit);
+router.delete("/users/:id", verifyId, userControllers.destroy);
 
 router.get("/languages/:id", languageControllers.read);
 router.put("/languages/:id", languageControllers.edit);
