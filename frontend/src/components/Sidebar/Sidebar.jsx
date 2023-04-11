@@ -62,7 +62,6 @@ export default function Sidebar() {
     setSelectedLanguage(event.target.value);
     navigate("/fil-de-discussion");
   };
-  setSelectedLanguage(selectedLanguage);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

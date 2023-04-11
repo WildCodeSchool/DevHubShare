@@ -153,6 +153,7 @@ export default function FeedSelected() {
                     answers={answerList
                       .filter((answer) => answer.post_id === postMap?.id)
                       .map((answerMap) => ({
+                        answerId: answerMap.id,
                         textAnswer: answerMap.answer_text,
                         dateAnswer: answerMap.creation_date,
                         userAnswer: userList.find(
